@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: #1696d2;
+  stroke-width: 1.5px;
+}
+
+#chart{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: -10px;
+}
+#main-text{
+  width: 260px;
+  font-size: 14px;
+  font-family: Lato;
+  position: absolute;
+  left: 100px;
+  top: 430px;
+  z-index: -1;
+}
+</style>
+<body>
+<div id = "chart"></div>
+<div id = "main-text">
+<p>
+Bacon ipsum dolor amet venison beef t-bone hamburger tri-tip strip steak beef ribs kevin. Sirloin jerky kielbasa tongue tri-tip chicken capicola pancetta sausage chuck t-bone. Turkey porchetta boudin drumstick shankle ham hock beef sausage pork loin alcatra brisket cow ribeye. Tenderloin landjaeger cupim fatback swine, pig salami rump turkey kevin boudin.
+</p>
+<p>
+Pork chop shoulder frankfurter, pork belly picanha swine kielbasa. Ribeye turkey doner ham hock pastrami flank chuck. T-bone cow filet mignon shoulder spare ribs, landjaeger bacon pancetta strip steak picanha meatball chicken. Ribeye ham t-bone ball tip, venison pork chop pastrami rump meatloaf ham hock jerky boudin. Flank ham tenderloin t-bone prosciutto bacon. Turducken tail sirloin, andouille tenderloin bresaola cow picanha drumstick doner spare ribs pork chop frankfurter.
+</p>
+<p>
+Doner t-bone pork belly boudin, brisket short ribs kevin tenderloin flank leberkas ham prosciutto pork. Pork loin drumstick andouille shoulder picanha ball tip pork. Ground round biltong drumstick filet mignon, sausage capicola spare ribs prosciutto leberkas pork loin turducken. Swine prosciutto pig turkey boudin pancetta turducken. Biltong drumstick andouille pork chop flank. Kevin beef ribs short ribs, filet mignon tri-tip pork chop ham hock sausage pig ground round sirloin swine tongue. Ball tip turducken salami prosciutto pig tri-tip andouille pastrami biltong meatball t-bone ham bacon porchetta pork loin.
+</p>
+<p>
+Landjaeger bacon short ribs leberkas pork belly tongue tenderloin ham strip steak bresaola kielbasa doner cupim beef ribs boudin. Capicola ball tip turkey biltong, kielbasa kevin spare ribs landjaeger. Porchetta bacon sirloin chuck, tri-tip shoulder doner beef ribs andouille hamburger drumstick. Pork loin meatball jerky swine. Shoulder ham jowl, flank pork jerky alcatra. Capicola tail alcatra shoulder, tri-tip beef brisket pastrami spare ribs cupim landjaeger kevin.
+</p>
+<p>
+Leberkas corned beef kevin pork venison. Shank chuck jowl salami ground round pig, tail leberkas pork chop biltong rump. Pastrami swine capicola ribeye, drumstick prosciutto shank shankle picanha. Ball tip pastrami short ribs bacon, beef ribs ground round bresaola ham corned beef.
+</p>
+<p>
+Tenderloin andouille landjaeger ribeye short ribs. Filet mignon frankfurter cupim tail sausage beef ribs pork shoulder pastrami doner spare ribs capicola. Pork loin jowl boudin bacon landjaeger short loin. T-bone chuck alcatra andouille pork loin jerky tenderloin corned beef bacon ball tip filet mignon venison shank salami. Ham hock hamburger pork loin pig, ham picanha alcatra shank flank pancetta shankle tri-tip kielbasa. Alcatra rump pork chop, shankle bresaola pastrami doner ribeye short loin strip steak t-bone cow.
+</p>
+<p>
+Picanha andouille cow turkey brisket landjaeger. Sausage shoulder shankle corned beef biltong. Tail biltong boudin bacon t-bone. Shoulder tenderloin leberkas spare ribs swine flank biltong kielbasa meatball jerky strip steak.
+</p>
+<p>
+Prosciutto turkey leberkas sausage brisket, ball tip porchetta spare ribs flank shoulder cow. Pastrami beef ribs beef biltong. Pork belly biltong bacon doner andouille bresaola frankfurter tenderloin pork chop pork turducken short ribs corned beef meatloaf. Kevin frankfurter pork boudin salami. Pancetta fatback alcatra corned beef.
+</p>
+<p>
+Alcatra pork ball tip meatball corned beef pork chop drumstick t-bone chicken. Shoulder beef leberkas pancetta, corned beef prosciutto bacon filet mignon pork loin rump venison. Landjaeger ground round rump chuck drumstick strip steak boudin chicken pancetta frankfurter tongue turkey beef ribs. Pastrami kevin beef ribs sausage ground round jerky pork belly chuck beef drumstick venison shoulder turkey. Short loin landjaeger pastrami jowl brisket cupim, ground round tenderloin cow.
+</p>
+<p>
+Strip steak shoulder meatball capicola, prosciutto drumstick tenderloin andouille chuck meatloaf turducken doner spare ribs filet mignon bresaola. Ham pork belly landjaeger turkey meatball pig pork chop tongue, kevin short ribs bacon cupim ribeye shank pastrami. Ribeye t-bone pancetta, chuck filet mignon picanha venison shank swine. Ham chuck capicola strip steak pork chop cupim cow brisket alcatra. Leberkas pork chop hamburger venison tenderloin beef porchetta cupim chuck turducken meatloaf ground round short loin.
+</p>
+<p>
+Sausage spare ribs biltong ham frankfurter. Jowl drumstick strip steak, shankle meatloaf shank turkey biltong filet mignon sirloin pancetta hamburger beef swine venison. Leberkas cupim t-bone biltong porchetta. Pork belly tongue brisket ground round jowl.
+</p>
+<p>
+Porchetta spare ribs chicken, bacon hamburger sausage kielbasa beef ribs frankfurter ham shank drumstick pig cow fatback. Flank ribeye picanha meatball jowl jerky. Short ribs bacon meatloaf, pork chop fatback prosciutto beef ribs. Ground round turkey sirloin pastrami. Prosciutto tenderloin hamburger bresaola chicken corned beef frankfurter spare ribs pork belly andouille short ribs. Flank shankle picanha, brisket ball tip tri-tip rump bacon.
+</p>
+<p>
+Kielbasa prosciutto ham hock tri-tip, landjaeger bresaola swine beef. Frankfurter t-bone pancetta jowl picanha sausage. Fatback venison tri-tip, short loin chicken pork belly pig t-bone. Porchetta kevin beef sausage, prosciutto alcatra capicola pork loin bresaola venison picanha pork chop pork belly ham hock. Beef ribs venison pork beef strip steak turducken. Pork ball tip rump, tri-tip strip steak salami cupim capicola alcatra cow kielbasa jerky.
+</p>
+<p>
+Prosciutto pig turducken tongue boudin. Landjaeger rump tri-tip, pork chop strip steak sausage pastrami frankfurter ham hock t-bone shoulder leberkas tenderloin tongue. Andouille filet mignon kielbasa leberkas, turducken ham hock salami. Ham hock boudin shank, pork chop t-bone hamburger turkey. Short loin tri-tip shankle shank, biltong tail rump drumstick hamburger.
+</p>
+<p>
+Biltong corned beef drumstick, swine ball tip ribeye kielbasa venison meatball. Shoulder pork andouille, beef pork chop corned beef bresaola. Cow strip steak tenderloin frankfurter bresaola doner. Drumstick pork chop meatball, frankfurter kielbasa ribeye tongue shankle meatloaf pork brisket biltong venison beef ribs.
+</p>
+<p>
+Shoulder bresaola picanha, filet mignon pancetta ham hock ball tip boudin kevin pastrami chuck brisket frankfurter beef. Shoulder strip steak flank pancetta alcatra. Leberkas ham shoulder filet mignon turkey sirloin. Cow turkey pig meatball.
+</p>
+<p>
+Tail picanha t-bone salami corned beef. Spare ribs kielbasa corned beef prosciutto, short loin alcatra shank kevin bacon sausage. Ribeye beef ribs alcatra shank bresaola pancetta ham hock biltong corned beef brisket frankfurter tongue. Tongue jerky strip steak drumstick. Corned beef jerky beef ball tip t-bone bacon pancetta short ribs chicken boudin. Pancetta salami alcatra meatball turkey, fatback tri-tip pork tail.
+</p>
+<p>
+Pork chop doner chuck bresaola flank bacon pork loin swine shank shankle tongue porchetta pancetta pork belly. Ball tip shoulder ham hock, fatback sirloin landjaeger pork chop. Pancetta turkey filet mignon, strip steak picanha jerky jowl pork pork chop rump tongue. Brisket jerky swine doner, ribeye chicken pastrami. Spare ribs porchetta pork chop cupim jerky venison.
+</p>
+<p>
+Tenderloin meatloaf kielbasa strip steak beef ribs, porchetta salami landjaeger frankfurter ball tip kevin ribeye. Picanha shoulder beef pastrami. Salami prosciutto jowl, landjaeger pork chop sirloin bacon corned beef biltong. Kielbasa pork chop ham short loin shankle short ribs prosciutto strip steak. Cow cupim corned beef, flank chicken leberkas pastrami boudin turducken fatback sausage landjaeger chuck turkey. Kielbasa venison shoulder, tongue t-bone chicken pig. T-bone turkey picanha ground round ham hamburger pastrami short loin bacon strip steak filet mignon spare ribs brisket jerky.
+</p>
+<p>
+Jerky tenderloin bresaola, sausage chuck beef ribs tri-tip drumstick hamburger. Meatball kielbasa turkey, tenderloin doner bacon prosciutto hamburger picanha venison pork spare ribs shank jerky meatloaf. Landjaeger capicola ground round, pork loin kevin swine leberkas. Pork belly turkey brisket flank short loin leberkas, ground round turducken. Cow beef venison andouille porchetta beef ribs shank tri-tip. Shoulder t-bone tri-tip brisket kevin meatball short ribs pastrami spare ribs jowl pancetta biltong turkey jerky. Andouille filet mignon ground round shank kevin.
+</p>
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script>
+d3.select(window).on('resize', drawGraphic); 
+function drawGraphic(){
+  d3.select("#chart svg").remove();
+  var margin = {top: 60, right: 80, bottom: 30, left: 50};
+  // var width = parseInt(d3.select('#chart').style('width'), 10);
+  // var width = width - margin.left - margin.right;
+  // var height = parseInt(d3.select('#chart').style('height'), 10);
+  // console.log(window.innerHeight)
+  var width = window.innerWidth - margin.left - margin.right;
+  var height = window.innerHeight - margin.top - margin.bottom;
+
+  var parseDate = d3.time.format("%b-%y").parse;
+
+  var x = d3.time.scale()
+      .range([0, width]);
+
+  var y = d3.scale.linear()
+      .range([height, 0]);
+
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+
+  var line = d3.svg.line()
+      // .interpolate("basis")
+      .defined(function(d) { return d.series != null; })
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.series); });
+
+  var svg = d3.select("#chart").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var gradient = svg.append("svg:defs")
+    .append("svg:linearGradient")
+      .attr("id", "gradient")
+      .attr("x1", "0%")
+      .attr("y1", "0%")
+      .attr("x2", "0%")
+      .attr("y2", "100%")
+      .attr("spreadMethod", "pad");
+
+  gradient.append("svg:stop")
+      .attr("offset", "0%")
+      .attr("stop-color", "#fff")
+      .attr("stop-opacity", 1);
+
+  gradient.append("svg:stop")
+      .attr("offset", "100%")
+      .attr("stop-color", "#fff")
+      .attr("stop-opacity", 0);
+
+  svg.append("rect")
+      .attr("x",0)
+      .attr("y",250)
+      .attr("width", 300)
+      .attr("height", 140)
+      .attr("fill", "url(#gradient)")
+  svg.append("rect")
+      .attr("x",0)
+      .attr("y",-100)
+      .attr("width", 300)
+      .attr("height", 350)
+      .attr("fill", "#fff")
+
+  d3.csv("data/test_data.csv", function(error, data) {
+    if (error) throw error;
+
+    data.forEach(function(d) {
+      d.date = parseDate(d.date);
+    });
+
+    var headers = d3.keys(data[0]).filter(function(key) { return key !== "date"; })
+    var series = headers.map(function(name) {
+      return {
+        name: name,
+        values: data.map(function(d) {
+          if(d[name] != ""){
+            return {date: d.date, series: +d[name]};
+          }
+           else{
+            return {date: null, series: null}
+          }
+        })
+      };
+    });
+
+    console.log(series)
+
+    x.domain(d3.extent(data, function(d) { return d.date; }));
+
+    y.domain([
+      0,
+      d3.max(series, function(c) { return d3.max(c.values, function(v) { return v.series; }); })
+    ]);
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+
+    var ser = svg.selectAll(".ser")
+        .data(series)
+      .enter().append("g")
+        .attr("class", "ser");
+
+    ser.append("path")
+        .attr("class", "line")
+        .attr("d", function(d) { return line(d.values); })
+
+
+  });
+}
+drawGraphic();
+// $(window).scroll(function(){
+//     var top = ($(window).scrollTop() > 0) ? $(window).scrollTop() : 1;
+//     console.log(top)
+//     $('.fade').stop(true, true).fadeTo(0, 1 / top);
+//     $('.fade').css('top', top * 1.3);             
+// });
+</script>
