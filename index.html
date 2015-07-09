@@ -13,14 +13,15 @@ body {
   shape-rendering: crispEdges;
 }
 
-.x.axis path {
+.axis path {
   display: none;
 }
 
 .line {
   fill: none;
-  stroke: #1696d2;
-  stroke-width: 1.5px;
+  stroke: #EFEFEF;
+  stroke-width: 1px;
+  pointer-events: none;
 }
 
 #chart{
@@ -38,8 +39,139 @@ body {
   top: 430px;
   z-index: -1;
 }
+
+.trigger{
+  cursor: pointer;
+}
+.dot{
+  /*pointer-events: none;*/
+  stroke: none;
+  /*opacity: 1;*/
+  fill: #EFEFEF;
+  pointer-events: none; 
+
+}
+.mouseoverText{
+  font-size: 12px;
+  font-family: Lato;
+  pointer-events: none;
+}
+.mouseoverBackground{
+  fill: #fff;
+  pointer-events: none;
+}
+
+.x.axis{
+  display: none;
+}
+
+.line.actual{
+  stroke: #1696d2 !important;
+}
+.line.noPolicy{
+  stroke: #333 !important;
+}
+.line.selected{
+  stroke: #ec008c !important;
+  /*pointer-events: visible;  */
+}
+.line.highlighted{
+  stroke: #868686;
+  /*pointer-events: visible;*/
+
+}
+.dot.actual{
+  fill: #1696d2 !important;
+}
+.dot.noPolicy{
+  fill: #333 !important;
+}
+.dot.selected{
+  fill: #ec008c !important;
+  /*pointer-events: visible;*/
+}
+.dot.highlighted{
+  fill: #868686;
+  /*pointer-events: visible;*/
+}
+
+.trigger{
+  pointer-events: none;
+}
+.highlighted .trigger, .selected .trigger, .actual .trigger, .noPolicy .trigger{
+  pointer-events: visible;
+}
+
+/*.trigger.on{
+  pointer-events: visible;
+}
+.trigger.off{
+  pointer-events: none;
+}
+*/
+
+/*Dropdowns*/
+.styled-select select {
+   background: transparent;
+   width: 268px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+}
+
+.styled-select {
+   width: 240px;
+   height: 34px;
+   overflow: hidden;
+   background: url(new_arrow.png) no-repeat right #ddd;
+   border: 1px solid #ccc;
+   z-index: 2;
+   position: absolute;
+}
+
+.amount-type{
+  left: 600px;
+}
+.reduction-type{
+  left: 300px;
+}
+
 </style>
 <body>
+<div class="offender-type styled-select">
+ <select>
+    <option value = "">Filter by admission type</option>
+    <option value = "violent">Violent admissions</option>
+    <option value = "nonviolent">Nonviolent admissions</option>
+    <option value = "property">Property admissions</option>
+    <option value = "drug">Drug admissions</option>
+    <option value = "revocation">Revocation admissions</option>
+    <option value = "all">All admissions</option>
+ </select>
+</div>
+
+<div class="reduction-type styled-select">
+ <select>
+    <option value = "">Filter by reduction type</option>
+    <option value = "new">Reduce new admissions</option>
+    <option value = "length">Reduce length of stay</option>
+ </select>
+</div>
+
+<div class="amount-type styled-select">
+ <select>
+    <option value = "">Filter by reduction amount</option>
+    <option value = "five">Reduce by 5%</option>
+    <option value = "fifteen">Reduce by 15%</option>
+    <option value = "twentyFive">Reduce by 25%</option>
+    <option value = "fifty">Reduce by 50%</option>
+ </select>
+</div>
+
 <div id = "chart"></div>
 <div id = "main-text">
 <p>
@@ -108,14 +240,94 @@ Jerky tenderloin bresaola, sausage chuck beef ribs tri-tip drumstick hamburger. 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script>
-d3.select(window).on('resize', drawGraphic); 
+var PINK = "#ec008c"
+var BLUE = "#1696d2"
+var DARK_GREY = "#868686"
+var LIGHT_GREY = "#efefef"
+d3.select(window).on('resize', drawGraphic);
+  function allPossibleCases(arr) {
+  if (arr.length == 1) {
+    return arr[0];
+  }
+  else if (arr.length == 0){
+    return arr;
+  } else {
+    var result = [];
+    var allCasesOfRest = allPossibleCases(arr.slice(1));  // recur with the rest of array
+    for (var i = 0; i < allCasesOfRest.length; i++) {
+      for (var j = 0; j < arr[0].length; j++) {
+        result.push(arr[0][j] + allCasesOfRest[i]);
+      }
+    }
+    return result;
+  }
+
+}
+function selectSeries(offender, reduction, amount){
+  var newColor = (offender !== "" && reduction !== "" && amount !== "") ? PINK : DARK_GREY;
+  var newClass = (offender !== "" && reduction !== "" && amount !== "") ? "selected" : "highlighted";
+
+  var offenders = [".violent", ".nonviolent", ".all", ".drug", ".property", ".revocation"]
+  var reductions = [".new", ".length"]
+  var amounts = [".five", ".fifteen", ".twentyFive", ".fifty"]
+  var vars = [];
+
+  if(offender !== ""){ offender = "." + offender; vars.push(offenders)}
+  if(reduction !== ""){ reduction = "." + reduction; vars.push(reductions)}
+  if(amount !== ""){ amount = "." + amount; vars.push(amounts)}
+  var combination = offender + reduction + amount;
+  combinations = allPossibleCases(vars)
+  var index = combinations.indexOf(combination);
+  temp = combinations;
+  temp.splice(index, 1)
+
+  for (var i = 0; i < temp.length; i++){
+      d3.selectAll(".line" + temp[i])
+        .transition()
+        .duration(1000)
+        .style("stroke", LIGHT_GREY)
+      d3.selectAll(".dot" + temp[i])
+        .transition()
+        .duration(1000)
+        .style("fill", LIGHT_GREY)
+  }
+  d3.selectAll(".line" + combination)
+    .transition()
+    .duration(1000)
+    .style("stroke", newColor)
+  d3.selectAll(".dot" + combination)
+    .transition()
+    .duration(1000)
+    .style("fill", newColor)
+
+  setTimeout(function(){
+    for(var j = 0; j < temp.length; j++){
+      d3.selectAll(temp[j])
+        .classed("highlighted", false);
+      d3.selectAll(temp[j] + " .trigger")
+        .classed("highlighted", false);
+      d3.selectAll(".selected")
+        .classed("selected", false);
+
+      d3.selectAll(combination)
+        .classed(newClass, true);
+      d3.selectAll(combination + " .trigger")
+        .classed(newClass, true);
+      d3.selectAll(combination).each(function() { this.parentNode.parentNode.appendChild(this.parentNode); });
+      d3.selectAll(".noPolicy").each(function() { this.parentNode.parentNode.appendChild(this.parentNode); });
+    }
+  }, 400);
+
+
+}
 function drawGraphic(){
+
+
   d3.select("#chart svg").remove();
-  var margin = {top: 60, right: 80, bottom: 30, left: 50};
-  // var width = parseInt(d3.select('#chart').style('width'), 10);
-  // var width = width - margin.left - margin.right;
-  // var height = parseInt(d3.select('#chart').style('height'), 10);
-  // console.log(window.innerHeight)
+  var margin = {top: 120, right: 80, bottom: 30, left: 50};
+  var PRISONERS = d3.format(",f")
+  var DATE = d3.time.format("%b, %Y")
+  var PERCENT = d3.format("%")
   var width = window.innerWidth - margin.left - margin.right;
   var height = window.innerHeight - margin.top - margin.bottom;
 
@@ -123,9 +335,13 @@ function drawGraphic(){
 
   var x = d3.time.scale()
       .range([0, width]);
-
   var y = d3.scale.linear()
       .range([height, 0]);
+
+// var zoom = d3.behavior.zoom()
+
+//     .on("zoom", draw);
+//   zoom.y(y)
 
   var xAxis = d3.svg.axis()
       .scale(x)
@@ -133,10 +349,12 @@ function drawGraphic(){
 
   var yAxis = d3.svg.axis()
       .scale(y)
-      .orient("left");
+      .orient("right")
+      .tickFormat(function(d){
+        return d/1000
+      });
 
   var line = d3.svg.line()
-      // .interpolate("basis")
       .defined(function(d) { return d.series != null; })
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.series); });
@@ -145,7 +363,8 @@ function drawGraphic(){
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
 
   var gradient = svg.append("svg:defs")
     .append("svg:linearGradient")
@@ -170,13 +389,13 @@ function drawGraphic(){
       .attr("x",0)
       .attr("y",250)
       .attr("width", 300)
-      .attr("height", 140)
+      .attr("height", 148)
       .attr("fill", "url(#gradient)")
   svg.append("rect")
       .attr("x",0)
-      .attr("y",-100)
+      .attr("y",-120)
       .attr("width", 300)
-      .attr("height", 350)
+      .attr("height", 370)
       .attr("fill", "#fff")
 
   d3.csv("data/test_data.csv", function(error, data) {
@@ -201,7 +420,6 @@ function drawGraphic(){
       };
     });
 
-    console.log(series)
 
     x.domain(d3.extent(data, function(d) { return d.date; }));
 
@@ -216,27 +434,184 @@ function drawGraphic(){
         .call(xAxis);
 
     svg.append("g")
+        .attr("transform", "translate(" + (width+10) + ",0)")
         .attr("class", "y axis")
         .call(yAxis)
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
+      // .append("text")
+      //   .attr("transform", "rotate(-90)")
+      //   .attr("y", 6)
+      //   .attr("dy", ".71em")
+      //   .style("text-anchor", "end")
 
-    var ser = svg.selectAll(".ser")
+    var ser = svg.selectAll(".series")
         .data(series)
       .enter().append("g")
-        .attr("class", "ser");
+        .attr("class", "series");
+
+    series.forEach(function(arr){
+      var dots = svg.append("g").selectAll(".dot")
+          .data(arr.values)
+          .enter().append("g")
+          .attr("class", arr.name + " highlighted")
+        dots.append("circle")
+          .attr("class", "trigger")
+          .attr("cx", function(d){ return x(d.date)})
+          .attr("cy", function(d){ return y(d.series)})
+          .attr("r", 5)
+          .attr("opacity", 0)
+          .attr("fill", "#fff")
+          .on("mouseover", function(d){
+           var parent = d3.select(d3.select(this).node().parentNode)
+      //append "grandparent" g element to "greatgrandparent" so that the tooltips are above both the series and the dots
+           parent.node().parentNode.parentNode.appendChild(parent.node().parentNode)
+           parent
+              .selectAll("text")
+              .transition()
+              .duration(100)
+              .attr("opacity", 1)
+           parent
+              .selectAll("rect")
+              .transition()
+              .duration(200)
+              .attr("opacity", .6)
+
+            parent
+              .select(".dot")
+              .transition()
+              .duration(100)
+              .attr("r",5)
+              .attr("fill", PINK)
+            parent.select(".dot").classed("selected", true)
+
+              
+          })
+          .on("mouseout", function(d){
+            var parent = d3.select(d3.select(this).node().parentNode)
+            parent
+              .selectAll("text")
+              .transition()
+              .duration(100)
+              .attr("opacity", 0)
+            parent
+              .selectAll("rect")
+              .transition()
+              .duration(200)
+              .attr("opacity", 0)
+            parent
+              .selectAll(".dot")
+              .classed("selected", false)
+              .transition()
+              .attr("r",2)
+
+              // .attr("fill", BLUE)
+          })
+          // .append("g")
+          dots.append("circle")
+            .attr("class", "dot highlighted " + arr.name)
+            .attr("cx", function(d){ return x(d.date)})
+            .attr("cy", function(d){ return y(d.series)})
+            .attr("r", 2)
+            .classed("selected", false)
+            // .attr("fill", BLUE)
+
+          dots
+            .append("rect")
+            .attr("class", "mouseoverBackground")
+            .attr("x", function(d){ return x(d.date) - 20})
+            .attr("y", function(d){ return y(d.series) - 40})
+            .attr("width", 70)
+            .attr("height", 34)
+            .attr("opacity", 0)
+          dots
+            .append("text")
+            .attr("class", "mouseoverText")
+            .text(function(d){
+              if(d.date !== null){
+                return DATE(d.date);
+              }
+            })
+            .attr("x", function(d){ return x(d.date) })
+            .attr("y", function(d) {return y(d.series)})
+            .attr("dx", "-1em")
+            .attr("dy", "-2em")
+            .attr("opacity", 0)
+
+          dots
+            .append("text")
+            .attr("class", "mouseoverText")
+            .text(function(d){
+              if(d.date !== null){
+                return PRISONERS(d.series);
+              }
+            })
+            .attr("x", function(d){ return x(d.date) })
+            .attr("y", function(d) {return y(d.series)})
+            .attr("dx", "-1em")
+            .attr("dy", "-1em")
+            .attr("opacity", 0)
+
+        // .attr("dy", ".71em")
+
+    });
 
     ser.append("path")
-        .attr("class", "line")
         .attr("d", function(d) { return line(d.values); })
+        .attr("class", function(d){ return "line highlighted " + d.name})
 
 
   });
+
+// setInterval(function() {
+//   // if (!timer) return;
+//   var translate = zoom.translate(),
+//       scale = zoom.scale(),
+//       xd = x0.domain(),
+//       dx = 1;
+//   // Set a new x-domain: offset by dx.
+//   xd[0] += dx;
+//   xd[1] += dx;
+//   x0.domain(xd)
+//   // Set the zoom x-domain (this resets the domain at zoom scale=1).
+//   zoom.x(x.domain(xd));
+//   // Reset the domain relative to the current zoom offsets.
+//   x.domain(x0.range().map(function(x) { return (x - translate[0]) / scale; }).map(x0.invert));
+//   refresh();
+// }, 1e3);
+
+// function refresh() {
+//   svg.select(".x.axis").call(xAxis);
+//   svg.select(".y.axis").call(yAxis);
+//   // drawGraphic();
+// }
+  function draw() {
+
+    // svg.select("g.x.axis").call(xAxis);
+    svg.select(".y.axis").call(yAxis);
+    svg.selectAll(".line").attr("d", function(d) { return line(d.values); })
+    svg.selectAll(".dot")
+      .attr("cx", function(d){ return x(d.date)})
+      .attr("cy", function(d){ return y(d.series)})
+    svg.selectAll(".mouseoverBackground")
+      .attr("x", function(d){ return x(d.date) - 20})
+      .attr("y", function(d){ return y(d.series) - 40})
+
+    svg.selectAll(".trigger")
+      .attr("cx", function(d){ return x(d.date)})
+      .attr("cy", function(d){ return y(d.series)})
+    svg.selectAll(".mouseoverText")
+      .attr("x", function(d){ return x(d.date) })
+        .attr("y", function(d) {return y(d.series)})
+              // .attr("r", 2)  
+    // svg.select("path.area").attr("d", area);
+    // svg.select("path.line").attr("d", line);
+  }
+
 }
 drawGraphic();
+d3.selectAll(".styled-select select")
+  .on("change", function(){
+    selectSeries(d3.select(".offender-type select").node().value, d3.select(".reduction-type select").node().value, d3.select(".amount-type select").node().value)
+  })
 // $(window).scroll(function(){
 //     var top = ($(window).scrollTop() > 0) ? $(window).scrollTop() : 1;
 //     console.log(top)
