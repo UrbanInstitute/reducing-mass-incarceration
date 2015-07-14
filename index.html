@@ -203,6 +203,10 @@ body {
   top: 60px;
 }
 
+.styled-select.state select{
+  color: #333;
+}
+
 *:focus{
 outline:none;
 }
@@ -263,7 +267,7 @@ outline:none;
     <option value = "WY">Wyoming</option>
  </select>
 </div>
-<div class="offender-type styled-select">
+<div class="offender-type styled-select filter">
  <select>
     <option value = "">Filter by admission type</option>
     <option value = "violent">Violent admissions</option>
@@ -275,7 +279,7 @@ outline:none;
  </select>
 </div>
 
-<div class="reduction-type styled-select">
+<div class="reduction-type styled-select filter">
  <select>
     <option value = "">Filter by reduction type</option>
     <option value = "new">Reduce new admissions</option>
@@ -283,7 +287,7 @@ outline:none;
  </select>
 </div>
 
-<div class="amount-type styled-select">
+<div class="amount-type styled-select filter">
  <select>
     <option value = "">Filter by reduction amount</option>
     <option value = "five">Reduce by 5%</option>
@@ -964,7 +968,7 @@ function drawGraphic(state){
 var activeState = d3.select(".styled-select.state select").node().value;
 drawGraphic(activeState);
 
-d3.selectAll(".styled-select select")
+d3.selectAll(".styled-select.filter select")
   // .style("color", function(){
   //   console.log(d3.select(this).node().value)
   // })
@@ -976,11 +980,11 @@ d3.selectAll(".styled-select select")
     }else{ m.style("color", "#333")}
   })
 
-  d3.select(".styled-select.state select")
-    .on("change", function(){
-          var activeState = d3.select(".styled-select.state select").node().value;
+d3.select(".styled-select.state select")
+  .on("change", function(){
+    var activeState = d3.select(".styled-select.state select").node().value;
     drawGraphic(activeState);
-    })
+  })
 
 // $(window).scroll(function(){
 //     var top = ($(window).scrollTop() > 0) ? $(window).scrollTop() : 1;
