@@ -199,6 +199,10 @@ body {
    position: fixed;
 }
 
+.styled-select.state{
+  top: 60px;
+}
+
 *:focus{
 outline:none;
 }
@@ -239,6 +243,26 @@ outline:none;
 }
 </style>
 <body>
+  <div class="state styled-select">
+ <select>
+    <option value = "AL">Alabama</option>
+    <option value = "CO">Colorado</option>
+    <option value = "GA">Georgia</option>
+    <option value = "KY">Kentucky</option>
+    <option value = "MI">Michigan</option>
+    <option value = "MN">Minnesota</option>
+    <option value = "MO">Missouri</option>
+    <option value = "NJ">New Jersey</option>
+    <option value = "NY">New York</option>
+    <option value = "OK">Oklahoma</option>
+    <option value = "RI">Rhode Island</option>
+    <option value = "SC">South Carolina</option>
+    <option value = "TX">Texas</option>
+    <option value = "UT">Utah</option>
+    <option value = "WA">Washington</option>
+    <option value = "WY">Wyoming</option>
+ </select>
+</div>
 <div class="offender-type styled-select">
  <select>
     <option value = "">Filter by admission type</option>
@@ -353,7 +377,10 @@ var PINK = "#ec008c"
 var BLUE = "#1696d2"
 var DARK_GREY = "#868686"
 var LIGHT_GREY = "#efefef"
-d3.select(window).on('resize', drawGraphic);
+d3.select(window).on('resize', function(){
+  var activeState = d3.select(".styled-select.state select").node().value;
+  drawGraphic(activeState)
+});
   function allPossibleCases(arr) {
   if (arr.length == 1) {
     return arr[0];
@@ -472,7 +499,8 @@ function selectSeries(offender, reduction, amount){
   }
 
 }
-function drawGraphic(){
+function drawGraphic(state){
+  console.log(state);
   var offenders = ["violent", "nonviolent", "all", "drug", "property", "revocation"]
   var reductions = ["new", "length"]
   var amounts = ["five", "fifteen", "twentyFive", "fifty"]
@@ -554,10 +582,11 @@ function drawGraphic(){
       .attr("height", 370)
       .attr("fill", "#fff")
 
-  d3.csv("data/test_data.csv", function(error, data) {
+  d3.csv("data/" + state + "_data.csv", function(error, data) {
     if (error) throw error;
 
     data.forEach(function(d) {
+      console.log(d.date)
       d.date = parseDate(d.date);
     });
 
@@ -630,14 +659,14 @@ function drawGraphic(){
               .selectAll("rect")
               .transition()
               .duration(200)
-              .attr("opacity", .6)
+              .attr("opacity", .9)
 
-            parent
-              .select(".dot")
-              .transition()
-              .duration(200)
-              .attr("r",5)
-              .style("fill", PINK)
+            // parent
+            //   .select(".dot")
+            //   .transition()
+            //   .duration(200)
+            //   .attr("r",5)
+              // .style("fill", PINK)
             // setTimeout(function(){
               var offender, reduction, amount;
               for (var o = 0; o < offenders.length; o++){
@@ -657,6 +686,17 @@ function drawGraphic(){
               parent.select(".dot").classed("selected", true)
             
             var baseClass = parent.select(".dot").attr("class").replace(/ /g,".").replace(".selected","").replace(".highlighted","").replace("dot","")
+            d3.selectAll(".dot" + baseClass)
+              .transition()
+              .style("fill", PINK)
+              .attr("r",function(d2){
+                if(x(d.date) == d3.select(this).attr("cx")){ return 5}
+                else{ return 1.5}
+                // console.log(d);
+                // console.log("this", this)
+
+              });
+            
             d3.select("path" + baseClass)
               .transition()
               .style("stroke", PINK )
@@ -702,7 +742,7 @@ function drawGraphic(){
               .selectAll(".selected")
               .classed("selected", false)
               .transition()
-              .attr("r",2)
+              .attr("r",1.5)
               .style("fill", function(){
                 if(d3.select(this).classed("actual")) { return BLUE}
                 else if(d3.select(this).classed("noPolicy")){ return "#333333" }
@@ -723,6 +763,17 @@ function drawGraphic(){
                 var sw = (d3.select(this).classed("actual") || d3.select(this).classed("noPolicy")) || d3.select(this).classed("menuSelected") ? "2px" : "1px";
                 return sw;
               })
+
+            d3.selectAll(".dot" + baseClass)
+              .transition()
+              .style("fill", function(){
+                if(d3.select(this).classed("actual")) { return BLUE}
+                else if(d3.select(this).classed("noPolicy")){ return "#333333" }
+                else if(d3.select(this).classed("menuSelected")){ return PINK }
+                else { return DARK_GREY }
+              })
+              .attr("r", 1.5)
+ 
             // setTimeout(function(){
               d3.select("path" + baseClass).classed("selected", false)
             // }, 400);
@@ -799,6 +850,7 @@ function drawGraphic(){
           if ( d.name.indexOf("actual") != -1){
             // console.log(d);
             var lastDate = d3.max(d.values, function(obj) { return obj.date; });
+            console.log(d)
             var firstDate = d3.min(d.values, function(obj) { return obj.date; });
 
             d3.selectAll(".actual .mouseoverText." + DATE(lastDate).replace(",","").replace(/ /g,"")).classed("mouseoverText", false)
@@ -909,7 +961,8 @@ function drawGraphic(){
 
 
 }
-drawGraphic();
+var activeState = d3.select(".styled-select.state select").node().value;
+drawGraphic(activeState);
 
 d3.selectAll(".styled-select select")
   // .style("color", function(){
@@ -922,6 +975,12 @@ d3.selectAll(".styled-select select")
       m.style("color", "#818385")
     }else{ m.style("color", "#333")}
   })
+
+  d3.select(".styled-select.state select")
+    .on("change", function(){
+          var activeState = d3.select(".styled-select.state select").node().value;
+    drawGraphic(activeState);
+    })
 
 // $(window).scroll(function(){
 //     var top = ($(window).scrollTop() > 0) ? $(window).scrollTop() : 1;
