@@ -232,6 +232,16 @@ outline:none;
   left: 2000px;
 }
 
+#helpText{
+  position: fixed;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 600;
+  top: 260px;
+  width: 240px;
+  pointer-events: none;
+}
+
 #tooltip h2{
   font-size: 20px;
   font-weight: normal;
@@ -275,7 +285,7 @@ outline:none;
 </div>
 <div class="offender-type styled-select filter">
  <select>
-    <option value = "">Filter by admission type</option>
+    <option value = "">Select offense/admission type</option>
     <option value = "violent">Violent admissions</option>
     <option value = "nonviolent">Nonviolent admissions</option>
     <option value = "property">Property admissions</option>
@@ -287,7 +297,7 @@ outline:none;
 
 <div class="reduction-type styled-select filter">
  <select>
-    <option value = "">Filter by reduction type</option>
+    <option value = "">Select policy change</option>
     <option value = "new">Reduce new admissions</option>
     <option value = "length">Reduce length of stay</option>
  </select>
@@ -295,7 +305,7 @@ outline:none;
 
 <div class="amount-type styled-select filter">
  <select>
-    <option value = "">Filter by reduction amount</option>
+    <option value = "">Select percent reduction</option>
     <option value = "five">Reduce by 5%</option>
     <option value = "fifteen">Reduce by 15%</option>
     <option value = "twentyFive">Reduce by 25%</option>
@@ -304,6 +314,11 @@ outline:none;
 </div>
 <div id = "yLabel">Statewide prison population (thousands)</div>
 <div id = "chart"></div>
+
+<div id = "helpText">
+ <p>Use the menus above to filter the projections by admission/offense type, policy change, and percent reduction. Mouse over a line for details.</p>
+</div>
+
 <div id = "tooltip">
   <h2>Highlighted Proposal</h2>
   <p class = "other"></p>
@@ -529,7 +544,7 @@ function drawGraphic(state){
   var PRISONERS = d3.format(",f")
   var DATE = d3.time.format("%b, %Y")
   var PERCENT = d3.format("%")
-  var width = window.innerWidth - margin.left - margin.right;
+  var width = (window.innerWidth - margin.left - margin.right > 1500) ? 1500 : window.innerWidth - margin.left - margin.right ;
   var height = window.innerHeight - margin.top - margin.bottom;
 
   var parseDate = d3.time.format("%b-%y").parse;
@@ -928,6 +943,8 @@ function drawGraphic(state){
             d3.select(".labelLine.last").node().parentNode.appendChild(d3.select(".labelLine.last").node())
             d3.selectAll(d3.select(".xLabel").node().parentNode).selectAll(".trigger").style("pointer-events","none")
 
+        //move permanent tooltip to the back, so nearby tooltips bg's go over it
+            d3.select(".xLabel.last").node().parentNode.parentNode.insertBefore(d3.select(".xLabel.last").node().parentNode, d3.select(".xLabel.last").node().parentNode.parentNode.firstChild)
             // d3.selectAll(".mouseoverText.actual." + DATE(terminalDate).replace(",","").replace(/ /g,"")).remove();
             // d3.selectAll(".mouseoverBackground.actual." + DATE(terminalDate).replace(",","").replace(/ /g,"")).remove();
 
@@ -974,7 +991,7 @@ function drawGraphic(state){
                 .style("stroke", "#000")
               d3.select(d3.select(".xLabel.mid").node().parentNode)
                 .append("line")
-                .attr("class", "labelLine")
+                .attr("class", "labelLine jag")
                 .attr("x1",function(d){ return x(d.date) })
                 .attr("x2",function(d){ return x(d.date)-10 })
                 .attr("y1",function(d){ return y(d.series) - 20})
@@ -983,6 +1000,9 @@ function drawGraphic(state){
                 // .style("fill","#000")
             d3.selectAll(".mouseoverText." + DATE(lastDate).replace(",","").replace(/ /g,"")).remove();
             d3.selectAll(".mouseoverBackground." + DATE(lastDate).replace(",","").replace(/ /g,"")).remove();
+        //move permanent tooltip to the back, so nearby tooltips bg's go over it
+            d3.select(".xLabel.mid").node().parentNode.parentNode.insertBefore(d3.select(".xLabel.mid").node().parentNode, d3.select(".xLabel.mid").node().parentNode.parentNode.firstChild)
+
 
             d3.selectAll(".actual .mouseoverText." + DATE(firstDate).replace(",","").replace(/ /g,"")).classed("mouseoverText", false)
               .classed("xLabel first", true)
@@ -1016,11 +1036,13 @@ function drawGraphic(state){
                 var graphMargin = margin.left
                 var textMargin = parseInt(d3.select(this).style("left").replace("px",""))
                 var w = x(lastDate)-textMargin+graphMargin
-                d3.selectAll(".scrollFade").attr("width", w)
+              d3.selectAll(".scrollFade").attr("width", w)
                 // d3.select("#tooltip").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
-                d3.select("#tooltip").datum({"left": (x(lastDate) + graphMargin + textMargin) + "px"})
+              d3.select("#tooltip").datum({"left": (x(lastDate) + graphMargin + textMargin) + "px"})
+              d3.select("#helpText").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
                 return w + "px"
               });
+              
             // d3.select("tooltip")
             //   .style("left", function(){
             //                     var w = x(lastDate)-textMargin+graphMargin
@@ -1121,17 +1143,26 @@ function drawGraphic(state){
               }
               return y(+d[state])
         })
-        d3.selectAll(".mouseoverRect")
+        d3.selectAll(".mouseoverBackground")
           // .transition()
           .attr("y", function(d){
-            // console.log(this)
-
-
-              return y(+d[state])
+              return y(+d[state])-40
         })
+
+
+        var firstSeries, firstDate;
+        var first = data.filter(function(obj){return obj[state + " actual"] != 0})
+        firstDate = first[0].date;
+        firstSeries = first[0][state + " actual"];
+        d3.select(".xLabel.first")
+        // .datum({"date": firstDate, "series": firstSeries})
+
         d3.selectAll(".labelLine")
           .attr("y1",function(d){ return y(+d[state]) - 20})
           .attr("y2",function(d){ return y(+d[state])})
+
+        d3.selectAll(".labelLine.jag")
+          .attr("y2",function(d){ return y(+d[state]) - 20})
 
         d3.selectAll(".xLabel")
           .transition()
@@ -1139,11 +1170,23 @@ function drawGraphic(state){
               if(d3.select(this).classed("val")){
                 d3.select(this).text(PRISONERS(d[state]))
               }
-                // var temp = d;
-                // temp.series = temp.state;
-                // d3.select(this).datum(temp)
-            // }
-            return y(+d[state])
+          // console.log(firstDate)
+
+        d3.selectAll(".xLabel.first")
+          .transition()
+          .attr("x", function(d){
+            console.log(firstDate, x(firstDate), firstSeries)
+            return x(firstDate)
+          })
+          .attr("y", function(d){
+            return y(firstSeries)
+          });
+      d3.select(d3.select(".xLabel.first").node().parentNode)
+          .select("line")
+          .attr("x1",function(d){ return x(firstDate) })
+          .attr("x2",function(d){ return x(firstDate) })
+          .attr("y1",function(d){ return y(firstSeries) - 20})
+          .attr("y2",function(d){ return y(firstSeries)})
         })
         d3.selectAll(".trigger").transition().attr("cy", function(d){
           if(d[state] !== 0){

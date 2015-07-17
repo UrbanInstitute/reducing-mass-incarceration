@@ -8,4 +8,3 @@
 - rethink 'jump list' section
 - add info that normally goes in the footer somewhere/somehow
 - max width
-- fix first date label
