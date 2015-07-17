@@ -75,7 +75,7 @@ body {
   width: 100%;
   height: 100%;
   position: fixed;
-  top: -10px;
+  top: 120px;
 }
 #main-text{
   width: 260px;
@@ -196,6 +196,7 @@ body {
 }
 
 .styled-select {
+   top: 125px;
    width: 280px;
    height: 45px;
    overflow: hidden;
@@ -206,22 +207,53 @@ body {
 }
 
 .styled-select.state{
-  top: 60px;
+  /*display: none;*/
+  top: 74px;
+  left: 240px;
+  width: 120px;
+  height: 45px;
+  overflow: hidden;
+  background: url(images/state_arrow.png) no-repeat right transparent;
+  border: none;
+  z-index: 2;
+  position: fixed;
 }
 
 .styled-select.state select{
-  color: #333;
+  color: rgba(0,0,0,0);
 }
+#stateName{
+  position: fixed;
+  top: 76px;
+  left: 60px;
+  font-size: 24px;
+}
+#filterLabel{
+  position: fixed;
+  top: 94px;
+  left: 60px;
+  z-index: 3;
+}
+h4{
+  font: 11px Lato;
+  font-weight: 500;
+  color: #1796D1;
+  text-transform: uppercase;
+}
+
 
 *:focus{
 outline:none;
 }
 
+.offender-type{
+  left: 60px;
+}
 .amount-type{
-  left: 600px;
+  left: 660px;
 }
 .reduction-type{
-  left: 300px;
+  left: 360px;
 }
 
 
@@ -229,7 +261,7 @@ outline:none;
 #tooltip{
   position: fixed;
   top: 460px;
-  left: 2000px;
+  left: 3000px;
 }
 
 #helpText{
@@ -474,6 +506,7 @@ outline:none;
         </div>
     </div>
     <!--    end header-->
+  <div id = "stateName">15 state aggregate</div>
   <div class="state styled-select">
  <select>
     <option value = "ALL_STATES">15 state aggregate</div>
@@ -523,6 +556,7 @@ outline:none;
     <option value = "fifty">Reduce by 50%</option>
  </select>
 </div>
+<h4 id ="filterLabel">Policy filters</h4>
 <div id = "yLabel">Statewide prison population (thousands)</div>
 <div id = "chart"></div>
 
@@ -643,7 +677,7 @@ d3.select(window).on('resize', function(){
 function hideTooltip(){
   d3.select("#tooltip")
     .transition()
-    .style("left", "2000px")
+    .style("left", "3000px")
 }
 function drawTooltip(offender, reduction, amount){
   var left = d3.select("#tooltip").datum().left
@@ -751,7 +785,7 @@ function drawGraphic(state){
   var amounts = ["five", "fifteen", "twentyFive", "fifty"]
 
   d3.select("#chart svg").remove();
-  var margin = {top: 120, right: 80, bottom: 30, left: 50};
+  var margin = {top: 120, right: 80, bottom: 30, left: 70};
   var PRISONERS = d3.format(",f")
   var DATE = d3.time.format("%b, %Y")
   var PERCENT = d3.format("%")
@@ -759,6 +793,7 @@ function drawGraphic(state){
   var height = window.innerHeight - margin.top - margin.bottom;
 
   var parseDate = d3.time.format("%b-%y").parse;
+
 
   var x = d3.time.scale()
       .range([0, width]);
@@ -780,6 +815,9 @@ function drawGraphic(state){
       .tickFormat(function(d){
         return d/1000
       });
+  var yRight = (window.innerWidth - margin.left - margin.right > 1500) ? (window.innerWidth - margin.left - margin.right-1500-15) : -15;
+  d3.select("#yLabel")
+    .style("right", yRight + "px")
 
   var line = d3.svg.line()
       .defined(function(d) { return d.series != 0; })
@@ -1329,6 +1367,11 @@ function drawGraphic(state){
             moveText(17);
             break;
         }
+        d3.select("#stateName")
+          .text(function(){
+
+            return d3.select("option[value="+state+"]").text();
+          })
         y.domain([
           0,
           d3.max(series, function(c) { return d3.max(c.values, function(v) { return +v[state]; }); })
