@@ -57,7 +57,7 @@ body {
   font-weight: 600;
   font-style: italic;
   width: 79px;
-  top: 60px;
+  top: 40px;
 }
 .xLabel{
   opacity: 1;
@@ -83,7 +83,7 @@ body {
   /*font-family: Lato;*/
   position: absolute;
   left: 60px;
-  top: 430px;
+  top: 17%;
   z-index: -1;
 }
 #links{
@@ -533,14 +533,6 @@ function drawGraphic(state){
   var y = d3.scale.linear()
       .range([height, 0]);
 
-  function foo(){
-            y.domain([
-      0,
-      45000
-    ]);
-    svg.select(".y.axis").transition().duration(1000).call(yAxis);
-
-  }
 // var zoom = d3.behavior.zoom()
 
 //     .on("zoom", draw);
@@ -558,7 +550,7 @@ function drawGraphic(state){
       });
 
   var line = d3.svg.line()
-      .defined(function(d) { return d.series != null; })
+      .defined(function(d) { return d.series != 0; })
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.series); });
 
@@ -567,7 +559,6 @@ function drawGraphic(state){
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      .on("click", function(){foo();})
 
   var gradient = svg.append("svg:defs")
     .append("svg:linearGradient")
@@ -588,36 +579,45 @@ function drawGraphic(state){
       .attr("stop-color", "#fff")
       .attr("stop-opacity", 0);
 
-  svg.append("rect")
-      .attr("class", "scrollFade gradient")
-      .attr("x",0)
-      .attr("y",250)
-      .attr("width", 300)
-      .attr("height", 148)
-      .attr("fill", "url(#gradient)")
-  svg.append("rect")
-      .attr("class", "scrollFade solid")
-      .attr("x",0)
-      .attr("y",-120)
-      .attr("width", 300)
-      .attr("height", 370)
-      .attr("fill", "#fff")
+  // svg.append("rect")
+  //     .attr("class", "scrollFade gradient")
+  //     .attr("x",0)
+  //     .attr("y",250)
+  //     .attr("width", 300)
+  //     .attr("height", 148)
+  //     .attr("fill", "url(#gradient)")
+  // svg.append("rect")
+  //     .attr("class", "scrollFade solid")
+  //     .attr("x",0)
+  //     .attr("y",-120)
+  //     .attr("width", 300)
+  //     .attr("height", 370)
+  //     .attr("fill", "#fff")
 
-  d3.csv("data/" + state + "_data.csv", function(error, data) {
+  d3.csv("data/test_data.csv", function(error, data) {
     if (error) throw error;
-
+    // console.log(data)
     data.forEach(function(d) {
       // console.log(d.date)
       d.date = parseDate(d.date);
     });
 
-    var headers = d3.keys(data[0]).filter(function(key) { return key !== "date"; })
+    var headers = d3.keys(data[0]).filter(function(key) { return (key !== "date" && key.indexOf("ALL_STATES") != -1); })
+    var STATES = ["ALL_STATES","AL","GA","KY","MI","MN","MO","NJ","NY","OK","RI","SC","TX","UT","WA","WY"]
     var series = headers.map(function(name) {
       return {
         name: name,
         values: data.map(function(d) {
           if(d[name] != ""){
-            return {date: d.date, series: +d[name]};
+            var values = {}
+            values.date = d.date;
+            values.series = d[name]
+            values.ALL_STATES = d[name]
+            for(var i = 0; i<= STATES.length; i++){
+              values[STATES[i]] = d[name.replace("ALL_STATES", STATES[i])]
+            }
+            return values;
+            // return {date: d.date, series: +d[name]};
           }
            else{
             return {date: null, series: null}
@@ -627,11 +627,15 @@ function drawGraphic(state){
     });
 
 
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-
+    x.domain(d3.extent(data, function(d) {
+      return newDate = d3.time.month.offset(d.date, 3);
+      // return d.date; 
+    }));
+    // console.log(series)
     y.domain([
       0,
-      d3.max(series, function(c) { return d3.max(c.values, function(v) { return v.series; }); })
+      d3.max(series, function(c) { return d3.max(c.values, function(v) { return +v.series; }); })
+      // 200000
     ]);
 
     svg.append("g")
@@ -660,6 +664,15 @@ function drawGraphic(state){
           .data(arr.values)
           .enter().append("g")
           .attr("class", arr.name + " highlighted")
+          .style("display", function(d){
+            if(d.series != 0){ return "block" }
+            else{ return "none" }
+            
+          })
+          // .style("display", function(){
+          //   if (arr.name.indexOf(state) != -1){ return "block"}
+          //   else{ return "none" }
+          // })
         dots.append("circle")
           .attr("class", "trigger")
           .attr("cx", function(d){ return x(d.date)})
@@ -668,6 +681,7 @@ function drawGraphic(state){
           .attr("opacity", 0)
           .attr("fill", "#fff")
           .on("mouseover", function(d){
+            // console.log(d)
            var parent = d3.select(d3.select(this).node().parentNode)
       //append "grandparent" g element to "greatgrandparent" so that the tooltips are above both the series and the dots
            parent.node().parentNode.parentNode.appendChild(parent.node().parentNode)
@@ -826,8 +840,8 @@ function drawGraphic(state){
             .append("text")
             .attr("class", function(d){
               if(d.date !== null){
-                return DATE(d.date).replace(",","").replace(/ /g,"") + " mouseoverText"
-              } else{ return "mouseoverText"}
+                return DATE(d.date).replace(",","").replace(/ /g,"") + " mouseoverText date"
+              } else{ return "mouseoverText date"}
             })
             .text(function(d){
               if(d.date !== null){
@@ -845,8 +859,8 @@ function drawGraphic(state){
             .attr("class", function(d){
               // console.log(DATE)
               if(d.date !== null){
-                return DATE(d.date).replace(",","").replace(/ /g,"") + " mouseoverText"
-              } else{ return "mouseoverText"}
+                return DATE(d.date).replace(",","").replace(/ /g,"") + " mouseoverText val"
+              } else{ return "mouseoverText val"}
             })
             .text(function(d){
               if(d.date !== null){
@@ -867,12 +881,49 @@ function drawGraphic(state){
 
     ser.append("path")
         .attr("d", function(d) { return line(d.values); })
+        // .style("display", function(d){
+        //     if (d.name.indexOf(state) != -1){ return "block"}
+        //     else{ return "none" }
+        //   })
+        // .style("display", function(){})
         .attr("class", function(d){
+          if (d.name.indexOf("noPolicy") != -1){
+            var terminalData;
+            var terminalSeries;
+            var terminalDate = d3.max(d.values, function(obj) {  terminalData = obj; terminalSeries = obj.series; return obj.date; });
+            // var terminalSeries = d3.max(d.values, function(obj) { return obj.date; });
+            d3.selectAll(".noPolicy .mouseoverText." + DATE(terminalDate).replace(",","").replace(/ /g,"")).classed("mouseoverText", false)
+              .classed("xLabel", true)
+              .attr("text-anchor","end")
+              .attr("dy",function(){
+                var dy = parseInt(d3.select(this).attr("dy").replace("em",""))
+                return (dy - 1) + "em"
+              })
+              .attr("x",function(){
+                var dx = parseInt(d3.select(this).attr("x"))
+                return dx+15
+              })
+              // console.log(terminalSeries)
+              d3.select(d3.select(".xLabel").node().parentNode)
+                .append("line")
+                .datum(terminalData)
+                .attr("class", "labelLine")
+                .attr("x1",function(d){ return x(terminalDate) })
+                .attr("x2",function(d){ return x(terminalDate) })
+                .attr("y1",function(d){ return y(terminalSeries) - 20})
+                .attr("y2",function(d){ return y(terminalSeries)})
+                .style("stroke", "#000")
+
+            d3.selectAll(d3.select(".xLabel").node().parentNode).selectAll(".trigger").style("pointer-events","none")
+
+            // d3.selectAll(".mouseoverText." + DATE(terminalDate).replace(",","").replace(/ /g,"")).remove();
+            // d3.selectAll(".mouseoverBackground." + DATE(terminalDate).replace(",","").replace(/ /g,"")).remove();
+
+          }
           if ( d.name.indexOf("actual") != -1){
-            // console.log(d);
-            var lastDate = d3.max(d.values, function(obj) { return obj.date; });
-            // console.log(d)
-            var firstDate = d3.min(d.values, function(obj) { return obj.date; });
+            d.values.filter(function(obj){return obj.series != "0"});
+            var lastDate = d3.max(d.values.filter(function(obj){return obj.series != "0"}), function(obj) { return obj.date; });
+            var firstDate = d3.min(d.values, function(obj) {  return obj.date; });
 
             d3.selectAll(".actual .mouseoverText." + DATE(lastDate).replace(",","").replace(/ /g,"")).classed("mouseoverText", false)
               .classed("xLabel", true)
@@ -882,6 +933,7 @@ function drawGraphic(state){
               })
               d3.select(d3.select(".xLabel").node().parentNode)
                 .append("line")
+                .attr("class", "labelLine")
                 .attr("x1",function(d){ return x(d.date) })
                 .attr("x2",function(d){ return x(d.date) })
                 .attr("y1",function(d){ return y(d.series) - 20})
@@ -899,6 +951,7 @@ function drawGraphic(state){
               })
             d3.select(d3.select(".xLabel").node().parentNode)
                 .append("line")
+                .attr("class", "labelLine first")
                 .attr("x1",function(d){ return x(d.date) })
                 .attr("x2",function(d){ return x(d.date) })
                 .attr("y1",function(d){ return y(d.series) - 20})
@@ -933,30 +986,150 @@ function drawGraphic(state){
       d3.selectAll(".noPolicy").each(function() { this.parentNode.parentNode.appendChild(this.parentNode); });
       d3.selectAll(".highlighted.actual").classed("highlighted", false)
       d3.selectAll(".highlighted.noPolicy").classed("highlighted", false)
+
+      function moveText(amount){
+        var h = window.innerHeight;
+        var pix = (amount/100.) * innerHeight
+        d3.select("#main-text")
+          .transition()
+          .duration(700)
+          .style("top", pix + "px")
+      }
+      function changeState(state){
+        switch(state){
+          case "ALL_STATES":
+            moveText(17);
+            break;
+          case "AL":
+            moveText(35);
+            break;
+          case "GA":
+            moveText(31);
+            break;
+          case "KY":
+            moveText(46);
+            break;
+          case "MI":
+            moveText(21);
+            break;
+          case "MN":
+            moveText(46);
+            break;
+          case "MO":
+            moveText(31);
+            break;
+          case "NJ":
+            moveText(17);
+            break;
+          case "NY":
+            moveText(23);
+            break;
+          case "OK":
+            moveText(34);
+            break;
+          case "RI":
+            moveText(31);
+            break;
+          case "SC":
+            moveText(28);
+            break;
+          case "TX":
+            moveText(17);
+            break;
+          case "UT":
+            moveText(41);
+            break;
+          case "WA":
+            moveText(30);
+            break;
+          case "WY":
+            moveText(17);
+            break;
+        }
+        y.domain([
+          0,
+          d3.max(series, function(c) { return d3.max(c.values, function(v) { return +v[state]; }); })
+          // 200000
+        ]);
+        d3.select(".y.axis").transition().duration(2000).call(yAxis)
+        d3.selectAll(".line").transition().duration(500).attr("d", function(d){
+          var line = d3.svg.line()
+            .defined(function(d) { return d[state] != 0; })
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(+d[state]); });
+          return line(d.values)          
+        })
+        d3.selectAll(".mouseoverText")
+          // .transition()
+          .attr("y", function(d){
+            // console.log(this)
+
+              if(d3.select(this).classed("val")){
+                // console.log(this, d)
+                  d3.select(this).text(PRISONERS(d[state]))
+              }
+              return y(+d[state])
+        })
+        d3.selectAll(".mouseoverRect")
+          // .transition()
+          .attr("y", function(d){
+            // console.log(this)
+
+
+              return y(+d[state])
+        })
+        d3.selectAll(".labelLine")
+          .attr("y1",function(d){ return y(+d[state]) - 20})
+          .attr("y2",function(d){ return y(+d[state])})
+
+        d3.selectAll(".xLabel")
+          .transition()
+          .attr("y", function(d){
+              if(d3.select(this).classed("val")){
+                d3.select(this).text(PRISONERS(d[state]))
+              }
+                // var temp = d;
+                // temp.series = temp.state;
+                // d3.select(this).datum(temp)
+            // }
+            return y(+d[state])
+        })
+        d3.selectAll(".trigger").transition().attr("cy", function(d){
+          if(d[state] !== undefined){
+            return y(+d[state])
+          }
+        })
+        d3.selectAll(".dot")
+                  .style("display", function(d){
+            if(d[state] != 0){ return "block" }
+            else{ return "none" }
+            
+          })
+          .transition()
+            // .duration(250)
+            .attr("opacity",0)
+          // .transition()
+            // .duration(10)
+            // .attr("opacity",1)
+            .attr("cy", function(d){
+          if(d[state] !== undefined){
+            return y(+d[state])
+          }
+        })
+        .transition()
+        .duration(800)
+        .attr("opacity",1)
+      }
+  d3.select(".styled-select.state select")
+    .on("change", function(){
+      var activeState = d3.select(".styled-select.state select").node().value;
+      changeState(activeState);
+  })
+
+
   });
 
-// setInterval(function() {
-//   // if (!timer) return;
-//   var translate = zoom.translate(),
-//       scale = zoom.scale(),
-//       xd = x0.domain(),
-//       dx = 1;
-//   // Set a new x-domain: offset by dx.
-//   xd[0] += dx;
-//   xd[1] += dx;
-//   x0.domain(xd)
-//   // Set the zoom x-domain (this resets the domain at zoom scale=1).
-//   zoom.x(x.domain(xd));
-//   // Reset the domain relative to the current zoom offsets.
-//   x.domain(x0.range().map(function(x) { return (x - translate[0]) / scale; }).map(x0.invert));
-//   refresh();
-// }, 1e3);
 
-// function refresh() {
-//   svg.select(".x.axis").call(xAxis);
-//   svg.select(".y.axis").call(yAxis);
-//   // drawGraphic();
-// }
   function draw() {
 
     // svg.select("g.x.axis").call(xAxis);
@@ -998,11 +1171,6 @@ d3.selectAll(".styled-select.filter select")
     }else{ m.style("color", "#333")}
   })
 
-d3.select(".styled-select.state select")
-  .on("change", function(){
-    var activeState = d3.select(".styled-select.state select").node().value;
-    drawGraphic(activeState);
-  })
 
 
 // $(window).scroll(function(){

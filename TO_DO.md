@@ -1,0 +1,12 @@
+- mobile
+- minimized white space
+- click-to-animate events
+- match menu layout to design comps
+- add permanent help text
+- add summary stat text on series selection
+- add urban header
+- improve state selection dropdown
+- rethink 'jump list' section
+- add info that normally goes in the footer somewhere/somehow
+- max width
+- dotted line start of proj data
