@@ -374,10 +374,10 @@ outline:none;
         border: 1px solid #ccc;
         position: absolute;
         top: 42px;
-        left: 0;
+        left: -138px;
         padding: 0 0 9px;
         border-top: 0;
-        width: 100%;
+        width: 200px;
     }
     
     #header-pinned .share-icons .addthis_toolbox {
@@ -448,6 +448,10 @@ outline:none;
     #header-pinned .share-icons .addthis_toolbox a {
         margin-bottom: 5px;
     }
+    
+    .at_a11y{
+     display: none;
+    }
 </style>
 
 <body>
@@ -458,13 +462,28 @@ outline:none;
             <div class="title"><a href="/features" class="title-linkback">Features</a> <span>: :</span> Stepping Up: How Cities Are Working to Keep America's Poorest Families Housed</div>
             <div class="share-icons">
                 <div class="shareThisP">
-                    <div class="shareThisB"></div>
-                    <div class="shareThisW">
-                        <div class="addthis_toolbox addthis_default_style  " addthis:title="Stepping Up:  How Cities Are Working to Keep America&amp;#039;s Poorest Families Housed" addthis:url="http://www.urban.org/features/stepping-how-cities-are-working-keep-americas-poorest-families-housed"><a href="http://www.addthis.com/bookmark.php?v=300" class="addthis_button_facebook at300b" title="Facebook"><span class="at4-icon aticon-facebook" style="background-color: rgb(48, 88, 145);"><span class="at_a11y">Share on facebook</span></span></a>
-                            <a href="http://www.addthis.com/bookmark.php?v=300" class="addthis_button_twitter at300b" title="Tweet"><span class="at4-icon aticon-twitter" style="background-color: rgb(44, 168, 210);"><span class="at_a11y">Share on twitter</span></span></a>
-                            <a href="http://www.addthis.com/bookmark.php?v=300" class="addthis_button_linkedin at300b" target="_blank" title="LinkedIn"><span class="at4-icon aticon-linkedin" style="background-color: rgb(68, 152, 200);"><span class="at_a11y">Share on linkedin</span></span></a>
-                            <a href="http://www.addthis.com/bookmark.php?v=300" class="addthis_button_google_plusone_share at300b" target="_blank" title="Google+"><span class="at4-icon aticon-google_plusone_share" style="background-color: rgb(206, 77, 57);"><span class="at_a11y">Share on google_plusone_share</span></span></a>
-                            <a href="http://www.addthis.com/bookmark.php?v=300" class="addthis_button_email at300b" target="_blank" title="Email"><span class="at4-icon aticon-email" style="background-color: rgb(115, 138, 141);"><span class="at_a11y">Share on email</span></span></a>
+                    <a href="#" onclick="toggle_visibility('shareBox');">
+                    <div class="shareThisB"></div></a>
+                    <div class="shareThisW" id="shareBox">
+                        <script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'inline-block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'inline-block';
+    }
+//-->
+</script>
+                        
+                        
+                        
+                        <div class="addthis_toolbox addthis_default_style  " addthis:title="" addthis:url=""><a href="http://www.facebook.com"  target="_blank"  class="addthis_button_facebook at300b" title="Facebook" onclick="toggle_visibility('shareBox');"><span class="at4-icon aticon-facebook" style="background-color: rgb(48, 88, 145);"><span class="at_a11y">Share on facebook</span></span></a>
+                            <a href="http://www.twitter.com"  target="_blank"  class="addthis_button_twitter at300b" title="Tweet" onclick="toggle_visibility('shareBox');"><span class="at4-icon aticon-twitter" style="background-color: rgb(44, 168, 210);"><span class="at_a11y">Share on twitter</span></span></a>
+                            <a href="http://www.linkedin.com"  target="_blank"  class="addthis_button_linkedin at300b" target="_blank" title="LinkedIn" onclick="toggle_visibility('shareBox');"><span class="at4-icon aticon-linkedin" style="background-color: rgb(68, 152, 200);"><span class="at_a11y">Share on linkedin</span></span></a>
+                            
+                            <a href="http://www.gmail.com" target="_blank" class="addthis_button_email at300b" target="_blank" title="Email" onclick="toggle_visibility('shareBox');"><span class="at4-icon aticon-email" style="background-color: rgb(115, 138, 141);"><span class="at_a11y">Share on email</span></span></a>
                             <div class="atclear"></div>
                         </div>
 
