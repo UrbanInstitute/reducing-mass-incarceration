@@ -1,5 +1,4 @@
 - mobile
-- minimized white space
 - click-to-animate events
 - match menu layout to design comps
 - add permanent help text
@@ -9,4 +8,4 @@
 - rethink 'jump list' section
 - add info that normally goes in the footer somewhere/somehow
 - max width
-- dotted line start of proj data
+- fix first date label

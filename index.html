@@ -166,6 +166,12 @@ body {
   pointer-events: visible;
 }
 
+.projLabel{
+  fill: #9A9A9A;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 1px;  
+}
 /*.trigger.on{
   pointer-events: visible;
 }
@@ -579,20 +585,22 @@ function drawGraphic(state){
       .attr("stop-color", "#fff")
       .attr("stop-opacity", 0);
 
-  // svg.append("rect")
-  //     .attr("class", "scrollFade gradient")
-  //     .attr("x",0)
-  //     .attr("y",250)
-  //     .attr("width", 300)
-  //     .attr("height", 148)
-  //     .attr("fill", "url(#gradient)")
-  // svg.append("rect")
-  //     .attr("class", "scrollFade solid")
-  //     .attr("x",0)
-  //     .attr("y",-120)
-  //     .attr("width", 300)
-  //     .attr("height", 370)
-  //     .attr("fill", "#fff")
+  svg.append("rect")
+      .attr("class", "scrollFade gradient")
+      .attr("x",0)
+      .attr("y",83-120)
+      .attr("width", 300)
+      .attr("height", 148)
+      .attr("fill", "url(#gradient)")
+  svg.append("rect")
+      .attr("class", "scrollFade solid")
+      .attr("x",0)
+      .attr("y",-120)
+      .attr("width", 300)
+      .attr("height", 83)
+      .attr("fill", "#fff")
+
+
 
   d3.csv("data/test_data.csv", function(error, data) {
     if (error) throw error;
@@ -638,6 +646,7 @@ function drawGraphic(state){
       // 200000
     ]);
 
+
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
@@ -664,11 +673,7 @@ function drawGraphic(state){
           .data(arr.values)
           .enter().append("g")
           .attr("class", arr.name + " highlighted")
-          .style("display", function(d){
-            if(d.series != 0){ return "block" }
-            else{ return "none" }
-            
-          })
+
           // .style("display", function(){
           //   if (arr.name.indexOf(state) != -1){ return "block"}
           //   else{ return "none" }
@@ -724,6 +729,7 @@ function drawGraphic(state){
             d3.selectAll(".dot" + baseClass)
               .transition()
               .style("fill", PINK)
+
               .attr("r",function(d2){
                 if(x(d.date) == d3.select(this).attr("cx")){ return 5}
                 else{ return 1.5}
@@ -822,6 +828,11 @@ function drawGraphic(state){
             .attr("cy", function(d){ return y(d.series)})
             .attr("r", 1.5)
             .classed("selected", false)
+          .style("display", function(d){
+            if(d.series != 0){ return "block" }
+            else{ return "none" }
+            
+          })
             // .attr("fill", BLUE)
 
           dots
@@ -893,7 +904,7 @@ function drawGraphic(state){
             var terminalDate = d3.max(d.values, function(obj) {  terminalData = obj; terminalSeries = obj.series; return obj.date; });
             // var terminalSeries = d3.max(d.values, function(obj) { return obj.date; });
             d3.selectAll(".noPolicy .mouseoverText." + DATE(terminalDate).replace(",","").replace(/ /g,"")).classed("mouseoverText", false)
-              .classed("xLabel", true)
+              .classed("xLabel last", true)
               .attr("text-anchor","end")
               .attr("dy",function(){
                 var dy = parseInt(d3.select(this).attr("dy").replace("em",""))
@@ -904,34 +915,56 @@ function drawGraphic(state){
                 return dx+15
               })
               // console.log(terminalSeries)
-              d3.select(d3.select(".xLabel").node().parentNode)
+              d3.select(d3.select(".xLabel.last").node().parentNode)
                 .append("line")
                 .datum(terminalData)
-                .attr("class", "labelLine")
+                .attr("class", "labelLine last")
                 .attr("x1",function(d){ return x(terminalDate) })
                 .attr("x2",function(d){ return x(terminalDate) })
                 .attr("y1",function(d){ return y(terminalSeries) - 20})
                 .attr("y2",function(d){ return y(terminalSeries)})
                 .style("stroke", "#000")
-
+                // .style("stroke-width",100)
+            d3.select(".labelLine.last").node().parentNode.appendChild(d3.select(".labelLine.last").node())
             d3.selectAll(d3.select(".xLabel").node().parentNode).selectAll(".trigger").style("pointer-events","none")
 
-            // d3.selectAll(".mouseoverText." + DATE(terminalDate).replace(",","").replace(/ /g,"")).remove();
-            // d3.selectAll(".mouseoverBackground." + DATE(terminalDate).replace(",","").replace(/ /g,"")).remove();
+            // d3.selectAll(".mouseoverText.actual." + DATE(terminalDate).replace(",","").replace(/ /g,"")).remove();
+            // d3.selectAll(".mouseoverBackground.actual." + DATE(terminalDate).replace(",","").replace(/ /g,"")).remove();
 
           }
           if ( d.name.indexOf("actual") != -1){
             d.values.filter(function(obj){return obj.series != "0"});
-            var lastDate = d3.max(d.values.filter(function(obj){return obj.series != "0"}), function(obj) { return obj.date; });
-            var firstDate = d3.min(d.values, function(obj) {  return obj.date; });
+            var firstSeries, lastSeries;
+            var lastDate = d3.max(d.values.filter(function(obj){return obj.series != "0"}), function(obj) { lastSeries = obj.series; return obj.date; });
+            var firstDate = d3.min(d.values.filter(function(obj){return obj.series != "0"}), function(obj) { firstSeries = obj.series; return obj.date; });
 
             d3.selectAll(".actual .mouseoverText." + DATE(lastDate).replace(",","").replace(/ /g,"")).classed("mouseoverText", false)
-              .classed("xLabel", true)
+              .classed("xLabel mid", true)
               .attr("dy",function(){
                 var dy = parseInt(d3.select(this).attr("dy").replace("em",""))
-                return (dy - 1) + "em"
+                return (dy) + "em"
               })
-              d3.select(d3.select(".xLabel").node().parentNode)
+              .attr("dx",function(){
+                var dx = parseInt(d3.select(this).attr("dx").replace("em",""))
+                return (dx) + "em"
+              })
+              .attr("text-anchor","end")
+
+              svg.append("text")
+                .attr("class", "projLabel")
+                .attr("x", x(lastDate) + 30)
+                .attr("y",-20)
+                .text("PROJECTIONS")
+              d3.select(d3.select(".xLabel.mid").node().parentNode)
+                .append("line")
+                .attr("class", "dotted")
+                .attr("x1",function(d){ return x(lastDate) })
+                .attr("x2",function(d){ return x(lastDate) })
+                .attr("y1",function(d){ return y(lastSeries) - 90})
+                .attr("y2",function(d){ return y(lastSeries) + 140})
+                .attr("stroke-dasharray", "2,5")
+                .style("stroke", "#A7AAAD")
+              d3.select(d3.select(".xLabel.mid").node().parentNode)
                 .append("line")
                 .attr("class", "labelLine")
                 .attr("x1",function(d){ return x(d.date) })
@@ -939,17 +972,28 @@ function drawGraphic(state){
                 .attr("y1",function(d){ return y(d.series) - 20})
                 .attr("y2",function(d){ return y(d.series)})
                 .style("stroke", "#000")
+              d3.select(d3.select(".xLabel.mid").node().parentNode)
+                .append("line")
+                .attr("class", "labelLine")
+                .attr("x1",function(d){ return x(d.date) })
+                .attr("x2",function(d){ return x(d.date)-10 })
+                .attr("y1",function(d){ return y(d.series) - 20})
+                .attr("y2",function(d){ return y(d.series) - 20})
+                .style("stroke", "#000")
                 // .style("fill","#000")
             d3.selectAll(".mouseoverText." + DATE(lastDate).replace(",","").replace(/ /g,"")).remove();
             d3.selectAll(".mouseoverBackground." + DATE(lastDate).replace(",","").replace(/ /g,"")).remove();
 
             d3.selectAll(".actual .mouseoverText." + DATE(firstDate).replace(",","").replace(/ /g,"")).classed("mouseoverText", false)
-              .classed("xLabel", true)
+              .classed("xLabel first", true)
               .attr("dy",function(){
                 var dy = parseInt(d3.select(this).attr("dy").replace("em",""))
                 return (dy - 1) + "em"
               })
-            d3.select(d3.select(".xLabel").node().parentNode)
+
+
+
+            d3.select(d3.select(".xLabel.first").node().parentNode)
                 .append("line")
                 .attr("class", "labelLine first")
                 .attr("x1",function(d){ return x(d.date) })
@@ -958,10 +1002,12 @@ function drawGraphic(state){
                 .attr("y2",function(d){ return y(d.series)})
                 .style("stroke", "#000")
 
+
             d3.selectAll(d3.select(".xLabel").node().parentNode).selectAll(".trigger").style("pointer-events","none")
 
             d3.selectAll(".mouseoverText." + DATE(firstDate).replace(",","").replace(/ /g,"")).remove();
             d3.selectAll(".mouseoverBackground." + DATE(firstDate).replace(",","").replace(/ /g,"")).remove();
+
 
 
 
@@ -990,6 +1036,10 @@ function drawGraphic(state){
       function moveText(amount){
         var h = window.innerHeight;
         var pix = (amount/100.) * innerHeight
+        d3.select(".scrollFade.solid")
+          .attr("height", (pix - 69))
+        d3.select(".scrollFade.gradient")
+          .attr("y", (pix - 69 - 120))
         d3.select("#main-text")
           .transition()
           .duration(700)
@@ -1051,6 +1101,7 @@ function drawGraphic(state){
           d3.max(series, function(c) { return d3.max(c.values, function(v) { return +v[state]; }); })
           // 200000
         ]);
+
         d3.select(".y.axis").transition().duration(2000).call(yAxis)
         d3.selectAll(".line").transition().duration(500).attr("d", function(d){
           var line = d3.svg.line()
@@ -1095,15 +1146,14 @@ function drawGraphic(state){
             return y(+d[state])
         })
         d3.selectAll(".trigger").transition().attr("cy", function(d){
-          if(d[state] !== undefined){
+          if(d[state] !== 0){
             return y(+d[state])
           }
         })
         d3.selectAll(".dot")
-                  .style("display", function(d){
+          .style("display", function(d){
             if(d[state] != 0){ return "block" }
             else{ return "none" }
-            
           })
           .transition()
             // .duration(250)
@@ -1112,7 +1162,7 @@ function drawGraphic(state){
             // .duration(10)
             // .attr("opacity",1)
             .attr("cy", function(d){
-          if(d[state] !== undefined){
+          if(d[state] !== 0){
             return y(+d[state])
           }
         })
