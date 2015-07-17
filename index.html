@@ -261,8 +261,219 @@ outline:none;
   float: left;
   margin-right: 5px;
 }
+    
+    #header-pinned {
+        position: fixed;
+/*        top: -50px;*/
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-bottom: 1px solid #e6e5e5  ;
+        z-index: 999;
+        -webkit-transition: top 0.25s linear;
+        -moz-transition: top 0.25s linear;
+        -o-transition: top 0.25s linear;
+        transition: top 0.25s linear;
+    }
+    
+    #header-pinned .content {
+        height: 49px;
+        max-width: 1500px;
+        margin: 0 auto;
+        position: relative;
+    }
+    #header-pinned * {
+  color: #333;
+        font-weight: 400;
+        text-decoration: none;
+}
+    
+    #header-pinned .site-logo {
+        display: block;
+        width: 34px;
+        height: 34px;
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        background: url(http://www.urban.org/sites/all/themes/urban/images/logo-mini-dark.png) no-repeat;
+        background-size: 34px 34px;
+    }
+    
+        #header-pinned .title {
+  font-size: 14px;
+  line-height: 49px;
+  margin: 0 65px 0 55px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+    
+    
+    #header-pinned .title {
+        font-size: 20px;
+        margin-left: 80px;
+    }
+    
+
+    #header-pinned .title span,
+    #header-pinned .title a {
+        display: inline;
+    }
+    
+    #header-pinned .share-icons {
+        background-color: transparent;
+        width: 69px;
+        height: 50px;
+        margin: 0;
+        padding: 0;
+        top: 0;
+        width: 60px;
+        position: absolute;
+        right: 0;
+    }
+    
+    #header-pinned .share-icons .shareThisP {
+        border-top: 0;
+        border-left: 1px solid #e6e5e5  ;
+        height: 49px;
+        padding: 9px 0 0;
+    }
+    
+    #header-pinned .share-icons .shareThisB {
+        float: none;
+    }
+    
+    #header-pinned .share-icons .shareThisB {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -2396px;
+        height: 32px;
+        width: 32px;
+        float: none;
+        margin: 0 auto;
+    }
+    
+    #header-pinned .share-icons .shareThisB:hover {
+    background-position: 0 -1948px;
+    }
+    #header-pinned .share-icons .shareThisW {
+        display: none;
+        float: none;
+        top: 50px;
+        right: 0;
+        left: auto;
+        width: 300px;
+        text-align: right;
+        border: 0;
+        background: transparent;
+    }
+    
+    #header-pinned .share-icons .shareThisW {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        position: absolute;
+        top: 42px;
+        left: 0;
+        padding: 0 0 9px;
+        border-top: 0;
+        width: 100%;
+    }
+    
+    #header-pinned .share-icons .addthis_toolbox {
+        display: inline-block;
+        width: auto;
+        border: 1px solid #e6e5e5  ;
+        border-top: 0;
+        background: #fff;
+        padding: 10px 10px 0 0;
+        margin: 0 auto;
+    }
+    
+    #header-pinned .share-icons .at15t_twitter.at16t_twitter,
+    #header-pinned .share-icons .addthis_button_facebook {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -2056px;
+        height: 32px;
+        width: 32px;
+    }
+    
+    #header-pinned .share-icons .at15t_twitter.at16t_twitter,
+    #header-pinned .share-icons .addthis_button_twitter {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -1169px;
+        height: 32px;
+        width: 32px;
+    }
+    
+    #header-pinned .share-icons .at15t_linkedin.at16t_linkedin,
+    #header-pinned .share-icons .addthis_button_linkedin {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -1641px;
+        height: 32px;
+        width: 32px;
+    }
+    
+    #header-pinned .share-icons .at15t_google_plusone_share.at16t_google_plusone_share,
+    #header-pinned .share-icons .addthis_button_google_plusone_share {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -1719px;
+        height: 32px;
+        width: 32px;
+    }
+    
+    #header-pinned .share-icons .at15t_email.at16t_email,
+    #header-pinned .share-icons .addthis_button_email {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -1449px;
+        height: 32px;
+        width: 32px;
+    }
+    
+    #header-pinned .share-icons [class^="addthis_button_"] {
+        display: inline-block !important;
+        margin: 0 0 0 10px;
+    }
+    
+    #header-pinned .share-icons .addthis_toolbox a {
+        margin-bottom: 5px;
+    }
 </style>
+
 <body>
+    <!--    header-->
+    <div id="header-pinned" class="no-touch is-visible">
+        <div class="content">
+            <a href="/" title="Home" rel="home" class="site-logo"></a>
+            <div class="title"><a href="/features" class="title-linkback">Features</a> <span>: :</span> Stepping Up: How Cities Are Working to Keep America's Poorest Families Housed</div>
+            <div class="share-icons">
+                <div class="shareThisP">
+                    <div class="shareThisB"></div>
+                    <div class="shareThisW">
+                        <div class="addthis_toolbox addthis_default_style  " addthis:title="Stepping Up:  How Cities Are Working to Keep America&amp;#039;s Poorest Families Housed" addthis:url="http://www.urban.org/features/stepping-how-cities-are-working-keep-americas-poorest-families-housed"><a href="http://www.addthis.com/bookmark.php?v=300" class="addthis_button_facebook at300b" title="Facebook"><span class="at4-icon aticon-facebook" style="background-color: rgb(48, 88, 145);"><span class="at_a11y">Share on facebook</span></span></a>
+                            <a href="http://www.addthis.com/bookmark.php?v=300" class="addthis_button_twitter at300b" title="Tweet"><span class="at4-icon aticon-twitter" style="background-color: rgb(44, 168, 210);"><span class="at_a11y">Share on twitter</span></span></a>
+                            <a href="http://www.addthis.com/bookmark.php?v=300" class="addthis_button_linkedin at300b" target="_blank" title="LinkedIn"><span class="at4-icon aticon-linkedin" style="background-color: rgb(68, 152, 200);"><span class="at_a11y">Share on linkedin</span></span></a>
+                            <a href="http://www.addthis.com/bookmark.php?v=300" class="addthis_button_google_plusone_share at300b" target="_blank" title="Google+"><span class="at4-icon aticon-google_plusone_share" style="background-color: rgb(206, 77, 57);"><span class="at_a11y">Share on google_plusone_share</span></span></a>
+                            <a href="http://www.addthis.com/bookmark.php?v=300" class="addthis_button_email at300b" target="_blank" title="Email"><span class="at4-icon aticon-email" style="background-color: rgb(115, 138, 141);"><span class="at_a11y">Share on email</span></span></a>
+                            <div class="atclear"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    end header-->
   <div class="state styled-select">
  <select>
     <option value = "ALL_STATES">15 state aggregate</div>
