@@ -717,12 +717,16 @@ function drawTooltip(offender, reduction, amount){
     .transition()
     .style("left", left)
   if(offender == "actual"){
+    d3.select(".summary")
+      .style("display", "none")
     d3.selectAll("#tooltip .proj").style("display", "none")
     d3.select("#tooltip .other")
       .style("display","block")
       .text("These data represent measured historical prison populations.")
   }
   else if(offender == "noPolicy"){
+    d3.select(".summary")
+      .style("display", "none")
     d3.selectAll("#tooltip .proj").style("display", "none")
     d3.select("#tooltip .other")
       .style("display","block")
@@ -733,29 +737,31 @@ function drawTooltip(offender, reduction, amount){
     d3.select("#tooltip .offender").text(d3.select("option[value=\'" + offender + "\']").text())
     d3.select("#tooltip .reduction").text(d3.select("option[value=\'" + reduction + "\']").text())
     d3.select("#tooltip .amount").text(d3.select("option[value=\'" + amount + "\']").text())
-  }
-  // console.log(  d3.select(".summary #amount").text())
+
+  d3.select(".summary")
+    .style("display", "block")
   d3.select(".summary #amount")
     .text(function(){
       var state = d3.select(".styled-select.state select").node().value;
-      // console.log( d3.select("g." + offender + "." + reduction + "." + amount + " mouseoverText.Dec2021.val"))
-      var val2012 = d3.select(("g." + offender + "." + reduction + "." + amount + " .mouseoverText.Dec2021.val")).text();
-      var val2022 = d3.select((".xLabel.Dec2021.val")).text();
+      var val2022 = d3.select(("g." + offender + "." + reduction + "." + amount + " .mouseoverText.Dec2021.val")).text();
+      var val2012 = d3.select((".xLabel.Dec2012.val")).text();
       val2012 = parseFloat(val2012.replace(",",""));
       val2022 = parseFloat(val2022.replace(",",""));
       numDiff = val2022 - val2012
+      console.log(val2022, val2012, numDiff)
       if (numDiff > 0){
-        d3.select(".summary #amount").text("increase")
+        d3.select(".summary #direction").text("increase")
       } else{
-        d3.select(".summary #amount").text("reduce") 
+        d3.select(".summary #direction").text("reduce") 
       }
       numDiff = Math.abs(numDiff)
       var percentDiff = numDiff/val2012
       var percent = d3.format("%")
       return PRISONERS(numDiff) + " (" + percent(percentDiff) + " percent)"
-
-      // return a + " " + b
     })
+  }
+  // console.log(  d3.select(".summary #amount").text())
+
 }
 function selectSeries(offender, reduction, amount){
 
