@@ -1445,13 +1445,22 @@ function drawGraphic(state){
         d3.selectAll(".xLabel.first")
           .transition()
           .attr("x", function(d){
-            console.log(firstDate, x(firstDate), firstSeries)
+            // console.log(firstDate, x(firstDate), firstSeries)
             return x(firstDate)
           })
           .attr("y", function(d){
             return y(firstSeries)
           });
-      d3.select(d3.select(".xLabel.first").node().parentNode)
+
+        d3.select(".xLabel.first.date")
+          .text(function(d){
+            return DATE(firstDate);
+          });
+        d3.select(".xLabel.first.val")
+          .text(function(d){
+            return PRISONERS(firstSeries);
+          });
+        d3.select(d3.select(".xLabel.first").node().parentNode)
           .select("line")
           .attr("x1",function(d){ return x(firstDate) })
           .attr("x2",function(d){ return x(firstDate) })
@@ -1483,11 +1492,11 @@ function drawGraphic(state){
         .duration(800)
         .attr("opacity",1)
       }
-  d3.select(".styled-select.state select")
-    .on("change", function(){
-      var activeState = d3.select(".styled-select.state select").node().value;
-      changeState(activeState);
-  })
+      d3.select(".styled-select.state select")
+        .on("change", function(){
+          var activeState = d3.select(".styled-select.state select").node().value;
+          changeState(activeState);
+      })
 
 
   });
