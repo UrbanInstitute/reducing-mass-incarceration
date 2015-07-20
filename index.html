@@ -275,7 +275,7 @@ outline:none;
   font-weight: normal;
 }
 
-#tooltip p{
+#tooltip p:not(.summary){
   color: #818385;
   font-size: 18px;
   width: 200px;
@@ -284,10 +284,22 @@ outline:none;
   margin-left: 0px;
   margin-right: 0px;
 }
-#tooltip span{
+#tooltip span.proj{
   color: #ec008c;
   float: left;
   margin-right: 5px;
+}
+
+.summary{
+  width: 280px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ec008c;
+  margin-top: 20px;
+}
+
+.summary span{
+  float: none;
 }
     
     #header-pinned {
@@ -586,6 +598,7 @@ outline:none;
   <span class = "proj">+</span><p class = "offender proj"></p>
   <span class = "proj">+</span><p class = "reduction proj"></p>
   <span class = "proj">+</span><p class = "amount proj"></p>
+  <p class = "summary">This proposal would <span id = "direction">reduce</span> <span id = "state">the aggregate</span> prison population by <span id = "amount"></span> between 2012 and 2022.</span>
 </div>
 <div id = "main-text">
 <div id = "links">
@@ -788,7 +801,27 @@ function selectSeries(offender, reduction, amount){
       }
     }, 400);
   }
+  d3.select(".summary #amount")
+    .text(function(){
+      var state = d3.select(".styled-select.state select").node().value;
+      console.log(state, offender, amount, reduction)
+      var val2012 = d3.select(".xLabel.mid.val").text();
+      var val2022 = d3.select(".xLabel.last.val").text();
+      val2012 = parseFloat(val2012.replace(",",""));
+      val2022 = parseFloat(val2022.replace(",",""));
+      numDiff = val2022 - val2012
+      if (numDiff > 0){
+        d3.select(".summary #amount").text("increase")
+      } else{
+        d3.select(".summary #amount").text("reduce") 
+      }
+      numDiff = Math.abs(numDiff)
+      var percentDiff = numDiff/val2012
+      var percent = d3.format("%")
+      return PRISONERS(numDiff) + " (" + percent(percentDiff) + " percent)"
 
+      // return a + " " + b
+    })
 }
 function drawGraphic(state){
     // var m = d3.select(this);
@@ -1383,11 +1416,19 @@ function drawGraphic(state){
             moveText(17);
             break;
         }
+        var stateName = d3.select("option[value="+state+"]").text();
         d3.select("#stateName")
           .text(function(){
-
-            return d3.select("option[value="+state+"]").text();
+            return stateName;
           })
+        d3.select(".summary #state")
+          .text(function(){
+            if(state == "ALL_STATES"){
+              return "the aggregate"
+            }
+            return stateName + "\'s";
+          })
+
         y.domain([
           0,
           d3.max(series, function(c) { return d3.max(c.values, function(v) { return +v[state]; }); })
@@ -1424,7 +1465,19 @@ function drawGraphic(state){
         var first = data.filter(function(obj){return obj[state + " actual"] != 0})
         firstDate = first[0].date;
         firstSeries = first[0][state + " actual"];
-        d3.select(".xLabel.first")
+
+        // var midSeries;
+        // var first = data.filter(function(obj){return obj[state + " actual"] != 0})
+        // firstDate = first[0].date;
+        // firstSeries = first[0][state + " actual"];       
+
+        // var lastSeries;
+        // var first = data.filter(function(obj){return obj[state + " actual"] != 0})
+        // firstDate = first[0].date;
+        // firstSeries = first[0][state + " actual"];
+
+
+        // d3.select(".xLabel.first")
         // .datum({"date": firstDate, "series": firstSeries})
 
         d3.selectAll(".labelLine")
@@ -1440,7 +1493,12 @@ function drawGraphic(state){
               if(d3.select(this).classed("val")){
                 d3.select(this).text(PRISONERS(d[state]))
               }
+              // if(d3.select(this).classed("val")){
+              return y(+d[state]);
+          });
           // console.log(firstDate)
+        // var a = d3.select()
+
 
         d3.selectAll(".xLabel.first")
           .transition()
@@ -1466,7 +1524,7 @@ function drawGraphic(state){
           .attr("x2",function(d){ return x(firstDate) })
           .attr("y1",function(d){ return y(firstSeries) - 20})
           .attr("y2",function(d){ return y(firstSeries)})
-        })
+        // })
         d3.selectAll(".trigger").transition().attr("cy", function(d){
           if(d[state] !== 0){
             return y(+d[state])
