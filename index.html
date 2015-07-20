@@ -33,6 +33,8 @@ body {
   font: 16px Lato;
   font-color: #333;
   font-weight: 300;
+  margin-top: 0;
+  /*margin-right: 100px;*/
 }
 
 .axis path,
@@ -57,7 +59,7 @@ body {
   font-weight: 600;
   font-style: italic;
   width: 79px;
-  top: 40px;
+  top: 160px;
 }
 .xLabel{
   opacity: 1;
@@ -83,7 +85,7 @@ body {
   /*font-family: Lato;*/
   position: absolute;
   left: 60px;
-  top: 17%;
+  top: 28%;
   z-index: -1;
 }
 #links{
@@ -228,19 +230,13 @@ body {
   left: 60px;
   font-size: 24px;
 }
-#filterLabel{
-  position: fixed;
-  top: 94px;
-  left: 60px;
-  z-index: 3;
-}
-h4{
-  font: 11px Lato;
-  font-weight: 500;
-  color: #1796D1;
-  text-transform: uppercase;
-}
 
+#menuContainer{
+  width: 100%;
+  height: 140px;
+  position: fixed;
+  background: #fff;
+}
 
 *:focus{
 outline:none;
@@ -260,7 +256,7 @@ outline:none;
 /*Tooltip styles*/
 #tooltip{
   position: fixed;
-  top: 460px;
+  top: 550px;
   left: 3000px;
 }
 
@@ -269,7 +265,7 @@ outline:none;
   font-size: 14px;
   font-style: italic;
   font-weight: 600;
-  top: 260px;
+  top: 420px;
   width: 240px;
   pointer-events: none;
 }
@@ -525,26 +521,28 @@ outline:none;
         </div>
     </div>
     <!--    end header-->
-  <div id = "stateName">15 state aggregate</div>
-  <div class="state styled-select">
- <select>
-    <option value = "ALL_STATES">15 state aggregate</div>
-    <option value = "AL">Alabama</option>
-    <option value = "GA">Georgia</option>
-    <option value = "KY">Kentucky</option>
-    <option value = "MI">Michigan</option>
-    <option value = "MN">Minnesota</option>
-    <option value = "MO">Missouri</option>
-    <option value = "NJ">New Jersey</option>
-    <option value = "NY">New York</option>
-    <option value = "OK">Oklahoma</option>
-    <option value = "RI">Rhode Island</option>
-    <option value = "SC">South Carolina</option>
-    <option value = "TX">Texas</option>
-    <option value = "UT">Utah</option>
-    <option value = "WA">Washington</option>
-    <option value = "WY">Wyoming</option>
- </select>
+<div id = "menuContainer">
+    <div id = "stateName">15 state aggregate</div>
+    <div class="state styled-select">
+   <select>
+      <option value = "ALL_STATES">15 state aggregate</div>
+      <option value = "AL">Alabama</option>
+      <option value = "GA">Georgia</option>
+      <option value = "KY">Kentucky</option>
+      <option value = "MI">Michigan</option>
+      <option value = "MN">Minnesota</option>
+      <option value = "MO">Missouri</option>
+      <option value = "NJ">New Jersey</option>
+      <option value = "NY">New York</option>
+      <option value = "OK">Oklahoma</option>
+      <option value = "RI">Rhode Island</option>
+      <option value = "SC">South Carolina</option>
+      <option value = "TX">Texas</option>
+      <option value = "UT">Utah</option>
+      <option value = "WA">Washington</option>
+      <option value = "WY">Wyoming</option>
+   </select>
+  </div>
 </div>
 <div class="offender-type styled-select filter">
  <select>
@@ -575,7 +573,6 @@ outline:none;
     <option value = "fifty">Reduce by 50%</option>
  </select>
 </div>
-<h4 id ="filterLabel">Policy filters</h4>
 <div id = "yLabel">Statewide prison population (thousands)</div>
 <div id = "chart"></div>
 
@@ -870,16 +867,16 @@ function drawGraphic(state){
 
   svg.append("rect")
       .attr("class", "scrollFade gradient")
-      .attr("x",0)
+      .attr("x",-50)
       .attr("y",83-120)
-      .attr("width", 300)
+      .attr("width", 350)
       .attr("height", 148)
       .attr("fill", "url(#gradient)")
   svg.append("rect")
       .attr("class", "scrollFade solid")
-      .attr("x",0)
+      .attr("x",-50)
       .attr("y",-120)
-      .attr("width", 300)
+      .attr("width", 350)
       .attr("height", 83)
       .attr("fill", "#fff")
 
@@ -1304,7 +1301,7 @@ function drawGraphic(state){
                 var graphMargin = margin.left
                 var textMargin = parseInt(d3.select(this).style("left").replace("px",""))
                 var w = x(lastDate)-textMargin+graphMargin
-              d3.selectAll(".scrollFade").attr("width", w)
+              d3.selectAll(".scrollFade").attr("width", w + 50)
                 // d3.select("#tooltip").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
               d3.select("#tooltip").datum({"left": (x(lastDate) + graphMargin + textMargin) + "px"})
               d3.select("#helpText").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
@@ -1325,7 +1322,7 @@ function drawGraphic(state){
 
       function moveText(amount){
         var h = window.innerHeight;
-        var pix = (amount/100.) * innerHeight
+        var pix = (amount/100.) * innerHeight;
         d3.select(".scrollFade.solid")
           .attr("height", (pix - 69))
         d3.select(".scrollFade.gradient")
@@ -1333,7 +1330,7 @@ function drawGraphic(state){
         d3.select("#main-text")
           .transition()
           .duration(700)
-          .style("top", pix + "px")
+          .style("top", (pix+130) + "px")
       }
       function changeState(state){
         switch(state){
