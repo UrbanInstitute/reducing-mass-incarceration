@@ -681,6 +681,9 @@ var PINK = "#ec008c"
 var BLUE = "#1696d2"
 var DARK_GREY = "#868686"
 var LIGHT_GREY = "#efefef"
+var PRISONERS = d3.format(",f")
+var DATE = d3.time.format("%b, %Y")
+var PERCENT = d3.format("%")
 d3.select(window).on('resize', function(){
   var activeState = d3.select(".styled-select.state select").node().value;
   drawGraphic(activeState)
@@ -731,8 +734,31 @@ function drawTooltip(offender, reduction, amount){
     d3.select("#tooltip .reduction").text(d3.select("option[value=\'" + reduction + "\']").text())
     d3.select("#tooltip .amount").text(d3.select("option[value=\'" + amount + "\']").text())
   }
+  // console.log(  d3.select(".summary #amount").text())
+  d3.select(".summary #amount")
+    .text(function(){
+      var state = d3.select(".styled-select.state select").node().value;
+      // console.log( d3.select("g." + offender + "." + reduction + "." + amount + " mouseoverText.Dec2021.val"))
+      var val2012 = d3.select(("g." + offender + "." + reduction + "." + amount + " .mouseoverText.Dec2021.val")).text();
+      var val2022 = d3.select((".xLabel.Dec2021.val")).text();
+      val2012 = parseFloat(val2012.replace(",",""));
+      val2022 = parseFloat(val2022.replace(",",""));
+      numDiff = val2022 - val2012
+      if (numDiff > 0){
+        d3.select(".summary #amount").text("increase")
+      } else{
+        d3.select(".summary #amount").text("reduce") 
+      }
+      numDiff = Math.abs(numDiff)
+      var percentDiff = numDiff/val2012
+      var percent = d3.format("%")
+      return PRISONERS(numDiff) + " (" + percent(percentDiff) + " percent)"
+
+      // return a + " " + b
+    })
 }
 function selectSeries(offender, reduction, amount){
+
   if(offender == "" && reduction == "" && amount == ""){
     // d3.selectAll(".actual.highlighted").classed("temp", false)
     // d3.selectAll(".noPolicy.highlighted").classed("highlighted", false)
@@ -801,27 +827,7 @@ function selectSeries(offender, reduction, amount){
       }
     }, 400);
   }
-  d3.select(".summary #amount")
-    .text(function(){
-      var state = d3.select(".styled-select.state select").node().value;
-      console.log(state, offender, amount, reduction)
-      var val2012 = d3.select(".xLabel.mid.val").text();
-      var val2022 = d3.select(".xLabel.last.val").text();
-      val2012 = parseFloat(val2012.replace(",",""));
-      val2022 = parseFloat(val2022.replace(",",""));
-      numDiff = val2022 - val2012
-      if (numDiff > 0){
-        d3.select(".summary #amount").text("increase")
-      } else{
-        d3.select(".summary #amount").text("reduce") 
-      }
-      numDiff = Math.abs(numDiff)
-      var percentDiff = numDiff/val2012
-      var percent = d3.format("%")
-      return PRISONERS(numDiff) + " (" + percent(percentDiff) + " percent)"
 
-      // return a + " " + b
-    })
 }
 function drawGraphic(state){
     // var m = d3.select(this);
@@ -835,9 +841,6 @@ function drawGraphic(state){
 
   d3.select("#chart svg").remove();
   var margin = {top: 120, right: 80, bottom: 30, left: 70};
-  var PRISONERS = d3.format(",f")
-  var DATE = d3.time.format("%b, %Y")
-  var PERCENT = d3.format("%")
   var width = (window.innerWidth - margin.left - margin.right > 1500) ? 1500 : window.innerWidth - margin.left - margin.right ;
   var height = window.innerHeight - margin.top - margin.bottom;
 
