@@ -831,7 +831,7 @@ function drawGraphic(state){
       .tickFormat(function(d){
         return d/1000
       });
-  var yRight = (window.innerWidth - margin.left - margin.right > 1500) ? (window.innerWidth - margin.left - margin.right-1500-15) : -15;
+  var yRight = (window.innerWidth - margin.left - margin.right > 1500) ? (window.innerWidth - margin.left - margin.right-1500-10) : -10;
   d3.select("#yLabel")
     .style("right", yRight + "px")
 
