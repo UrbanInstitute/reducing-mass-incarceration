@@ -1,0 +1,489 @@
+@media (max-width: 768px) {
+  #chart, .styled-select {
+    position: absolute !important;
+  }
+  div.amount-type{
+    left: 8px;
+    top: 60px;
+  }
+/*  .main-text{
+    width: 77% !important;
+  }*/
+  .dot{
+    display: none;
+  }
+}
+
+/*@media (max-width: 590px) {
+  div.amount-type{
+    left: 8px;
+    top: 60px;
+  }
+  .main-text{
+    width: 88%;
+  }
+}*/
+
+body {
+  font: 16px Lato;
+  font-color: #333;
+  font-weight: 300;
+  margin-top: 0;
+  /*margin-right: 100px;*/
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #333333;
+  shape-rendering: crispEdges;
+}
+
+.axis path {
+  display: none;
+}
+
+.axis text{
+  color: #333333;
+  font-size: 12px;
+}
+#yLabel{
+  position: fixed;
+  right: -15px;
+  font-size: 12px;
+  font-weight: 600;
+  font-style: italic;
+  width: 79px;
+  top: 160px;
+}
+.xLabel{
+  opacity: 1;
+  font-size: 12px;
+  color: #333333;
+}
+.line {
+  fill: none !important;
+  /*stroke: #EFEFEF;*/
+  /*stroke-width: 1px;*/
+  pointer-events: none;
+}
+
+#chart{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 120px;
+}
+#main-text{
+  width: 260px;
+  /*font-size: 14px;*/
+  /*font-family: Lato;*/
+  position: absolute;
+  left: 60px;
+  top: 28%;
+  z-index: -1;
+}
+#links{
+  display: inline-block;
+  float: right;
+  width: 50%;
+  padding-left: 20px;
+  padding-top: 120px;
+}
+
+#links a{
+  text-decoration: none;
+  color: #1696d2;
+  font-size: 17px;
+}
+
+.trigger{
+  cursor: pointer;
+}
+.dot{
+  /*pointer-events: none;*/
+  stroke: none !important;
+  /*opacity: 1;*/
+  fill: #EFEFEF;
+  pointer-events: none; 
+
+}
+.mouseoverText{
+  font-size: 12px;
+  /*font-family: Lato;*/
+  color: #333333;
+  pointer-events: none;
+}
+.mouseoverBackground{
+  fill: #fff;
+  pointer-events: none;
+}
+
+.x.axis{
+  display: none;
+}
+
+.line.actual{
+  stroke: #1696d2 ;
+  stroke-width: 2px;
+}
+.line.noPolicy{
+  stroke: #333 ;
+  stroke-width: 2px;
+}
+.line.selected, .line.menuSelected{
+  stroke: #ec008c ;
+  stroke-width: 2px ;
+  /*pointer-events: visible;  */
+}
+.line.highlighted{
+  stroke: #868686;
+  /*pointer-events: visible;*/
+
+}
+.dot.actual{
+  fill: #1696d2 ;
+}
+.dot.noPolicy{
+  fill: #333 ;
+}
+.dot.selected, .dot.menuSelected{
+  fill: #ec008c ;
+  /*pointer-events: visible;*/
+}
+.dot.highlighted{
+  fill: #868686;
+  /*pointer-events: visible;*/
+}
+
+.trigger{
+  pointer-events: none;
+}
+.highlighted .trigger, .selected .trigger, .actual .trigger, .noPolicy .trigger, .trigger.highlighted, .menuSelected .trigger{
+  pointer-events: visible;
+}
+
+.projLabel{
+  fill: #9A9A9A;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 1px;  
+}
+/*.trigger.on{
+  pointer-events: visible;
+}
+.trigger.off{
+  pointer-events: none;
+}
+*/
+
+/*Dropdowns*/
+.styled-select select {
+   background: transparent;
+   width: 280px;
+   height: 45px;
+   padding-left: 10px;
+   font: 16px Lato;
+   /*font-size: 16px;*/
+   color: #818385;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   -webkit-appearance: none;
+}
+
+.styled-select {
+   top: 125px;
+   width: 280px;
+   height: 45px;
+   overflow: hidden;
+   background: url(../images/new_arrow.png) no-repeat right #EFEFEF;
+   border: none;
+   z-index: 2;
+   position: fixed;
+}
+
+.styled-select.state{
+  /*display: none;*/
+  top: 74px;
+  left: 240px;
+  width: 120px;
+  height: 45px;
+  overflow: hidden;
+  background: url(../images/state_arrow.png) no-repeat right transparent;
+  border: none;
+  z-index: 2;
+  position: fixed;
+}
+
+.styled-select.state select{
+  color: rgba(0,0,0,0);
+}
+#stateName{
+  position: fixed;
+  top: 76px;
+  left: 60px;
+  font-size: 24px;
+}
+
+#menuContainer{
+  width: 100%;
+  height: 140px;
+  position: fixed;
+  background: #fff;
+}
+
+*:focus{
+outline:none;
+}
+
+.offender-type{
+  left: 60px;
+}
+.amount-type{
+  left: 660px;
+}
+.reduction-type{
+  left: 360px;
+}
+
+
+/*Tooltip styles*/
+#tooltip{
+  position: fixed;
+  top: 550px;
+  left: 3000px;
+}
+
+#helpText{
+  position: fixed;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 600;
+  top: 420px;
+  width: 240px;
+  pointer-events: none;
+}
+
+#tooltip h2{
+  font-size: 20px;
+  font-weight: normal;
+}
+
+#tooltip p:not(.summary){
+  color: #818385;
+  font-size: 18px;
+  width: 200px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+#tooltip span.proj{
+  color: #ec008c;
+  float: left;
+  margin-right: 5px;
+}
+
+.summary{
+  width: 280px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ec008c;
+  margin-top: 20px;
+}
+
+.summary span{
+  float: none;
+}
+    
+    #header-pinned {
+        position: fixed;
+/*        top: -50px;*/
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-bottom: 1px solid #e6e5e5  ;
+        z-index: 999;
+        -webkit-transition: top 0.25s linear;
+        -moz-transition: top 0.25s linear;
+        -o-transition: top 0.25s linear;
+        transition: top 0.25s linear;
+    }
+    
+    #header-pinned .content {
+        height: 49px;
+        max-width: 1500px;
+        margin: 0 auto;
+        position: relative;
+    }
+    #header-pinned * {
+  color: #333;
+        font-weight: 400;
+        text-decoration: none;
+}
+    
+    #header-pinned .site-logo {
+        display: block;
+        width: 34px;
+        height: 34px;
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        background: url(http://www.urban.org/sites/all/themes/urban/images/logo-mini-dark.png) no-repeat;
+        background-size: 34px 34px;
+    }
+    
+        #header-pinned .title {
+  font-size: 14px;
+  line-height: 49px;
+  margin: 0 65px 0 55px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+    
+    
+    #header-pinned .title {
+        font-size: 20px;
+        margin-left: 80px;
+    }
+    
+
+    #header-pinned .title span,
+    #header-pinned .title a {
+        display: inline;
+    }
+    
+    #header-pinned .share-icons {
+        background-color: transparent;
+        width: 69px;
+        height: 50px;
+        margin: 0;
+        padding: 0;
+        top: 0;
+        width: 60px;
+        position: absolute;
+        right: 0;
+    }
+    
+    #header-pinned .share-icons .shareThisP {
+        border-top: 0;
+        border-left: 1px solid #e6e5e5  ;
+        height: 49px;
+        padding: 9px 0 0;
+    }
+    
+    #header-pinned .share-icons .shareThisB {
+        float: none;
+    }
+    
+    #header-pinned .share-icons .shareThisB {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -2396px;
+        height: 32px;
+        width: 32px;
+        float: none;
+        margin: 0 auto;
+    }
+    
+    #header-pinned .share-icons .shareThisB:hover {
+    background-position: 0 -1948px;
+    }
+    #header-pinned .share-icons .shareThisW {
+        display: none;
+        float: none;
+        top: 50px;
+        right: 0;
+        left: auto;
+        width: 300px;
+        text-align: right;
+        border: 0;
+        background: transparent;
+    }
+    
+    #header-pinned .share-icons .shareThisW {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        position: absolute;
+        top: 42px;
+        left: -138px;
+        padding: 0 0 9px;
+        border-top: 0;
+        width: 200px;
+    }
+    
+    #header-pinned .share-icons .addthis_toolbox {
+        display: inline-block;
+        width: auto;
+        border: 1px solid #e6e5e5  ;
+        border-top: 0;
+        background: #fff;
+        padding: 10px 10px 0 0;
+        margin: 0 auto;
+    }
+    
+    #header-pinned .share-icons .at15t_twitter.at16t_twitter,
+    #header-pinned .share-icons .addthis_button_facebook {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -2056px;
+        height: 32px;
+        width: 32px;
+    }
+    
+    #header-pinned .share-icons .at15t_twitter.at16t_twitter,
+    #header-pinned .share-icons .addthis_button_twitter {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -1169px;
+        height: 32px;
+        width: 32px;
+    }
+    
+    #header-pinned .share-icons .at15t_linkedin.at16t_linkedin,
+    #header-pinned .share-icons .addthis_button_linkedin {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -1641px;
+        height: 32px;
+        width: 32px;
+    }
+    
+    #header-pinned .share-icons .at15t_google_plusone_share.at16t_google_plusone_share,
+    #header-pinned .share-icons .addthis_button_google_plusone_share {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -1719px;
+        height: 32px;
+        width: 32px;
+    }
+    
+    #header-pinned .share-icons .at15t_email.at16t_email,
+    #header-pinned .share-icons .addthis_button_email {
+        display: block;
+        background-repeat: no-repeat;
+        background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
+        background-position: 0 -1449px;
+        height: 32px;
+        width: 32px;
+    }
+    
+    #header-pinned .share-icons [class^="addthis_button_"] {
+        display: inline-block !important;
+        margin: 0 0 0 10px;
+    }
+    
+    #header-pinned .share-icons .addthis_toolbox a {
+        margin-bottom: 5px;
+    }
+    
+    .at_a11y{
+     display: none;
+    }
