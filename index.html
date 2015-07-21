@@ -41,9 +41,13 @@
         </div>
     </div>
     <!--    end header-->
+<div id = "loading">
+  <img src = "images/loading-gif.gif"/>
+</div>
 <div id = "menuContainer">
     <div id = "stateName">15 state aggregate</div>
     <div class="state styled-select">
+    <img id = "stateImg" src = "/images/state_arrow.png"/>
    <select>
       <option value = "ALL_STATES">15 state aggregate</div>
       <option value = "AL">Alabama</option>
@@ -67,12 +71,12 @@
 <div class="offender-type styled-select filter">
  <select>
     <option value = "">Select offense/admission type</option>
-    <option value = "violent">Violent admissions</option>
-    <option value = "nonviolent">Nonviolent admissions</option>
-    <option value = "property">Property admissions</option>
-    <option value = "drug">Drug admissions</option>
-    <option value = "revocation">Revocation admissions</option>
-    <option value = "all">All admissions</option>
+    <option value = "violent">Violent offenses</option>
+    <option value = "nonviolent">Nonviolent offenses</option>
+    <option value = "property">Property offenses</option>
+    <option value = "drug">Drug offenses</option>
+    <option value = "revocation">Revocations</option>
+    <option value = "all">All offenses</option>
  </select>
 </div>
 
@@ -101,12 +105,12 @@
 </div>
 
 <div id = "tooltip">
-  <h2>Highlighted Proposal</h2>
+  <h2>Highlighted Scenario</h2>
   <p class = "other"></p>
   <span class = "proj">+</span><p class = "offender proj"></p>
   <span class = "proj">+</span><p class = "reduction proj"></p>
   <span class = "proj">+</span><p class = "amount proj"></p>
-  <p class = "summary">This proposal would <span id = "direction">reduce</span> <span id = "state">the aggregate</span> prison population by <span id = "amount"></span> between 2012 and 2022.</span>
+  <p class = "summary">This scenario would <span id = "direction">reduce</span> <span id = "state">the aggregate</span> prison population by <span id = "amount"></span> by 2022.</span>
 </div>
 <div id = "main-text">
 <div id = "links">
@@ -177,6 +181,8 @@ Jerky tenderloin bresaola, sausage chuck beef ribs tri-tip drumstick hamburger. 
 
 
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
 <script src="js/vendor/d3.min.js"></script>
 <script src = "js/main.js"></script>
 </body>

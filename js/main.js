@@ -78,7 +78,7 @@ function drawTooltip(offender, reduction, amount){
       numDiff = Math.abs(numDiff)
       var percentDiff = numDiff/val2012
       var percent = d3.format("%")
-      return PRISONERS(numDiff) + " (" + percent(percentDiff) + " percent)"
+      return PRISONERS(numDiff) + " thousand (" + percent(percentDiff) + " percent)"
     })
   }
   // console.log(  d3.select(".summary #amount").text())
@@ -87,7 +87,7 @@ function drawTooltip(offender, reduction, amount){
 function selectSeries(offender, reduction, amount){
 
   if(offender == "" && reduction == "" && amount == ""){
-    // d3.selectAll(".actual.highlighted").classed("temp", false)
+    d3.selectAll(".noPolicy").classed("selected", true)
     // d3.selectAll(".noPolicy.highlighted").classed("highlighted", false)
 
     d3.selectAll(".trigger").classed("highlighted", true)
@@ -152,7 +152,7 @@ function selectSeries(offender, reduction, amount){
         d3.selectAll(combination).each(function() { this.parentNode.parentNode.appendChild(this.parentNode); });
         d3.selectAll(".noPolicy").each(function() { this.parentNode.parentNode.appendChild(this.parentNode); });
       }
-    }, 400);
+    }, 500);
   }
 
 }
@@ -765,8 +765,8 @@ function drawGraphic(state){
           // 200000
         ]);
 
-        d3.select(".y.axis").transition().duration(2000).call(yAxis)
-        d3.selectAll(".line").transition().duration(500).attr("d", function(d){
+        d3.select(".y.axis").transition().duration(2200).call(yAxis)
+        d3.selectAll(".line").transition().duration(1000).attr("d", function(d){
           var line = d3.svg.line()
             .defined(function(d) { return d[state] != 0; })
             .x(function(d) { return x(d.date); })
@@ -877,7 +877,7 @@ function drawGraphic(state){
           }
         })
         .transition()
-        .duration(800)
+        .duration(1200)
         .attr("opacity",1)
       }
       d3.select(".styled-select.state select")
@@ -885,12 +885,13 @@ function drawGraphic(state){
           var activeState = d3.select(".styled-select.state select").node().value;
           changeState(activeState);
       })
-
+      // d3.select(".line.noPolicy").style("stroke", PINK)
+// selectSeries("","","");
+selectSeries(d3.select(".offender-type select").node().value, d3.select(".reduction-type select").node().value, d3.select(".amount-type select").node().value)
 
   });
 
 
-selectSeries(d3.select(".offender-type select").node().value, d3.select(".reduction-type select").node().value, d3.select(".amount-type select").node().value)
 
 
 }
@@ -908,3 +909,16 @@ d3.selectAll(".styled-select.filter select")
       m.style("color", "#818385")
     }else{ m.style("color", "#333")}
   })
+function checkReady() {
+    var drawn = d3.select("#chart svg .series").node();
+    if (drawn == null) {
+        setTimeout("checkReady()", 300);
+    } else {
+        setTimeout(function(){
+          d3.select("#loading")
+            .transition()
+            .style("opacity", 0);
+        },500);
+    }
+}
+checkReady();
