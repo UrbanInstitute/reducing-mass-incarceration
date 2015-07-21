@@ -441,6 +441,13 @@ outline:none;
         height: 32px;
         width: 32px;
     }
+
+
+    #header-pinned .share-icons .at15t_twitter.at16t_twitter,
+    #header-pinned .share-icons .addthis_button_facebook:hover {
+        background-position: 0 -1609px;
+ 
+    }
     
     #header-pinned .share-icons .at15t_twitter.at16t_twitter,
     #header-pinned .share-icons .addthis_button_twitter {
@@ -450,6 +457,11 @@ outline:none;
         background-position: 0 -1169px;
         height: 32px;
         width: 32px;
+    }
+
+       #header-pinned .share-icons .at15t_twitter.at16t_twitter,
+    #header-pinned .share-icons .addthis_button_twitter:hover {
+        background-position: 0 -1577px;
     }
     
     #header-pinned .share-icons .at15t_linkedin.at16t_linkedin,
@@ -462,6 +474,11 @@ outline:none;
         width: 32px;
     }
     
+           #header-pinned .share-icons .at15t_linkedin.at16t_linkedin,
+    #header-pinned .share-icons .addthis_button_linkedin:hover {
+        background-position: 0 -1379px;
+    }
+
     #header-pinned .share-icons .at15t_google_plusone_share.at16t_google_plusone_share,
     #header-pinned .share-icons .addthis_button_google_plusone_share {
         display: block;
@@ -480,6 +497,11 @@ outline:none;
         background-position: 0 -1449px;
         height: 32px;
         width: 32px;
+    }
+
+               #header-pinned .share-icons .at15t_email.at16t_email,
+    #header-pinned .share-icons .addthis_button_email:hover {
+        background-position: 0 -1271px;
     }
     
     #header-pinned .share-icons [class^="addthis_button_"] {
