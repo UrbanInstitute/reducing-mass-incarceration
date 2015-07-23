@@ -1,14 +1,36 @@
-@media (max-width: 768px) {
-  #chart, .styled-select {
-    position: absolute !important;
+@media (max-width: 1000px) and (min-width: 768px) {
+  .styled-select:not(.state){
+    width: 200px !important; 
+  }
+  .styled-select:not(.state) select{
+    width: 160px !important;
+    font: 11px Lato !important;
+  }
+  div.reduction-type{
+    left: 270px !important;
   }
   div.amount-type{
+    left: 480px !important;
+  }
+  .refresh{
+    left: 690px !important;
+  }
+  #yLabel{
+    top: 180px !important;
+  }
+/*  div.amount-type{
     left: 8px;
     top: 60px;
-  }
+  }*/
 /*  .main-text{
     width: 77% !important;
   }*/
+  circle.dot{
+    /*display: none !important;*/
+  }
+}
+
+@media (max-width: 768px) and (min-width: 400px) {
   .dot{
     display: none;
   }
@@ -177,6 +199,9 @@ body {
 }
 */
 
+.styled-select.filter select{
+  pointer-events: none; /*NOT SURE ABOUT THIS IN IE NEED TO TEST*/
+}
 /*Dropdowns*/
 .styled-select select {
    background: transparent;
@@ -257,8 +282,10 @@ outline:none;
 
 /*Tooltip styles*/
 #tooltip{
+  background-color: rgba(255,255,255,.8);
+  z-index: 10;
   position: fixed;
-  top: 550px;
+  bottom: 0%;
   left: 3000px;
 }
 
@@ -523,7 +550,7 @@ outline:none;
  display: block;
  position: fixed;
    top: 125px;
-   left: 1000px;
+   left: 950px;
         background-repeat: no-repeat;
         background-image: url(http://www.urban.org/sites/all/themes/urban/images/generated/icons-s8fe141aaaa.png);
         background-position: 0 -1519px;
