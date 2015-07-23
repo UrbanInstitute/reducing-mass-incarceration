@@ -167,7 +167,7 @@ function drawGraphic(state){
   var amounts = ["five", "fifteen", "twentyFive", "fifty"]
 
   d3.select("#chart svg").remove();
-  var margin = {top: 120, right: 80, bottom: 30, left: 70};
+  var margin = {top: 120, right: 80, bottom: 130, left: 70};
   var width = (window.innerWidth - margin.left - margin.right > 1500) ? 1500 : window.innerWidth - margin.left - margin.right ;
   var height = window.innerHeight - margin.top - margin.bottom;
 
@@ -897,6 +897,21 @@ selectSeries(d3.select(".offender-type select").node().value, d3.select(".reduct
 }
 var activeState = d3.select(".styled-select.state select").node().value;
 drawGraphic(activeState);
+
+$(".styled-select.filter").click(function () {
+    var element = $(this).children("select")[0],
+        worked = false;
+    if(document.createEvent) { // all browsers
+        var e = document.createEvent("MouseEvents");
+        e.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false,       false, false, false, 0, null);
+        worked = element.dispatchEvent(e);
+    } else if (element.fireEvent) { // ie
+        worked = element.fireEvent("onmousedown");
+    }
+    if (!worked) { // unknown browser / error
+        alert("It didn't worked in your browser.");
+    }
+});
 
 d3.selectAll(".styled-select.filter select")
   // .style("color", function(){
