@@ -59,15 +59,17 @@ margin: 0 auto;
 
 .scenario{
 display: inline-block;
-background-color: #ec008b;
-padding-left: 4px;
-padding-right: 4px;
-color: #fff;
+text-decoration: underline;
+padding-right: 20px;
+height: 20px;
+color: #ec008c;
+   background: url(../images/chart-icon-01.png) no-repeat right #EFEFEF;
+background-repeat: no-repeat;
 }
-.scenario:hover{
+/*.scenario:hover{
 background-color: #000;
 
-}
+}*/
 
 .axis path,
 .axis line {
