@@ -48,10 +48,47 @@
 
 body {
   font: 16px Lato;
-  font-color: #333;
-  font-weight: 300;
+  color: #666;
+  font-weight: 400;
   margin-top: 0;
   /*margin-right: 100px;*/
+}
+
+
+h1{
+font-weight: 100;
+font-size: 2.25em;
+color: #000;
+}
+h2{
+  font-weight: 100;
+  font-size:1.75em;
+  color: #000;
+}
+h3{
+font-weight: 400;
+font-size: 0.9em;
+text-transform: uppercase;
+color: #1696d2
+
+}
+
+.inline-chart{
+width: 100%;
+max-width: 600px;
+margin: 0 auto;
+}
+
+.scenario{
+display: inline-block;
+background-color: #ec008b;
+padding-left: 4px;
+padding-right: 4px;
+color: #fff;
+}
+.scenario:hover{
+background-color: #000;
+
 }
 
 .axis path,
@@ -331,6 +368,8 @@ outline:none;
   float: none;
 }
     
+
+    /*HEADER*/
     #header-pinned {
         position: fixed;
 /*        top: -50px;*/
@@ -544,6 +583,8 @@ outline:none;
      display: none;
     }
 
+    /*end css for header*/
+
 
 .refresh{
  z-index: 3;
@@ -560,6 +601,7 @@ outline:none;
 .refresh:hover{
         background-position: 0 -1751px;
 }
+
 #loading{
   width: 100%;
   height: 5000px;
