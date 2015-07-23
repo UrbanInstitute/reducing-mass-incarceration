@@ -518,9 +518,9 @@ outline:none;
     }
 
 
-#refresh{
+.refresh{
  display: block;
- position: absolute;
+ position: fixed;
    top: 125px;
    left: 1000px;
         background-repeat: no-repeat;
@@ -529,10 +529,8 @@ outline:none;
         height: 35px;
         width: 45px;
 }
-#refresh:hover{
+.refresh:hover{
         background-position: 0 -1751px;
-
-
 }
 #loading{
   width: 100%;
