@@ -519,6 +519,7 @@ outline:none;
 
 
 .refresh{
+ z-index: 3;
  display: block;
  position: fixed;
    top: 125px;
