@@ -75,7 +75,7 @@ color: #1696d2
 
 .inline-chart{
 width: 100%;
-max-width: 600px;
+max-width: 500px;
 margin: 0 auto;
 }
 
@@ -331,11 +331,11 @@ outline:none;
 
 /*Tooltip styles*/
 #tooltip{
-  background-color: rgba(255,255,255,.8);
   z-index: 10;
   position: fixed;
-  bottom: 0%;
+  bottom: 10%;
   left: 3000px;
+  background-color: rgba(255,255,255,.8);
 }
 
 #helpText{
@@ -355,6 +355,7 @@ outline:none;
 
 #tooltip p:not(.summary){
   color: #818385;
+
   font-size: 18px;
   width: 200px;
   margin-top: 5px;
