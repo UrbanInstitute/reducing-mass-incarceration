@@ -65,18 +65,12 @@ function drawTooltip(offender, reduction, amount){
     .text(function(){
       var state = d3.select(".styled-select.state select").node().value;
       var val2022 = d3.select(("g." + offender + "." + reduction + "." + amount + " .mouseoverText.Dec2021.val")).text();
-      var val2012 = d3.select((".xLabel.Dec2012.val")).text();
-      val2012 = parseFloat(val2012.replace(",",""));
+      var valBase = d3.select((".xLabel.Dec2021.val")).text();
+      valBase = parseFloat(valBase.replace(",",""));
       val2022 = parseFloat(val2022.replace(",",""));
-      numDiff = val2022 - val2012
-      console.log(val2022, val2012, numDiff)
-      if (numDiff > 0){
-        d3.select(".summary #direction").text("increase")
-      } else{
-        d3.select(".summary #direction").text("reduce") 
-      }
+      numDiff = val2022 - valBase
       numDiff = Math.abs(numDiff)
-      var percentDiff = numDiff/val2012
+      var percentDiff = numDiff/valBase
       var percent = d3.format("%")
       return PRISONERS(numDiff) + " thousand (" + percent(percentDiff) + " percent)"
     })
@@ -213,7 +207,7 @@ function drawGraphic(state){
     .append("svg:linearGradient")
       .attr("id", "gradient")
       .attr("x1", "0%")
-      .attr("y1", "0%")
+      .attr("y1", "40%")
       .attr("x2", "0%")
       .attr("y2", "100%")
       .attr("spreadMethod", "pad");
@@ -687,7 +681,7 @@ function drawGraphic(state){
         var h = window.innerHeight;
         var pix = (amount/100.) * innerHeight;
         d3.select(".scrollFade.solid")
-          .attr("height", (pix - 69))
+          .attr("height", (pix - 67))
         d3.select(".scrollFade.gradient")
           .attr("y", (pix - 69 - 120))
         d3.select("#main-text")
@@ -696,6 +690,7 @@ function drawGraphic(state){
           .style("top", (pix+130) + "px")
       }
       function changeState(state){
+        d3.select(".styled-select.state select").node().value = state;
         switch(state){
           case "ALL_STATES":
             moveText(17);
@@ -885,6 +880,21 @@ function drawGraphic(state){
           var activeState = d3.select(".styled-select.state select").node().value;
           changeState(activeState);
       })
+      d3.selectAll(".scenario")
+        .on("click", function(){
+          var params = d3.select(this).attr("id").split("-");
+          var state = params[0];
+          var offender = params[1];
+          var reduction = params[2];
+          var amount = params[3];
+          // var state = "GA";
+          var ms = (state == d3.select(".styled-select.state select").node().value) ? 0 : 1400;
+          if (ms != 0){changeState(state)}
+          setTimeout(function(){
+            selectSeries(offender,reduction,amount);  
+          }, ms)
+          
+        });
       // d3.select(".line.noPolicy").style("stroke", PINK)
 // selectSeries("","","");
 selectSeries(d3.select(".offender-type select").node().value, d3.select(".reduction-type select").node().value, d3.select(".amount-type select").node().value)
