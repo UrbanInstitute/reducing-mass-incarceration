@@ -76,6 +76,7 @@ color: #1696d2
 .inline-chart{
 width: 100%;
 max-width: 500px;
+display: block;
 margin: 0 auto;
 }
 
