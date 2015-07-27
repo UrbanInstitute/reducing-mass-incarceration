@@ -691,10 +691,10 @@ function drawGraphic(state){
           .attr("height", (pix - 67))
         d3.select(".scrollFade.gradient")
           .attr("y", (pix - 69 - 120))
-        d3.select("#main-text")
-          .transition()
-          .duration(700)
-          .style("top", (pix+130) + "px")
+        // d3.select("#main-text")
+        //   .transition()
+        //   .duration(700)
+        //   .style("top", (pix+130) + "px")
       }
       function changeState(state){
         d3.select(".styled-select.state select").node().value = state;
@@ -888,7 +888,7 @@ function drawGraphic(state){
           changeState(activeState);
       })
       d3.selectAll(".scenario")
-        .on("click", function(){
+        .on("mouseover", function(){
           var params = d3.select(this).attr("id").split("-");
           var state = params[0];
           var offender = params[1];
