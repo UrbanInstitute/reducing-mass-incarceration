@@ -54,6 +54,9 @@ body {
   /*margin-right: 100px;*/
 }
 
+body p{
+  line-height: 1.8em;
+}
 
 h1{
 font-weight: 100;
@@ -87,20 +90,17 @@ background-repeat: no-repeat;
 padding-right: 20px;
 /*line-height: 1.5em;*/
 height: 20px;
-border-bottom: 3px solid #a2d5ed;
-box-shadow: inset 0 -5px 0 #a2d5ed;
+border-bottom: 3px solid #D0E9F4;
+box-shadow: inset 0 -5px 0 #D0E9F4;
 cursor: pointer;
 /*color: #000;*/
 
 }
-/*.scenario:hover{
-background-color: #000;
-
-}*/
-.scenario::before{
-   
+.scenario:hover{
+background-color: #D0E9F4;
 
 }
+
 
 .axis path,
 .axis line {
@@ -342,7 +342,8 @@ outline:none;
   position: fixed;
   font-size: 14px;
   font-style: italic;
-  font-weight: 600;
+  line-height: 1.2em;
+  font-weight: 400;
   top: 420px;
   width: 240px;
   pointer-events: none;
