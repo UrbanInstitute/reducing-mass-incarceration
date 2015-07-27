@@ -79,14 +79,21 @@ function drawTooltip(offender, reduction, amount){
 
 }
 function selectSeries(offender, reduction, amount){
+  d3.select(".styled-select.offender-type select").node().value = offender;
+  d3.select(".styled-select.reduction-type select").node().value = reduction;
+  d3.select(".styled-select.amount-type select").node().value = amount;
+
 
   if(offender == "" && reduction == "" && amount == ""){
+
     d3.selectAll(".noPolicy").classed("selected", true)
     // d3.selectAll(".noPolicy.highlighted").classed("highlighted", false)
 
     d3.selectAll(".trigger").classed("highlighted", true)
     d3.selectAll(".line:not(.actual):not(.noPolicy)").classed("highlighted", true).transition().duration(1000).style("stroke", DARK_GREY)
     d3.selectAll(".dot:not(.actual):not(.noPolicy)").classed("highlighted", true).transition().duration(1000).style("fill", DARK_GREY)
+    d3.selectAll(".menuSelected").classed("menuSelected", false)
+    hideTooltip();
   }
   else{
     hideTooltip();
@@ -895,6 +902,10 @@ function drawGraphic(state){
           }, ms)
           
         });
+        d3.select(".refresh")
+          .on("click", function(){
+            selectSeries("","","")
+          })
       // d3.select(".line.noPolicy").style("stroke", PINK)
 // selectSeries("","","");
 selectSeries(d3.select(".offender-type select").node().value, d3.select(".reduction-type select").node().value, d3.select(".amount-type select").node().value)
