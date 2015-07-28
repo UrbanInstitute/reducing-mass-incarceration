@@ -686,12 +686,14 @@ function drawGraphic(state){
                 var textMargin = parseInt(d3.select(this).style("left").replace("px",""))
                 var w = x(lastDate)-textMargin+graphMargin
               d3.selectAll(".scrollFade").attr("width", w + 50)
+              d3.select(".state.mobile")
+                .style("width", function(){  return w+24 + "px"})
                 // d3.select("#tooltip").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
               d3.select("#tooltip").datum({"left": (x(lastDate) + graphMargin + textMargin) + "px"})
               // d3.select("#helpText").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
                 return w + "px"
               });
-              
+
             d3.select("tooltip")
               .style("left", function(){
                   var w = x(lastDate)-textMargin+graphMargin
@@ -717,7 +719,7 @@ function drawGraphic(state){
       }
       function changeState(state, trigger){
         d3.select(".styled-select.state select").node().value = state;
-        if(trigger != "inline"){
+        if(trigger != "inline" && !isMobile){
           switch(state){
             case "ALL_STATES":
               moveText(17);
@@ -909,7 +911,7 @@ function drawGraphic(state){
           changeState(activeState, "menu");
       })
       d3.selectAll(".scenario")
-        .on("mouseover", function(){
+        .on("click", function(){
           var params = d3.select(this).attr("id").split("-");
           var state = params[0];
           var offender = params[1];
