@@ -212,7 +212,7 @@ function drawGraphic(state){
   var yRight = (window.innerWidth - margin.left - margin.right > 1500) ? (window.innerWidth - margin.left - margin.right-1500-10) : -10;
   d3.select("#yLabel")
     .style("right", yRight + "px")
-
+    .text(function(){ var yText = (isMobile) ? "Statewide prison pop. (thousands)" : "Statewide prison population (thousands)"; return yText;})
   var line = d3.svg.line()
       .defined(function(d) { return d.series != 0; })
       .x(function(d) { return x(d.date); })
@@ -617,7 +617,7 @@ function drawGraphic(state){
               svg.append("text")
                 .attr("class", "projLabel")
                 .attr("x", x(lastDate) + 30)
-                .attr("y",-20)
+                .attr("y",function(){var pY = (isMobile) ? -55:-20; return pY;})
                 .text("PROJECTIONS")
               d3.select(d3.select(".xLabel.mid").node().parentNode)
                 .append("line")

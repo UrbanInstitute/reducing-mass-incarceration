@@ -38,16 +38,24 @@
 }
 
 @media only screen and (max-width: 768px) and (min-width: 100px) {
-  circle.dot{
+  circle.dot, #header-pinned, .scrollFade, .xLabel.mid, .labelLine:not(.first):not(.last){
     display: none !important;
-  }
-  #header-pinned{
-    display: none;
   }
   #chart{
     top: 0px !important;
     background-color: white !important;
     height: 50% !important;
+  }
+  #yLabel{
+    z-index: 9 !important;
+    right: -76px !important;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);    width: 180px !important;
+    top: 240px !important
+
   }
   #main-text{
     width: 86% !important;
@@ -55,9 +63,6 @@
     margin-top: 32% !important;
   }
   .styled-select{
-    display: none;
-  }
-  .xLabel.mid, .xLabel.last, .labelLine:not(.first){
     display: none;
   }
   #tooltip{
@@ -672,14 +677,14 @@ outline:none;
 #loading{
   width: 100%;
   height: 5000px;
-  z-index: 4;
+  z-index: 13;
   background: #fff;
   position: fixed;
   pointer-events: none;
 }
 
 #loading img{
-  z-index: 5;
+  z-index: 14;
   position: fixed;
   left: 50%;
   width: 50px;
