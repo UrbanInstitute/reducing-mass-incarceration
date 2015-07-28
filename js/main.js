@@ -911,7 +911,6 @@ function drawGraphic(state){
       }
       d3.select(stateMenu + " select")
         .on("change", function(){
-          console.log("foo")
           var activeState = d3.select(stateMenu + " select").node().value;
           changeState(activeState, "menu");
       })
@@ -947,6 +946,12 @@ selectSeries(d3.select(".offender-type select").node().value, d3.select(".reduct
 var activeState = d3.select(stateMenu + " select").node().value;
 drawGraphic(activeState);
 
+d3.select("#hamburger img")
+  .on("click", function(){
+    var display = d3.selectAll(".mobileHide").style("display")
+    if (display == "block"){ d3.selectAll(".mobileHide").style("display", "none") }
+    else{ d3.selectAll(".mobileHide").style("display", "block") }
+  })
 $(".styled-select.filter").click(function () {
     var element = $(this).children("select")[0],
         worked = false;
