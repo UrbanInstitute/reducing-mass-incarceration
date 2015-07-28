@@ -87,10 +87,19 @@
   .summary, .defaultSummary{
     font-size: 15px !important;
     font-weight: 400 !important;
+  }
 
+  #hamburger img{
+    width: 30px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 2px;
   }
 }
 
+#mobileMenu{
+  display: none;
+}
 /*@media (max-width: 590px) {
   div.amount-type{
     left: 8px;

@@ -30,6 +30,8 @@ d3.select(window).on('resize', function(){
 function hideTooltip(){
   d3.select("#tooltip")
     .transition()
+    .delay(1000)
+    .duration(1000)
     .style("left", "3000px")
 }
 function drawTooltip(offender, reduction, amount){
