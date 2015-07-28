@@ -5,8 +5,13 @@ var LIGHT_GREY = "#efefef"
 var PRISONERS = d3.format(",f")
 var DATE = d3.time.format("%b, %Y")
 var PERCENT = d3.format("%")
+var isMobile = (d3.select("#header-pinned").style("display") == "none")
+var stateMenu = (isMobile) ? ".styled-select.state.mobile" : ".styled-select.state:not(.mobile)";
+
 d3.select(window).on('resize', function(){
-  var activeState = d3.select(".styled-select.state select").node().value;
+  // var isMobile = (d3.select("#header-pinned").style("display") == "none")
+  // var m = (isMobile) ? ".mobile" : ""
+  var activeState = d3.select(stateMenu + " select").node().value;
   drawGraphic(activeState)
 });
   function allPossibleCases(arr) {
@@ -35,7 +40,6 @@ function hideTooltip(){
     .style("left", "3000px")
 }
 function drawTooltip(offender, reduction, amount){
-  var isMobile = (d3.select("#header-pinned").style("display") == "none")
 
   var left = (isMobile) ? "17px" : d3.select("#tooltip").datum().left;
   d3.select("#tooltip")
@@ -74,7 +78,7 @@ function drawTooltip(offender, reduction, amount){
     .style("display", "block")
   d3.select(".summary #amount")
     .text(function(){
-      var state = d3.select(".styled-select.state select").node().value;
+      var state = d3.select(stateMenu + " select").node().value;
       var val2022 = d3.select(("g." + offender + "." + reduction + "." + amount + " .mouseoverText.Dec2021.val")).text();
       var valBase = d3.select((".xLabel.Dec2021.val")).text();
       valBase = parseFloat(valBase.replace(",",""));
@@ -718,7 +722,7 @@ function drawGraphic(state){
           .style("top", (pix+130) + "px")
       }
       function changeState(state, trigger){
-        d3.select(".styled-select.state select").node().value = state;
+        d3.select(stateMenu + " select").node().value = state;
         if(trigger != "inline" && !isMobile){
           switch(state){
             case "ALL_STATES":
@@ -905,9 +909,10 @@ function drawGraphic(state){
         .duration(1200)
         .attr("opacity",1)
       }
-      d3.select(".styled-select.state select")
+      d3.select(stateMenu + " select")
         .on("change", function(){
-          var activeState = d3.select(".styled-select.state select").node().value;
+          console.log("foo")
+          var activeState = d3.select(stateMenu + " select").node().value;
           changeState(activeState, "menu");
       })
       d3.selectAll(".scenario")
@@ -918,7 +923,7 @@ function drawGraphic(state){
           var reduction = params[2];
           var amount = params[3];
           // var state = "GA";
-          var ms = (state == d3.select(".styled-select.state select").node().value) ? 0 : 1400;
+          var ms = (state == d3.select(stateMenu + " select").node().value) ? 0 : 1400;
           if (ms != 0){changeState(state, "inline")}
           setTimeout(function(){
             selectSeries(offender,reduction,amount);  
@@ -939,7 +944,7 @@ selectSeries(d3.select(".offender-type select").node().value, d3.select(".reduct
 
 
 }
-var activeState = d3.select(".styled-select.state select").node().value;
+var activeState = d3.select(stateMenu + " select").node().value;
 drawGraphic(activeState);
 
 $(".styled-select.filter").click(function () {
