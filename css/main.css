@@ -67,6 +67,7 @@
       left: 17px !important;
       margin-top: 42% !important;
     }
+
     .styled-select:not(.state){
       z-index: 100;
     }
@@ -300,6 +301,15 @@ background-color: #D0E9F4;
   top: 35.5%;
   z-index: -1;
 }
+
+#methodology-text{
+  max-width: 650px;
+  margin: 0 auto;
+  top: 200px;
+  position: relative;
+  margin-bottom: 100px;
+}
+
 #links{
   display: inline-block;
   float: right;
