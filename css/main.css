@@ -18,24 +18,88 @@
   #yLabel{
     top: 180px !important;
   }
-/*  div.amount-type{
-    left: 8px;
-    top: 60px;
-  }*/
-/*  .main-text{
-    width: 77% !important;
-  }*/
+#tooltip h2{
+  font-size: 18px;
+}
+
+#tooltip p:not(.summary):not(.defaultSummary){
+
+  font-size: 14px;
+  line-height: 1em;
+}
+
+.summary, .defaultSummary{
+  font-size: 14px;
+  line-height: 1em;
+}
   circle.dot{
     /*display: none !important;*/
   }
 }
 
-@media (max-width: 768px) and (min-width: 400px) {
-  .dot{
+@media only screen and (max-width: 768px) and (min-width: 100px) {
+  circle.dot, #header-pinned, .scrollFade, .xLabel.mid, .labelLine:not(.first):not(.last){
+    display: none !important;
+  }
+  #chart{
+    top: 0px !important;
+    background-color: white !important;
+    height: 50% !important;
+  }
+  #yLabel{
+    z-index: 9 !important;
+    right: -76px !important;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);    width: 180px !important;
+    top: 240px !important
+
+  }
+  #main-text{
+    width: 86% !important;
+    left: 17px !important;
+    margin-top: 32% !important;
+  }
+  .styled-select{
     display: none;
+  }
+  #tooltip{
+    background: none !important;
+    top: 22% !important;
+    z-index: 0;
+    height: 200px;
+  }
+  #tooltip h2{
+    font-size: 12px;
+  }
+
+  #tooltip p:not(.summary):not(.defaultSummary):not(.other){
+    font-size: 15px !important;
+    width: 100% !important;
+  }
+  .other{
+    font-size: 15px !important;
+    width: 50% !important;
+  }
+  /*#tooltip*/
+  .summary, .defaultSummary{
+    font-size: 15px !important;
+    font-weight: 400 !important;
+  }
+
+  #hamburger img{
+    width: 30px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 2px;
   }
 }
 
+#mobileMenu{
+  display: none;
+}
 /*@media (max-width: 590px) {
   div.amount-type{
     left: 8px;
@@ -152,7 +216,7 @@ background-color: #D0E9F4;
   /*font-family: Lato;*/
   position: absolute;
   left: 60px;
-  top: 28%;
+  top: 35.5%;
   z-index: -1;
 }
 #links{
@@ -302,6 +366,7 @@ background-color: #D0E9F4;
   border: 10px solid white;
 }
 #stateName{
+  z-index: 9;
   position: fixed;
   top: 76px;
   left: 60px;
@@ -339,7 +404,7 @@ outline:none;
   background-color: rgba(255,255,255,.8);
 }
 
-#helpText{
+/*#helpText{
   position: fixed;
   font-size: 14px;
   font-style: italic;
@@ -348,18 +413,18 @@ outline:none;
   top: 420px;
   width: 240px;
   pointer-events: none;
-}
+}*/
 
 #tooltip h2{
   font-size: 20px;
   font-weight: normal;
 }
 
-#tooltip p:not(.summary){
+#tooltip p:not(.summary):not(.defaultSummary){
   color: #818385;
-
+  line-height: 1em;
   font-size: 18px;
-  width: 200px;
+  width: 250px;
   margin-top: 5px;
   margin-bottom: 5px;
   margin-left: 0px;
@@ -371,12 +436,13 @@ outline:none;
   margin-right: 5px;
 }
 
-.summary{
+.summary, .defaultSummary{
   width: 280px;
   font-size: 18px;
   font-weight: 500;
   color: #ec008c;
   margin-top: 20px;
+  line-height: 1em;
 }
 
 .summary span{
@@ -620,14 +686,14 @@ outline:none;
 #loading{
   width: 100%;
   height: 5000px;
-  z-index: 4;
+  z-index: 13;
   background: #fff;
   position: fixed;
   pointer-events: none;
 }
 
 #loading img{
-  z-index: 5;
+  z-index: 14;
   position: fixed;
   left: 50%;
   width: 50px;

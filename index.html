@@ -2,12 +2,16 @@
 <meta charset="utf-8">
 <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 <link rel = "stylesheet" href = "css/main.css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What it really takes to reduce mass incarceration</title>
+
 <body>
     <!--    header-->
     <div id="header-pinned" class="no-touch is-visible">
         <div class="content">
             <a href="/" title="Home" rel="home" class="site-logo"></a>
-            <div class="title"><a href="/features" class="title-linkback">Features</a> <span>: :</span> Stepping Up: How Cities Are Working to Keep America's Poorest Families Housed</div>
+            <div class="title"><a href="/features" class="title-linkback">Features</a> <span>: :</span> The Prison Population Forecaster</div>
             <div class="share-icons">
                 <div class="shareThisP">
                     <a href="#" onclick="toggle_visibility('shareBox');">
@@ -44,12 +48,15 @@
 <div id = "loading">
   <img src = "images/loading-gif.gif"/>
 </div>
+<div id = "mobileMenu">
+  <div id = "hambuger"><img src = "images/hamburger.png"/></div>
+</div>
 <div id = "menuContainer">
-    <div id = "stateName">15 state aggregate</div>
+    <div id = "stateName">All 15 states</div>
     <div class="state styled-select">
-    <img id = "stateImg" src = "/images/state_arrow.png"/>
+    <img id = "stateImg" src = "images/state_arrow.png"/>
    <select>
-      <option value = "ALL_STATES">15 state aggregate</div>
+      <option value = "ALL_STATES">All 15 states</div>
       <option value = "AL">Alabama</option>
       <option value = "GA">Georgia</option>
       <option value = "KY">Kentucky</option>
@@ -103,12 +110,12 @@
     </div>  </a>
 
 
-<div id = "yLabel">Statewide prison population (thousands)</div>
+<div id = "yLabel"></div>
 <div id = "chart"></div>
 
-<div id = "helpText">
+<!-- <div id = "helpText">
  Use the menus above to filter the projections by admission/offense type, policy change, and percent reduction. Mouse over a line for details.
-</div>
+</div> -->
 
 <div id = "tooltip">
   <h2>Highlighted Scenario</h2>
@@ -116,7 +123,9 @@
   <span class = "proj">+</span><p class = "offender proj"></p>
   <span class = "proj">+</span><p class = "reduction proj"></p>
   <span class = "proj">+</span><p class = "amount proj"></p>
-  <p class = "summary">This scenario would reduce <span id = "state">the aggregate</span> prison population by <span id = "amount"></span> by December, 2021.</span>
+  <p class = "summary">This scenario would bring <span id = "state">the aggregate</span> prison population down <span id = "amount"></span> by December 2021, compared with the baseline projection.</span>
+  <p class = "defaultSummary">This is the baseline scenario which all other scenarios are compared to.</p>
+
 </div>
 <div id = "main-text">
 <!--
@@ -126,7 +135,7 @@
   <p><a href = "#">Link to third section</a></p>
 </div>
 -->
-<h1>Title of Post</h1>
+<h1>What it really takes to reduce mass incarceration</h1>
 <h3>Ryan King, Bryce Peterson, and Brian Elderbroom</h3>
 <p>There is a rapidly expanding consensus that the widespread use of prison in the United States, commonly called mass incarceration, is a serious social and political problem that demands attention. As a result, reforms to the policies and practices that have resulted in exponential prison growth are being considered at the federal and state level. Today there are 2.3 million people locked up in prison or jail, and 7 million under correctional control (including probation and parole), and more than $70 billion spent annually on corrections. Research has shown that the substantial growth in correctional control over the last four decades is due to policy changes that put more people in prison and kept them there longer, not increasing crime. To the contrary, the prison population continued to grow as crime dropped to historic lows.</p><p>
     

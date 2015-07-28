@@ -30,10 +30,14 @@ d3.select(window).on('resize', function(){
 function hideTooltip(){
   d3.select("#tooltip")
     .transition()
+    .delay(1000)
+    .duration(1000)
     .style("left", "3000px")
 }
 function drawTooltip(offender, reduction, amount){
-  var left = d3.select("#tooltip").datum().left
+  var isMobile = (d3.select("#header-pinned").style("display") == "none")
+
+  var left = (isMobile) ? "17px" : d3.select("#tooltip").datum().left;
   d3.select("#tooltip")
     .transition()
     .style("left", left)
@@ -44,15 +48,22 @@ function drawTooltip(offender, reduction, amount){
     d3.select("#tooltip .other")
       .style("display","block")
       .text("These data represent measured historical prison populations.")
+    d3.select(".defaultSummary")
+      .style("display", "none")
   }
   else if(offender == "noPolicy"){
+    d3.select(".defaultSummary")
+      .style("display", "block")
     d3.select(".summary")
       .style("display", "none")
+      // .text("")
     d3.selectAll("#tooltip .proj").style("display", "none")
     d3.select("#tooltip .other")
       .style("display","block")
       .text("These data represent projected prison populations, based on current admission rates and lengths of stay.")
   } else { 
+    d3.select(".defaultSummary")
+      .style("display", "none")
     d3.selectAll("#tooltip .proj").style("display", "block")
     d3.select("#tooltip .other").style("display","none")
     d3.select("#tooltip .offender").text(d3.select("option[value=\'" + offender + "\']").text())
@@ -72,7 +83,7 @@ function drawTooltip(offender, reduction, amount){
       numDiff = Math.abs(numDiff)
       var percentDiff = numDiff/valBase
       var percent = d3.format("%")
-      return PRISONERS(numDiff) + " thousand (" + percent(percentDiff) + " percent)"
+      return PRISONERS(numDiff) + " (" + percent(percentDiff) + ")"
     })
   }
   // console.log(  d3.select(".summary #amount").text())
@@ -93,7 +104,8 @@ function selectSeries(offender, reduction, amount){
     d3.selectAll(".line:not(.actual):not(.noPolicy)").classed("highlighted", true).transition().duration(1000).style("stroke", DARK_GREY)
     d3.selectAll(".dot:not(.actual):not(.noPolicy)").classed("highlighted", true).transition().duration(1000).style("fill", DARK_GREY)
     d3.selectAll(".menuSelected").classed("menuSelected", false)
-    hideTooltip();
+    // hideTooltip();
+    drawTooltip("noPolicy","","")
   }
   else{
     hideTooltip();
@@ -168,9 +180,13 @@ function drawGraphic(state){
   var amounts = ["five", "fifteen", "twentyFive", "fifty"]
 
   d3.select("#chart svg").remove();
+  var isMobile = (d3.select("#header-pinned").style("display") == "none")
   var margin = {top: 120, right: 80, bottom: 130, left: 70};
   var width = (window.innerWidth - margin.left - margin.right > 1500) ? 1500 : window.innerWidth - margin.left - margin.right ;
   var height = window.innerHeight - margin.top - margin.bottom;
+
+  // console.log(isMobile)
+  if(isMobile){ height = height/2}
 
   var parseDate = d3.time.format("%b-%y").parse;
 
@@ -198,7 +214,7 @@ function drawGraphic(state){
   var yRight = (window.innerWidth - margin.left - margin.right > 1500) ? (window.innerWidth - margin.left - margin.right-1500-10) : -10;
   d3.select("#yLabel")
     .style("right", yRight + "px")
-
+    .text(function(){ var yText = (isMobile) ? "Statewide prison pop. (thousands)" : "Statewide prison population (thousands)"; return yText;})
   var line = d3.svg.line()
       .defined(function(d) { return d.series != 0; })
       .x(function(d) { return x(d.date); })
@@ -232,7 +248,7 @@ function drawGraphic(state){
   svg.append("rect")
       .attr("class", "scrollFade gradient")
       .attr("x",-50)
-      .attr("y",83-120)
+      .attr("y",83-69-120)
       .attr("width", 350)
       .attr("height", 148)
       .attr("fill", "url(#gradient)")
@@ -241,7 +257,7 @@ function drawGraphic(state){
       .attr("x",-50)
       .attr("y",-120)
       .attr("width", 350)
-      .attr("height", 83)
+      .attr("height", 83-67)
       .attr("fill", "#fff")
 
 
@@ -408,6 +424,9 @@ function drawGraphic(state){
               drawTooltip(offender, reduction, amount)
             } else{
               hideTooltip();
+              // d3.selectAll(".line.noPolicy").style("stroke",PINK)
+              // selectSeries("","","")
+              // drawTooltip("noPolicy","","")
             }
             // console.log(d)
             var parent = d3.select(d3.select(this).node().parentNode)
@@ -558,6 +577,7 @@ function drawGraphic(state){
                 var dx = parseInt(d3.select(this).attr("x"))
                 return dx+15
               })
+            d3.select(".xLabel.last").text("Dec, 2021 (baseline)")
               // console.log(terminalSeries)
               d3.select(d3.select(".xLabel.last").node().parentNode)
                 .append("line")
@@ -599,7 +619,7 @@ function drawGraphic(state){
               svg.append("text")
                 .attr("class", "projLabel")
                 .attr("x", x(lastDate) + 30)
-                .attr("y",-20)
+                .attr("y",function(){var pY = (isMobile) ? -55:-20; return pY;})
                 .text("PROJECTIONS")
               d3.select(d3.select(".xLabel.mid").node().parentNode)
                 .append("line")
@@ -668,15 +688,14 @@ function drawGraphic(state){
               d3.selectAll(".scrollFade").attr("width", w + 50)
                 // d3.select("#tooltip").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
               d3.select("#tooltip").datum({"left": (x(lastDate) + graphMargin + textMargin) + "px"})
-              d3.select("#helpText").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
+              // d3.select("#helpText").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
                 return w + "px"
               });
               
-            // d3.select("tooltip")
-            //   .style("left", function(){
-            //                     var w = x(lastDate)-textMargin+graphMargin
-
-            //   })
+            d3.select("tooltip")
+              .style("left", function(){
+                  var w = x(lastDate)-textMargin+graphMargin
+              })
           }
           return "line highlighted " + d.name
         })
@@ -691,62 +710,64 @@ function drawGraphic(state){
           .attr("height", (pix - 67))
         d3.select(".scrollFade.gradient")
           .attr("y", (pix - 69 - 120))
-        // d3.select("#main-text")
-        //   .transition()
-        //   .duration(700)
-        //   .style("top", (pix+130) + "px")
+        d3.select("#main-text")
+          .transition()
+          .duration(700)
+          .style("top", (pix+130) + "px")
       }
-      function changeState(state){
+      function changeState(state, trigger){
         d3.select(".styled-select.state select").node().value = state;
-        switch(state){
-          case "ALL_STATES":
-            moveText(17);
-            break;
-          case "AL":
-            moveText(35);
-            break;
-          case "GA":
-            moveText(31);
-            break;
-          case "KY":
-            moveText(46);
-            break;
-          case "MI":
-            moveText(21);
-            break;
-          case "MN":
-            moveText(46);
-            break;
-          case "MO":
-            moveText(31);
-            break;
-          case "NJ":
-            moveText(17);
-            break;
-          case "NY":
-            moveText(23);
-            break;
-          case "OK":
-            moveText(34);
-            break;
-          case "RI":
-            moveText(31);
-            break;
-          case "SC":
-            moveText(28);
-            break;
-          case "TX":
-            moveText(17);
-            break;
-          case "UT":
-            moveText(41);
-            break;
-          case "WA":
-            moveText(30);
-            break;
-          case "WY":
-            moveText(17);
-            break;
+        if(trigger != "inline"){
+          switch(state){
+            case "ALL_STATES":
+              moveText(17);
+              break;
+            case "AL":
+              moveText(35);
+              break;
+            case "GA":
+              moveText(31);
+              break;
+            case "KY":
+              moveText(46);
+              break;
+            case "MI":
+              moveText(21);
+              break;
+            case "MN":
+              moveText(46);
+              break;
+            case "MO":
+              moveText(31);
+              break;
+            case "NJ":
+              moveText(24);
+              break;
+            case "NY":
+              moveText(27);
+              break;
+            case "OK":
+              moveText(34);
+              break;
+            case "RI":
+              moveText(31);
+              break;
+            case "SC":
+              moveText(28);
+              break;
+            case "TX":
+              moveText(17);
+              break;
+            case "UT":
+              moveText(41);
+              break;
+            case "WA":
+              moveText(30);
+              break;
+            case "WY":
+              moveText(22);
+              break;
+          }
         }
         var stateName = d3.select("option[value="+state+"]").text();
         d3.select("#stateName")
@@ -885,7 +906,7 @@ function drawGraphic(state){
       d3.select(".styled-select.state select")
         .on("change", function(){
           var activeState = d3.select(".styled-select.state select").node().value;
-          changeState(activeState);
+          changeState(activeState, "menu");
       })
       d3.selectAll(".scenario")
         .on("mouseover", function(){
@@ -896,7 +917,7 @@ function drawGraphic(state){
           var amount = params[3];
           // var state = "GA";
           var ms = (state == d3.select(".styled-select.state select").node().value) ? 0 : 1400;
-          if (ms != 0){changeState(state)}
+          if (ms != 0){changeState(state, "inline")}
           setTimeout(function(){
             selectSeries(offender,reduction,amount);  
           }, ms)
