@@ -739,10 +739,10 @@ function drawGraphic(state){
               moveText(31);
               break;
             case "NJ":
-              moveText(17);
+              moveText(24);
               break;
             case "NY":
-              moveText(23);
+              moveText(27);
               break;
             case "OK":
               moveText(34);
