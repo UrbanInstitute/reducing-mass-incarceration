@@ -73,6 +73,7 @@
     .styled-select:not(.state){
       z-index: 100;
     }
+
     #tooltip{
       background: none !important;
       top: 22% !important;
@@ -436,7 +437,7 @@ background-color: #D0E9F4;
 /*Dropdowns*/
 .styled-select select {
    background: transparent;
-   width: 280px;
+   width: 330px;
    height: 45px;
    padding-left: 10px;
    font: 16px Lato;
@@ -447,7 +448,9 @@ background-color: #D0E9F4;
    border-radius: 0;
    -webkit-appearance: none;
 }
-
+select::-ms-expand {
+ display: none !important;
+}
 .styled-select {
    top: 125px;
    width: 280px;
@@ -457,6 +460,7 @@ background-color: #D0E9F4;
    border: none;
    z-index: 2;
    position: fixed;
+   overflow: hidden;
 }
 
 .styled-select.state{

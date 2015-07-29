@@ -387,6 +387,22 @@ function drawGraphic(state){
             d3
               .selectAll(".mouseoverBackground")
               .attr("opacity", 0)
+            d3.selectAll(".dot.noPolicy")
+              .style("fill","#333")
+            d3.selectAll(".dot.highlighted")
+              .style("fill",DARK_GREY)
+            d3.selectAll(".dot")
+              .style("radius",1.5)
+            d3.selectAll(".line.noPolicy")
+              .style("stroke","#333")
+            d3.selectAll(".line.highlighted")
+              .style("stroke",DARK_GREY)
+              .style("stroke-width","1px")
+            d3.selectAll(".selected")
+              .classed("selected",false)
+            d3.selectAll(".menuSelected")
+              .classed("menuSelected",false)
+
             }
             // console.log(d)
            var parent = d3.select(d3.select(this).node().parentNode)
@@ -1029,9 +1045,14 @@ function checkReady() {
         setTimeout("checkReady()", 300);
     } else {
         setTimeout(function(){
-          d3.select("#loading")
-            .transition()
-            .style("opacity", 0);
+          if(!isIE){
+            d3.select("#loading")
+              .transition()
+              .style("opacity", 0);
+          }
+          else{
+            d3.select("#loading").remove();
+          }
         },500);
     }
 }
