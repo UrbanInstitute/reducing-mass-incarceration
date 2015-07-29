@@ -1051,6 +1051,7 @@ function checkReady() {
               .style("opacity", 0);
           }
           else{
+            console.log(isIE)
             d3.select("#loading").remove();
           }
         },500);
