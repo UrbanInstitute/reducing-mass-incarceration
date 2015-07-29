@@ -1045,9 +1045,14 @@ function checkReady() {
         setTimeout("checkReady()", 300);
     } else {
         setTimeout(function(){
-          d3.select("#loading")
-            .transition()
-            .style("opacity", 0);
+          if(!isIE){
+            d3.select("#loading")
+              .transition()
+              .style("opacity", 0);
+          }
+          else{
+            d3.select("#loading").remove();
+          }
         },500);
     }
 }
