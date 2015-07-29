@@ -777,12 +777,23 @@ function drawGraphic(state){
           .duration(700)
           .style("top", (pix+130) + "px")
       }
+      changeState(state, "init")
       function changeState(state, trigger){
         d3.select(stateMenu + " select").node().value = state;
+        if(trigger == "inline" && state != "ALL_STATES" && state != "TX"){
+          d3.selectAll(".actual")
+            // .transition()
+            .style("opacity",".2")
+        }
+        else{
+          d3.selectAll(".actual")
+            // .transition()
+            .style("opacity","1")
+        }
         if(trigger != "inline" && !isMobile){
           switch(state){
             case "ALL_STATES":
-              moveText(17);
+              moveText(21);
               break;
             case "AL":
               moveText(35);
@@ -794,7 +805,7 @@ function drawGraphic(state){
               moveText(46);
               break;
             case "MI":
-              moveText(21);
+              moveText(28);
               break;
             case "MN":
               moveText(46);
@@ -803,10 +814,10 @@ function drawGraphic(state){
               moveText(31);
               break;
             case "NJ":
-              moveText(24);
+              moveText(30);
               break;
             case "NY":
-              moveText(27);
+              moveText(32);
               break;
             case "OK":
               moveText(34);
@@ -818,7 +829,7 @@ function drawGraphic(state){
               moveText(28);
               break;
             case "TX":
-              moveText(17);
+              moveText(21);
               break;
             case "UT":
               moveText(41);
@@ -827,10 +838,11 @@ function drawGraphic(state){
               moveText(30);
               break;
             case "WY":
-              moveText(22);
+              moveText(25);
               break;
           }
         }
+    if(trigger != "init"){
         var stateName = d3.select("option[value="+state+"]").text();
         d3.select("#stateName")
           .text(function(){
@@ -966,6 +978,7 @@ function drawGraphic(state){
         .duration(1200)
         .attr("opacity",1)
       }
+    }
       d3.select(stateMenu + " select")
         .on("change", function(){
           var activeState = d3.select(stateMenu + " select").node().value;
@@ -995,9 +1008,6 @@ function drawGraphic(state){
 selectSeries(d3.select(".offender-type select").node().value, d3.select(".reduction-type select").node().value, d3.select(".amount-type select").node().value)
 
   });
-
-
-
 
 }
 var activeState = d3.select(stateMenu + " select").node().value;
