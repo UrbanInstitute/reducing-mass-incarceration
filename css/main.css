@@ -73,6 +73,9 @@
     .styled-select:not(.state){
       z-index: 100;
     }
+    select::-ms-expand {
+     display: none;
+    }
     #tooltip{
       background: none !important;
       top: 22% !important;
