@@ -35,12 +35,14 @@ function detectIE() {
 var isIE = detectIE();
 if(isMobile){d3.select("#chart").style("height","400px")}
 
-d3.select(window).on('resize', function(){
-  // var isMobile = (d3.select("#header-pinned").style("display") == "none")
-  // var m = (isMobile) ? ".mobile" : ""
-  var activeState = d3.select(stateMenu + " select").node().value;
-  drawGraphic(activeState)
-});
+if(!isMobile){
+  d3.select(window).on('resize', function(){
+    // var isMobile = (d3.select("#header-pinned").style("display") == "none")
+    // var m = (isMobile) ? ".mobile" : ""
+    var activeState = d3.select(stateMenu + " select").node().value;
+    drawGraphic(activeState)
+  });
+}
   function allPossibleCases(arr) {
   if (arr.length == 1) {
     return arr[0];
@@ -948,11 +950,11 @@ function drawGraphic(state){
             if(d[state] != 0){ return "block" }
             else{ return "none" }
           })
-          .transition()
+          // .transition()
             // .duration(250)
             .attr("opacity",0)
           // .transition()
-            // .duration(10)
+            // .duration()
             // .attr("opacity",1)
             .attr("cy", function(d){
           if(d[state] !== 0){
@@ -960,6 +962,7 @@ function drawGraphic(state){
           }
         })
         .transition()
+        .delay(600)
         .duration(1200)
         .attr("opacity",1)
       }
