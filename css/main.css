@@ -844,3 +844,17 @@ background-color: #D0E9F4;
 .footer{
 font-size: 0.75em;
 }
+
+
+/*IE JUNK*/
+#stateImg.ie{
+  top: 4px !important;
+  left: 0px !important;
+}
+.state.styled-select.ie:not(.mobile){
+  top: 51px !important;
+  height: 85px !important;
+}
+.state.styled-select.ie:not(.mobile) select{
+  margin-top: 20px;
+}
