@@ -774,23 +774,23 @@ function drawGraphic(state){
           .attr("y", (pix - 69 - 120))
         d3.select("#main-text")
           .transition()
-          .duration(700)
+          .duration(1200)
           .style("top", (pix+130) + "px")
       }
       changeState(state, "init")
       function changeState(state, trigger){
         d3.select(stateMenu + " select").node().value = state;
-        if(trigger == "inline" && state != "ALL_STATES" && state != "TX"){
-          d3.selectAll(".actual")
-            // .transition()
-            .style("opacity",".2")
-        }
-        else{
-          d3.selectAll(".actual")
-            // .transition()
-            .style("opacity","1")
-        }
-        if(trigger != "inline" && !isMobile){
+        // if(trigger == "inline" && state != "ALL_STATES" && state != "TX"){
+        //   d3.selectAll(".actual")
+        //     // .transition()
+        //     .style("opacity",".2")
+        // }
+        // else{
+        //   d3.selectAll(".actual")
+        //     // .transition()
+        //     .style("opacity","1")
+        // }
+        if(trigger != "isnline" && !isMobile){
           switch(state){
             case "ALL_STATES":
               moveText(21);
