@@ -1051,11 +1051,11 @@ function checkReady() {
               .style("opacity", 0);
           }
           else if(isIE <= 10){
-            d3.select("#stateImg").classed("ie", true)
-            d3.select(".state.styled-select:not(.mobile)").classed("ie",true)
+            d3.select("#stateImg").classed("ie", true);
+            d3.select(".state.styled-select:not(.mobile)").classed("ie",true);
+            d3.select("#loading").remove();
           }
           else{
-            console.log(isIE);
             d3.select("#loading").remove();
           }
         },500);
