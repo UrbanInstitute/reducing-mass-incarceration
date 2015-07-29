@@ -8,6 +8,8 @@ var PERCENT = d3.format("%")
 var isMobile = (d3.select("#header-pinned").style("display") == "none")
 var stateMenu = (isMobile) ? ".styled-select.state.mobile" : ".styled-select.state:not(.mobile)";
 
+if(isMobile){d3.select("#chart").style("height","400px")}
+
 d3.select(window).on('resize', function(){
   // var isMobile = (d3.select("#header-pinned").style("display") == "none")
   // var m = (isMobile) ? ".mobile" : ""
@@ -40,6 +42,7 @@ function hideTooltip(){
     .style("left", "3000px")
 }
 function drawTooltip(offender, reduction, amount){
+    // console.log(d3.select("#tooltip"))
 
   var left = (isMobile) ? "17px" : d3.select("#tooltip").datum().left;
   d3.select("#tooltip")
@@ -185,7 +188,8 @@ function drawGraphic(state){
 
   d3.select("#chart svg").remove();
   var isMobile = (d3.select("#header-pinned").style("display") == "none")
-  var margin = {top: 120, right: 80, bottom: 130, left: 70};
+  var leftMargin = (isMobile) ? 20 : 70;
+  var margin = {top: 120, right: 80, bottom: 130, left: leftMargin};
   var width = (window.innerWidth - margin.left - margin.right > 1500) ? 1500 : window.innerWidth - margin.left - margin.right ;
   var height = window.innerHeight - margin.top - margin.bottom;
 
@@ -225,6 +229,7 @@ function drawGraphic(state){
       .y(function(d) { return y(d.series); });
 
   var svg = d3.select("#chart").append("svg")
+      .attr("class","hideAll")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -951,6 +956,13 @@ d3.select("#hamburger img")
     var display = d3.selectAll(".mobileHide").style("display")
     if (display == "block"){ d3.selectAll(".mobileHide").style("display", "none") }
     else{ d3.selectAll(".mobileHide").style("display", "block") }
+  })
+d3.select(".hideChart")
+  .on("click", function(){
+    d3.selectAll(".hideAll").style("display","none")
+    d3.select("#chart").style("height","44px")
+    d3.select(".hideChart").style("top","20px")
+    d3.select("#main-text").style("margin-top","-120px")
   })
 $(".styled-select.filter").click(function () {
     var element = $(this).children("select")[0],

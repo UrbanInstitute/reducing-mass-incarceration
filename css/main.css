@@ -46,8 +46,10 @@
     }
     #chart{
       top: 0px !important;
+      left: 0px !important;
       background-color: white !important;
-      height: 58% !important;
+      /*height: 400px !importan;*/
+      border-bottom: 2px solid #000;
     }
     #yLabel{
       z-index: 9 !important;
@@ -65,7 +67,7 @@
     #main-text{
       width: 86% !important;
       left: 17px !important;
-      margin-top: 42% !important;
+      margin-top: 210px;
     }
 
     .styled-select:not(.state){
@@ -136,7 +138,7 @@
      -webkit-appearance: none;
   }
   .styled-select.state {
-     display: block !important;
+     display: block;
      top: 22px !important;
      left: 10px !important;
      /*width: 280px !important;*/
@@ -173,6 +175,19 @@
     height: 42%;
     background-color: #fff;
     z-index: 60;
+  }
+  .hideChart{
+    display: block !important;
+    position: fixed;
+    z-index: 30;
+    left: 34%;
+    top: 380px;
+    border: 2px solid black;
+    padding: 12px;
+    border-radius: 13px;
+    color: #000;
+    letter-spacing: 1.5px;
+    background-color: #fff;
   }
 
 }

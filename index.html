@@ -69,12 +69,12 @@
   <img src = "images/loading-gif.gif"/>
 </div>
 <div id = "mobileMenu">
-  <div id = "hamburger"><img src = "images/hamburger.png"/></div>
+  <div id = "hamburger" class = "hideAll"><img src = "images/hamburger.png"/></div>
 </div>
 <img src = "images/skinny-urban.png"/ class = "mobile logo">
-<div class = "mobile menuBg mobileHide"></div>
-    <div class="state styled-select mobile">
-   <select>
+<div class = "mobile menuBg mobileHide hideAll"></div>
+    <div class="state styled-select mobile hideAll">
+   <select class = "hideAll">
       <option value = "ALL_STATES">All 15 states</div>
       <option value = "AL">Alabama</option>
       <option value = "GA">Georgia</option>
@@ -117,7 +117,7 @@
    </select>
   </div>
 </div>
-<div class="offender-type styled-select filter mobileHide">
+<div class="offender-type styled-select filter mobileHide hideAll">
  <select>
     <option value = "">Select offense/admission type</option>
     <option value = "violent">Violent offenses</option>
@@ -129,7 +129,7 @@
  </select>
 </div>
 
-<div class="reduction-type styled-select filter mobileHide">
+<div class="reduction-type styled-select filter mobileHide hideAll">
  <select>
     <option value = "">Select policy change</option>
     <option value = "new">Reduce new admissions</option>
@@ -137,7 +137,7 @@
  </select>
 </div>
 
-<div class="amount-type styled-select filter mobileHide">
+<div class="amount-type styled-select filter mobileHide hideAll">
  <select>
     <option value = "">Select percent reduction</option>
     <option value = "five">Reduce by 5%</option>
@@ -152,15 +152,15 @@
     </div>  </a>
 
 
-<div id = "yLabel"></div>
-<div id = "chart"></div>
+<div id = "yLabel" class = "hideAll"></div>
+<div id = "chart" class = ""></div>
 <div class = "mobile hideChart">Hide Chart</div>
 
 <!-- <div id = "helpText">
  Use the menus above to filter the projections by admission/offense type, policy change, and percent reduction. Mouse over a line for details.
 </div> -->
 
-<div id = "tooltip">
+<div id = "tooltip" class = "hideAll">
   <h2>Highlighted Scenario</h2>
   <p class = "other"></p>
   <span class = "proj">+</span><p class = "offender proj"></p>
