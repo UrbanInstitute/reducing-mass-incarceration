@@ -387,6 +387,18 @@ function drawGraphic(state){
             d3
               .selectAll(".mouseoverBackground")
               .attr("opacity", 0)
+            d3.selectAll(".dot.noPolicy")
+              .style("fill","#333")
+            d3.selectAll(".dot.highlighted")
+              .style("fill",DARK_GREY)
+            d3.selectAll(".dot")
+              .style("radius",1.5)
+            d3.selectAll(".line.noPolicy")
+              .style("stroke","#333")
+            d3.selectAll(".line.highlighted")
+              .style("stroke",DARK_GREY)
+              .style("stroke-width","1px")
+
             }
             // console.log(d)
            var parent = d3.select(d3.select(this).node().parentNode)
