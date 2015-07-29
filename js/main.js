@@ -7,7 +7,32 @@ var DATE = d3.time.format("%b, %Y")
 var PERCENT = d3.format("%")
 var isMobile = (d3.select("#header-pinned").style("display") == "none")
 var stateMenu = (isMobile) ? ".styled-select.state.mobile" : ".styled-select.state:not(.mobile)";
+function detectIE() {
+    var ua = window.navigator.userAgent;
 
+    var msie = ua.indexOf('MSIE ');
+    if (msie > 0) {
+        // IE 10 or older => return version number
+        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    }
+
+    var trident = ua.indexOf('Trident/');
+    if (trident > 0) {
+        // IE 11 => return version number
+        var rv = ua.indexOf('rv:');
+        return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+    }
+
+    var edge = ua.indexOf('Edge/');
+    if (edge > 0) {
+       // IE 12 => return version number
+       return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+    }
+
+    // other browser
+    return false;
+}
+var isIE = detectIE();
 if(isMobile){d3.select("#chart").style("height","400px")}
 
 d3.select(window).on('resize', function(){
@@ -354,7 +379,15 @@ function drawGraphic(state){
           .attr("r", 5)
           .attr("opacity", 0.0001)
           .attr("fill", "#fff")
-          .on("mouseenter", function(d){
+          .on("mouseover", function(d){
+            if(isIE){ 
+            d3
+              .selectAll(".mouseoverText")
+              .attr("opacity", 0)
+            d3
+              .selectAll(".mouseoverBackground")
+              .attr("opacity", 0)
+            }
             // console.log(d)
            var parent = d3.select(d3.select(this).node().parentNode)
       //append "grandparent" g element to "greatgrandparent" so that the tooltips are above both the series and the dots
@@ -419,7 +452,7 @@ function drawGraphic(state){
 
               
           })
-          .on("mouseleave", function(d){
+          .on("mouseout", function(d){
             if(d3.selectAll(".menuSelected").node() !== null){
               for (var o = 0; o < offenders.length; o++){
                 if (d3.select(".menuSelected").classed(offenders[o])) { offender = offenders[o]}
