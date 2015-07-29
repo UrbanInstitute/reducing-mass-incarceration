@@ -354,7 +354,7 @@ function drawGraphic(state){
           .attr("r", 5)
           .attr("opacity", 0)
           .attr("fill", "#fff")
-          .on("mouseover", function(d){
+          .on("mouseenter", function(d){
             // console.log(d)
            var parent = d3.select(d3.select(this).node().parentNode)
       //append "grandparent" g element to "greatgrandparent" so that the tooltips are above both the series and the dots
@@ -419,7 +419,7 @@ function drawGraphic(state){
 
               
           })
-          .on("mouseout", function(d){
+          .on("mouseleave", function(d){
             if(d3.selectAll(".menuSelected").node() !== null){
               for (var o = 0; o < offenders.length; o++){
                 if (d3.select(".menuSelected").classed(offenders[o])) { offender = offenders[o]}
