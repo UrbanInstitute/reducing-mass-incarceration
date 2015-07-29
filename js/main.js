@@ -398,6 +398,10 @@ function drawGraphic(state){
             d3.selectAll(".line.highlighted")
               .style("stroke",DARK_GREY)
               .style("stroke-width","1px")
+            d3.selectAll(".selected")
+              .classed("selected",false)
+            d3.selectAll(".menuSelected")
+              .classed("menuSelected",false)
 
             }
             // console.log(d)
