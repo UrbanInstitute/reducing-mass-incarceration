@@ -352,7 +352,7 @@ function drawGraphic(state){
           .attr("cx", function(d){ return x(d.date)})
           .attr("cy", function(d){ return y(d.series)})
           .attr("r", 5)
-          .attr("opacity", 0)
+          .attr("opacity", 0.0001)
           .attr("fill", "#fff")
           .on("mouseenter", function(d){
             // console.log(d)
