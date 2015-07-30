@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+<link rel = "stylesheet" href = "css/embed.css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@urbaninstitute">
+    <meta name="twitter:creator" content="@urbaninstitute">
+    <meta name="twitter:title" content="Reducing Mass Incarceration Requires Far-Reaching Reforms">
+    <meta name="twitter:description" content="A new Urban Institute tool lets you explore how potential policy changes could affect the US prison population.">
+    <meta name="twitter:image" content="ABSOLUTE LINK TO IMAGE">
+
+    <meta property="og:title" content="Reducing Mass Incarceration Requires Far-Reaching Reforms"/>
+    <meta property="og:description" content="A new Urban Institute tool lets you explore how potential policy changes could affect the US prison population." />
+    <meta property="og:image" content="ABSOLUTE LINK TO IMAGE"/>
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    <meta property="og:url" content=" http://urbn.is/massincarceration">
+
+
+<title>Reducing Mass Incarceration Requires Far-Reaching Reforms</title>
+
+<body>
+    <!--    header-->
+    <!--    end header-->
+<div id = "loading">
+  <img src = "images/loading-gif.gif"/>
+</div>
+<div id = "mobileMenu">
+  <div id = "hamburger" class = "hideAll"><img src = "images/change-scenarios.png"/></div>
+</div>
+<img src = "images/skinny-urban.png" class = "mobile logo"/>
+<div class = "mobile menuBg mobileHide hideAll"></div>
+    <div class="state styled-select mobile mobileHide hideAll">
+   <select class = "hideAll">
+      <option value = "ALL_STATES">All 15 states</option>
+      <option value = "AL">Alabama</option>
+      <option value = "GA">Georgia</option>
+      <option value = "KY">Kentucky</option>
+      <option value = "MI">Michigan</option>
+      <option value = "MN">Minnesota</option>
+      <option value = "MO">Missouri</option>
+      <option value = "NJ">New Jersey</option>
+      <option value = "NY">New York</option>
+      <option value = "OK">Oklahoma</option>
+      <option value = "RI">Rhode Island</option>
+      <option value = "SC">South Carolina</option>
+      <option value = "TX">Texas</option>
+      <option value = "UT">Utah</option>
+      <option value = "WA">Washington</option>
+      <option value = "WY">Wyoming</option>
+   </select>
+  </div>
+<div id = "menuContainer">
+    <div id = "stateName">All 15 states</div>
+    <div class="state styled-select">
+    <img id = "stateImg" src = "images/state_arrow.png"/>
+   <select>
+      <option value = "ALL_STATES">All 15 states</option>
+      <option value = "AL">Alabama</option>
+      <option value = "GA">Georgia</option>
+      <option value = "KY">Kentucky</option>
+      <option value = "MI">Michigan</option>
+      <option value = "MN">Minnesota</option>
+      <option value = "MO">Missouri</option>
+      <option value = "NJ">New Jersey</option>
+      <option value = "NY">New York</option>
+      <option value = "OK">Oklahoma</option>
+      <option value = "RI">Rhode Island</option>
+      <option value = "SC">South Carolina</option>
+      <option value = "TX">Texas</option>
+      <option value = "UT">Utah</option>
+      <option value = "WA">Washington</option>
+      <option value = "WY">Wyoming</option>
+   </select>
+  </div>
+</div>
+<div class="offender-type styled-select filter mobileHide hideAll">
+ <select>
+    <option value = "">Select offense/admission type</option>
+    <option value = "violent">Violent offenses</option>
+    <option value = "nonviolent">Nonviolent offenses</option>
+    <option value = "property">Property offenses</option>
+    <option value = "drug">Drug offenses</option>
+    <option value = "revocation">Revocations</option>
+    <option value = "all">All offenses</option>
+ </select>
+</div>
+
+<div class="reduction-type styled-select filter mobileHide hideAll">
+ <select>
+    <option value = "">Select policy change</option>
+    <option value = "new">Reduce new admissions</option>
+    <option value = "length">Reduce length of stay</option>
+ </select>
+</div>
+
+<div class="amount-type styled-select filter mobileHide hideAll">
+ <select>
+    <option value = "">Select percent reduction</option>
+    <option value = "five">Reduce by 5%</option>
+    <option value = "fifteen">Reduce by 15%</option>
+    <option value = "twentyFive">Reduce by 25%</option>
+    <option value = "fifty">Reduce by 50%</option>
+ </select>
+</div>
+
+<a class="refresh-data" href=#><div class="refresh">
+<span class="at_a11y">Refresh filters</span>
+    </div>  </a>
+
+
+<div id = "yLabel" class = "hideAll"></div>
+<div id = "chart" class = ""></div>
+<div class = "mobile hideChart">HIDE CHART</div>
+<div id = "mobileClose" class = "mobile hideAll mobileHide">CLOSE OPTIONS <img src = "images/close.png"/></div>
+<div id = "mobileTitle" class = "mobile hideAll">Prison Population Forecaster</div>
+<div id = " " class = "mobile hideAll">All 15 States</div>
+
+<!-- <div id = "helpText">
+ Use the menus above to filter the projections by admission/offense type, policy change, and percent reduction. Mouse over a line for details.
+</div> -->
+
+<div id = "tooltip" class = "hideAll">
+  <h2>Highlighted Scenario</h2>
+  <p class = "other"></p>
+  <span class = "proj">+</span><p class = "offender proj"></p>
+  <span class = "proj">+</span><p class = "reduction proj"></p>
+  <span class = "proj">+</span><p class = "amount proj"></p>
+  <p class = "summary">This scenario would bring <span id = "state">the aggregate</span> prison population down <span id = "amount"></span> by December 2021, compared with the baseline projection.</p>
+  <p class = "defaultSummary">This is the baseline projection.</p>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/vendor/d3.min.js"></script>
+<script src = "js/embed.js"></script>
+</body>
+</html>
