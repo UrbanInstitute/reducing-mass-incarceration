@@ -35,10 +35,12 @@ function detectIE() {
 var isIE = detectIE();
 if(isMobile){d3.select("#chart").style("height","400px")}
 
+if(isMobile){
+  d3.select(".summary")
+    .html("Down \<span id = \"amount\"\>\<\/span\> by December 2021, compared with the baseline projection.")
+}
 if(!isMobile){
   d3.select(window).on('resize', function(){
-    // var isMobile = (d3.select("#header-pinned").style("display") == "none")
-    // var m = (isMobile) ? ".mobile" : ""
     var activeState = d3.select(stateMenu + " select").node().value;
     drawGraphic(activeState)
   });
@@ -1021,10 +1023,21 @@ d3.select("#hamburger img")
   })
 d3.select(".hideChart")
   .on("click", function(){
-    d3.selectAll(".hideAll").style("display","none")
-    d3.select("#chart").style("height","44px")
-    d3.select(".hideChart").style("top","20px")
-    d3.select("#main-text").style("margin-top","-120px")
+    var hidden = ( d3.selectAll(".hideAll").style("display") == "none" )
+    if(hidden){
+      d3.select(this).text("HIDE CHART")
+      d3.selectAll(".hideAll:not(.mobileHide)").style("display","block")
+      d3.select("#chart").style("height","400px")
+      d3.select(".hideChart").style("top","380px")
+      d3.select("#main-text").style("margin-top","210px")
+    }
+    else{
+      d3.select(this).text("SHOW CHART")
+      d3.selectAll(".hideAll:not(.mobileHide)").style("display","none")
+      d3.select("#chart").style("height","44px")
+      d3.select(".hideChart").style("top","20px")
+      d3.select("#main-text").style("margin-top","-120px")
+    }
   })
 $(".styled-select.filter").click(function () {
     var element = $(this).children("select")[0],

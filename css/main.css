@@ -38,7 +38,11 @@
 }
 
 @media only screen and (max-width: 768px) and (min-width: 100px) {
-    circle.dot, #header-pinned, .scrollFade, .xLabel.mid, .labelLine:not(.first):not(.last), #menuContainer {
+    #loading{
+      left: -20px !important;
+      width: 120% !important;
+    }
+    circle.dot, #header-pinned, .scrollFade, .xLabel.mid, .labelLine:not(.first):not(.last), #menuContainer, .projLabel {
       display: none !important;
     }
     .mobileHide{
@@ -70,8 +74,8 @@
       margin-top: 210px;
     }
 
-    .styled-select:not(.state){
-      z-index: 100;
+    .styled-select{
+      z-index: 100 !important;
     }
 
     #tooltip{
@@ -85,19 +89,38 @@
     }
 
     #tooltip p:not(.summary):not(.defaultSummary):not(.other){
-      font-size: 15px !important;
+      font-size: 13px !important;
       width: 100% !important;
     }
     .other{
-      font-size: 15px !important;
+      font-size: 13px !important;
       width: 50% !important;
     }
     /*#tooltip*/
     .summary, .defaultSummary{
-      font-size: 15px !important;
+      font-size: 13px !important;
       font-weight: 400 !important;
+      width: 145px !important;
+      left: 52%;
+      position: fixed;
+      top: 279px;
     }
-
+    #tooltip{
+      font-size: 13px !important;
+      left: 4px !important;
+      top: 292px !important;
+      width: 50% !important;
+    }
+    p.other{
+      width: 100% !important;
+    }
+    #tooltip h2{
+      font-size: 13px !important;
+      left: 5px;
+      position: fixed;
+      top: 256px;
+      letter-spacing: .5px;
+    }
     #mobileMenu{
       display: block !important;
       position: fixed;
@@ -107,16 +130,15 @@
       pointer-events: none; 
     }
     #hamburger{
-      height: 45px;
+      /*height: 28px;*/
       z-index: 21;
     }
     #hamburger img{
-      /*width: 30px;*/
-      height: 40px;
-      float: right;
-      margin-right: 10px;
-      margin-top: 2px;
+      width: 52%; 
       pointer-events: visible;
+      position: fixed;
+      top: 200px;
+      left: 2px;
     }
     .mobile.logo{
       width: 204px;
@@ -139,15 +161,15 @@
      -webkit-appearance: none;
   }
   .styled-select.state {
-     display: block;
-     top: 22px !important;
+     /*display: block;*/
      left: 10px !important;
+     width: 95% !important;
+     top: 255px !important;
      /*width: 280px !important;*/
      height: 45px;
      overflow: hidden;
      background: url(../images/new_arrow.png) no-repeat right #EFEFEF !important;
      border: none;
-     z-index: 2;
      position: fixed;
   }
   .styled-select.offender-type{
@@ -165,17 +187,24 @@
     width: 95% !important;
     top: 200px !important;
   }
+  #mobileClose{
+    /*display: block;*/
+    position: fixed;
+    top: 300px;
+    width: 20px;
+    z-index: 29;
+  }
   #stateImg{
     display: none !important;
   }
   .menuBg{
     position: fixed;
-    top: 65px;
+    top: 0px;
     left: 0px;
     width: 100%;
-    height: 42%;
+    height: 400px;
     background-color: #fff;
-    z-index: 60;
+    z-index: 29;
   }
   .hideChart{
     display: block !important;
@@ -185,7 +214,7 @@
     top: 380px;
     border: 2px solid black;
     padding: 12px;
-    border-radius: 13px;
+    border-radius: 23px;
     color: #000;
     letter-spacing: 1.5px;
     background-color: #fff;
