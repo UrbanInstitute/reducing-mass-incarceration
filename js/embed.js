@@ -98,7 +98,7 @@ function drawTooltip(offender, reduction, amount){
     d3.selectAll("#tooltip .proj").style("display", "none")
     d3.select("#tooltip .other")
       .style("display","block")
-      .text("These data represent projected prison populations, based on admission rate and length of stay trends.")
+      .text("These data represent projected prison populations, based on trends in admission rates and lengths of stay.")
   } else { 
     d3.select(".defaultSummary")
       .style("display", "none")
