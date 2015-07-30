@@ -850,6 +850,10 @@ function drawGraphic(state){
           .text(function(){
             return stateName;
           })
+        d3.select("#mobileStateName")
+          .text(function(){
+            return stateName;
+          })
         d3.select(".summary #state")
           .text(function(){
             if(state == "ALL_STATES"){
@@ -1017,9 +1021,11 @@ drawGraphic(activeState);
 
 d3.select("#hamburger img")
   .on("click", function(){
-    var display = d3.selectAll(".mobileHide").style("display")
-    if (display == "block"){ d3.selectAll(".mobileHide").style("display", "none") }
-    else{ d3.selectAll(".mobileHide").style("display", "block") }
+    d3.selectAll(".mobileHide").style("display", "block")
+  })
+d3.select("#mobileClose")
+  .on("click", function(){
+    d3.selectAll(".mobileHide").style("display", "none")
   })
 d3.select(".hideChart")
   .on("click", function(){
@@ -1033,7 +1039,7 @@ d3.select(".hideChart")
     }
     else{
       d3.select(this).text("SHOW CHART")
-      d3.selectAll(".hideAll:not(.mobileHide)").style("display","none")
+      d3.selectAll(".hideAll").style("display","none")
       d3.select("#chart").style("height","44px")
       d3.select(".hideChart").style("top","20px")
       d3.select("#main-text").style("margin-top","-120px")
