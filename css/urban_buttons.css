@@ -1,0 +1,46 @@
+#urban_buttonContainer{
+	width: 100%;
+	height: 50px;
+	margin-top: 1	px;
+}
+
+#urban_buttonContainer img{
+	margin-left: 10px;
+	float: left;
+}
+
+#urban_buttonContainer div{
+	/*float: left;*/
+}
+
+.urban_button {
+    display: inline;
+    font-size: 14px;
+    font-family: Lato, sans-serif;
+    padding: 14px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: #1696d2;
+    display: block;
+    line-height: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    float: left;
+    margin-right: 1px;
+}
+
+.urban_button:hover{
+background-color:#000;
+text-decoration:none;
+}
+
+.urban_button.left{
+	/*margin-left: 110px;*/
+	margin-left: 10px;
+	float: right;
+}
+.urban_button.right{
+	/*margin-left: 41px;*/
+	float: right;
+}

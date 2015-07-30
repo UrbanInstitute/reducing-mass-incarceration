@@ -7,7 +7,7 @@
       left: -20px !important;
       width: 120% !important;
     }
-    circle.dot, #header-pinned, .scrollFade, .xLabel.mid, .labelLine:not(.first):not(.last), #menuContainer, .projLabel {
+    circle.dot, #header-pinned, .scrollFade, .xLabel.mid, .labelLine:not(.first):not(.last), #menuContainer, .projLabel, #title {
       display: none !important;
     }
     #mobileTitle{
@@ -551,10 +551,20 @@ outline:none;
   left: 10px;
 }
 
+#title{
+  position: fixed;
+  font-size: 26px;
+  color: #333;
+  font-weight: 300;
+  /* letter-spacing: 1.5px; */
+  left: 10px;
+  top: 0px;
+}
 
 /*Tooltip styles*/
 #tooltip{
   width: calc(100% - 350px);
+  max-width: 270px;
   z-index: 10;
   position: fixed;
   /*bottom: 10%;*/
@@ -601,7 +611,7 @@ outline:none;
   font-size: 15px;
   font-weight: 500;
   color: #ec008c;
-  margin-top: 20px;
+  margin-top: 10px;
   line-height: 1em;
 }
 

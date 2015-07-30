@@ -220,7 +220,7 @@ function drawGraphic(state){
   d3.select("#chart svg").remove();
   var isMobile = (d3.select(".mobile.logo").style("display") == "block")
   var leftMargin = (isMobile) ? 20 : 20;
-  var margin = {top: 90, right: 50, bottom: 50, left: leftMargin};
+  var margin = {top: 90, right: 50, bottom: 10, left: leftMargin};
   var width = (window.innerWidth - margin.left - margin.right > 1500) ? 1500 : window.innerWidth - margin.left - margin.right ;
   var height = window.innerHeight - margin.top - margin.bottom;
 
