@@ -854,8 +854,16 @@ cursor: pointer;
 background-color: #D0E9F4;
 }
 
-.footer{
+.copy{
 font-size: 0.75em;
+}
+
+#footer{
+  background-color: #f3f3f3;
+  padding:25px;
+  width: 100%;
+
+  margin-bottom: 15px;
 }
 
 
