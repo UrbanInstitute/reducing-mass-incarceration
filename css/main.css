@@ -38,6 +38,10 @@
 }
 
 @media only screen and (max-width: 768px) and (min-width: 100px) {
+    #loading{
+      left: -20px !important;
+      width: 120% !important;
+    }
     circle.dot, #header-pinned, .scrollFade, .xLabel.mid, .labelLine:not(.first):not(.last), #menuContainer, .projLabel {
       display: none !important;
     }
@@ -85,19 +89,19 @@
     }
 
     #tooltip p:not(.summary):not(.defaultSummary):not(.other){
-      font-size: 15px !important;
+      font-size: 13px !important;
       width: 100% !important;
     }
     .other{
-      font-size: 15px !important;
+      font-size: 13px !important;
       width: 50% !important;
     }
     /*#tooltip*/
     .summary, .defaultSummary{
       font-size: 13px !important;
       font-weight: 400 !important;
-      width: 117px !important;
-      left: 55%;
+      width: 145px !important;
+      left: 52%;
       position: fixed;
       top: 279px;
     }
@@ -126,16 +130,15 @@
       pointer-events: none; 
     }
     #hamburger{
-      height: 45px;
+      /*height: 28px;*/
       z-index: 21;
     }
     #hamburger img{
-      /*width: 30px;*/
-      height: 40px;
-      float: right;
-      margin-right: 10px;
-      margin-top: 2px;
+      width: 52%; 
       pointer-events: visible;
+      position: fixed;
+      top: 200px;
+      left: 2px;
     }
     .mobile.logo{
       width: 204px;
@@ -184,17 +187,24 @@
     width: 95% !important;
     top: 200px !important;
   }
+  #mobileClose{
+    /*display: block;*/
+    position: fixed;
+    top: 300px;
+    width: 20px;
+    z-index: 29;
+  }
   #stateImg{
     display: none !important;
   }
   .menuBg{
     position: fixed;
-    top: 65px;
+    top: 0px;
     left: 0px;
     width: 100%;
-    height: 42%;
+    height: 400px;
     background-color: #fff;
-    z-index: 60;
+    z-index: 29;
   }
   .hideChart{
     display: block !important;
@@ -204,7 +214,7 @@
     top: 380px;
     border: 2px solid black;
     padding: 12px;
-    border-radius: 13px;
+    border-radius: 23px;
     color: #000;
     letter-spacing: 1.5px;
     background-color: #fff;
