@@ -35,10 +35,12 @@ function detectIE() {
 var isIE = detectIE();
 if(isMobile){d3.select("#chart").style("height","400px")}
 
+if(isMobile){
+  d3.select(".summary")
+    .html("Down \<span id = \"amount\"\>\<\/span\> by December 2021, compared with the baseline projection.")
+}
 if(!isMobile){
   d3.select(window).on('resize', function(){
-    // var isMobile = (d3.select("#header-pinned").style("display") == "none")
-    // var m = (isMobile) ? ".mobile" : ""
     var activeState = d3.select(stateMenu + " select").node().value;
     drawGraphic(activeState)
   });
