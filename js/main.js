@@ -751,6 +751,7 @@ function drawGraphic(state){
               d3.select(".state.mobile")
                 .style("width", function(){  return w+24 + "px"})
                 // d3.select("#tooltip").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
+              d3.select("#footer").style("width",function(){ return (w - 40) + "px"})
               d3.select("#tooltip").datum({"left": (x(lastDate) + graphMargin + textMargin) + "px"})
               // d3.select("#helpText").style("left", (x(lastDate) + graphMargin + textMargin) + "px")
                 return w + "px"

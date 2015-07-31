@@ -74,7 +74,7 @@
     }
     #yLabel{
       z-index: 9 !important;
-      right: -76px !important;
+      right: -46px !important;
       -webkit-transform: rotate(90deg);
       -moz-transform: rotate(90deg);
       -o-transform: rotate(90deg);
@@ -89,6 +89,9 @@
       width: 86% !important;
       left: 17px !important;
       margin-top: 210px;
+    }
+    #footer{
+      width: 86% !important;
     }
 
     .styled-select{
@@ -930,6 +933,9 @@ font-size: 0.75em;
   margin-bottom: 15px;
 }
 
+textarea{
+  width: 100%;
+}
 
 /*IE JUNK*/
 #stateImg.ie{
