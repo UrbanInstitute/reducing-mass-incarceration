@@ -11,10 +11,6 @@
     padding: 0 !important;
 }
 
-#urban_buttonContainer div{
-	/*float: left;*/
-}
-
 .urban_button {
     display: inline;
     font-size: 14px;
@@ -33,8 +29,8 @@
 }
 
 .urban_button:hover{
-background-color:#000;
-text-decoration:none;
+    background-color:#000;
+    text-decoration:none;
 }
 
 .urban_button.left{
@@ -46,3 +42,57 @@ text-decoration:none;
 	/*margin-left: 41px;*/
 	float: right;
 }
+
+#urban_embedModal{
+    font-family: Lato, sans-serif;
+    display: none; 
+    width: 70%;
+    background-color: #f3f3f3;
+    height: 357px;
+    z-index: 60;
+    position: fixed;
+    top: 80px;
+    left: 15%;
+    -webkit-box-shadow: 5px 7px 20px 8px rgba(119,119,119,1);
+    -moz-box-shadow: 5px 7px 20px 8px rgba(119,119,119,1);
+    box-shadow: 5px 7px 20px 8px rgba(119,119,119,1);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 13px 2px rgba(204,204,204,1);
+}
+#urban_embedModal h2, #urban_embedModal p{
+  text-align: center;
+}
+#urban_embedModal h2{
+    font-weight: 300;
+    font-size:1.75em;
+    color: #000;
+}
+#urban_embedModal textarea{
+    width: 80%;
+    left: 10%;
+    position: absolute;
+}
+#urban_embedClose{
+    position: fixed;
+    top: 370px;
+    width: 82px;
+    z-index: 29;
+    /* display: inline-block; */
+    left: calc(50% - 40px);
+    clear: both;
+    border: 1px solid;
+    padding: 12px;
+    border-radius: 23px;
+    color: #000;
+    letter-spacing: 1.5px;
+    background-color: #fff;
+    cursor: pointer;
+}
+#urban_embedClose img{
+    display: block;
+    top: 9px;
+    left: 72px;
+    position: absolute;
+}
+
+

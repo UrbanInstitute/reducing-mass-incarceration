@@ -1,4 +1,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <iframe src="embed_child.html" width="100%" scrolling="no" marginheight="0" frameborder="0" height="450px"></iframe>
 <link rel = "stylesheet" href = "css/urban_buttons.css">
-<div id="urban_buttonContainer"><a href="http://www.urban.org/" target="_blank"><img src = "images/small-urban.png"/></a><div class = "urban_button left">Embed</div> <div class = "urban_button right">view the full feature</div></div>
+<div id="urban_buttonContainer"><a href="http://www.urban.org/" target="_blank"><img src = "images/small-urban.png"/></a><div id = "urban_embed" class = "urban_button left">Embed</div> <div class = "urban_button right">view the full feature</div></div>
+<div id="urban_embedModal">
+  <h2 style="font-size:1.25em">Embed the Prison Population Forecaster tool</h2>
+  <p class="credit">Copy the code below</p>
+<textarea rows="12" cols="10">
+&lt;iframe src="embed_child.html" width="100%" scrolling="no" marginheight="0" frameborder="0" height="450px"&gt;&lt;/iframe&gt;&lt;link rel = "stylesheet" href = "css/urban_buttons.css"&gt;&lt;div id="urban_buttonContainer"&gt;&lt;a href="http://www.urban.org/" target="_blank"&gt;&lt;img src = "images/small-urban.png"/&gt;&lt;/a&gt;&lt;div id = "urban_embed" class = "urban_button left"&gt;Embed&lt;/div&gt; &lt;div class = "urban_button right"&gt;view the full feature&lt;/div&gt;&lt;/div&gt;&lt;div id="urban_embedModal"&gt;  &lt;h2 style="font-size:1.25em"&gt;Embed the Prison Population Forecaster tool&lt;/h2&gt;  &lt;p class="credit"&gt;Copy the code below&lt;/p&gt;&lt;textarea rows="12" cols="10"&gt;&lt;/textarea&gt;&lt;div id = "urban_embedClose"&gt;CLOSE&lt;img src = "images/close.png"/&gt;&lt;/div&gt;&lt;/div&gt;&lt;script&gt;document.getElementById('urban_embed').addEventListener('click', function() { document.getElementById('urban_embedModal').style.display = "block"});document.getElementById('urban_embedClose').addEventListener('click', function() { document.getElementById('urban_embedModal').style.display = "none"});&lt;/script&gt;
+
+</textarea>
+<div id = "urban_embedClose">CLOSE<img src = "images/close.png"/></div>
+</div>
+<script>
+document.getElementById('urban_embed').addEventListener('click', function() { document.getElementById('urban_embedModal').style.display = "block";});
+document.getElementById('urban_embedClose').addEventListener('click', function() { document.getElementById('urban_embedModal').style.display = "none";});
+document.onkeydown = function(evt) {evt = evt || window.event;if (evt.keyCode == 27) {document.getElementById('urban_embedModal').style.display = "none";}};
+</script>

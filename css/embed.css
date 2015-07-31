@@ -914,6 +914,7 @@ font-size: 0.75em;
 }
 
 #embedModal{
+  display: none;
   width: 70%;
   background-color: #f3f3f3;
   height: 70%;
