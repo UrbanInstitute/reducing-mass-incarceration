@@ -913,22 +913,6 @@ d3.select("#mobileClose")
   .on("click", function(){
     d3.selectAll(".mobileHide").style("display", "none")
   })
-d3.select(".hideChart")
-  .on("click", function(){
-    var hidden = ( d3.selectAll(".hideAll").style("display") == "none" )
-    if(hidden){
-      d3.select(this).text("HIDE CHART")
-      d3.selectAll(".hideAll:not(.mobileHide)").style("display","block")
-      d3.select("#chart").style("height","400px")
-      d3.select(".hideChart").style("top","380px")
-    }
-    else{
-      d3.select(this).text("SHOW CHART")
-      d3.selectAll(".hideAll").style("display","none")
-      d3.select("#chart").style("height","44px")
-      d3.select(".hideChart").style("top","20px")
-    }
-  })
 $(".styled-select.filter").click(function () {
     var element = $(this).children("select")[0],
         worked = false;
