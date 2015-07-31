@@ -913,6 +913,28 @@ font-size: 0.75em;
   margin-bottom: 15px;
 }
 
+#embedModal{
+  width: 70%;
+  background-color: #f3f3f3;
+  height: 70%;
+  z-index: 60;
+  position: fixed;
+  top: 15%;
+  left: 15%;
+  -webkit-box-shadow: 5px 7px 20px 8px rgba(119,119,119,1);
+  -moz-box-shadow: 5px 7px 20px 8px rgba(119,119,119,1);
+  box-shadow: 5px 7px 20px 8px rgba(119,119,119,1);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 13px 2px rgba(204,204,204,1);
+}
+#embedModal h2, #embedModal p{
+  text-align: center;
+}
+#embedModal textarea{
+    width: 80%;
+    left: 10%;
+    position: absolute;
+}
 
 /*IE JUNK*/
 #stateImg.ie{
