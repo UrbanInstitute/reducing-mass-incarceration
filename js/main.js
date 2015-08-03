@@ -33,6 +33,10 @@ function detectIE() {
     return false;
 }
 var isIE = detectIE();
+var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+if (isFirefox){
+  d3.selectAll(".filter select").style("pointer-events","visible")
+}
 if(isMobile){d3.select("#chart").style("height","400px")}
 
 if(isMobile){
@@ -826,7 +830,7 @@ function drawGraphic(state){
               moveText(34);
               break;
             case "RI":
-              moveText(31);
+              moveText(34);
               break;
             case "SC":
               moveText(28);
@@ -841,7 +845,7 @@ function drawGraphic(state){
               moveText(30);
               break;
             case "WY":
-              moveText(25);
+              moveText(29);
               break;
           }
         }

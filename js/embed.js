@@ -33,6 +33,10 @@ function detectIE() {
     return false;
 }
 var isIE = detectIE();
+var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+if (isFirefox){
+  d3.selectAll(".filter select").style("pointer-events","visible")
+}
 if(isMobile){d3.select("#chart").style("height","400px")}
 
 if(isMobile){
