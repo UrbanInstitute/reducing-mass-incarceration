@@ -826,7 +826,7 @@ function drawGraphic(state){
               moveText(34);
               break;
             case "RI":
-              moveText(31);
+              moveText(34);
               break;
             case "SC":
               moveText(28);
@@ -841,7 +841,7 @@ function drawGraphic(state){
               moveText(30);
               break;
             case "WY":
-              moveText(25);
+              moveText(29);
               break;
           }
         }
