@@ -114,6 +114,7 @@ function drawTooltip(offender, reduction, amount){
 
   d3.select(".summary")
     .style("display", "block")
+  // d3.select(".defaultSummary #amount")
   d3.select(".summary #amount")
     .text(function(){
       var state = d3.select(stateMenu + " select").node().value;
@@ -873,6 +874,20 @@ function drawGraphic(state){
         .delay(600)
         .duration(1200)
         .attr("opacity",1)
+        d3.select(".defaultSummary #defState")
+        .text(function(){
+            if(state == "ALL_STATES"){
+              return "the states do"
+            } else{
+              return d3.select("option[value="+state+"]").text() + " does"
+            }
+        });
+
+        d3.select(".defaultSummary #defAmount")
+        .text(function(){
+          var val2022 = d3.select((".xLabel.Dec2021.val")).text();
+          return val2022;
+        });
       }
     }
       d3.select(stateMenu + " select")
