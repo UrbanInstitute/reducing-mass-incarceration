@@ -74,7 +74,7 @@
     }
     #yLabel{
       z-index: 9 !important;
-      right: -46px !important;
+      right: -75px !important;
       -webkit-transform: rotate(90deg);
       -moz-transform: rotate(90deg);
       -o-transform: rotate(90deg);
