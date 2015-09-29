@@ -1010,6 +1010,29 @@ function drawGraphic(state){
         .on("change", function(){
           var activeState = d3.select(stateMenu + " select").node().value;
           changeState(activeState, "menu");
+
+          d3.select(".summary #amount")
+          .text(function(){
+            var offender = d3.select(".offender-type select").node().value,
+                reduction = d3.select(".reduction-type select").node().value,
+                amount = d3.select(".amount-type select").node().value;
+            // console.log(offender, reduction, amount)
+            if(offender != "" && reduction != "" && amount != ""){
+              var state = d3.select(stateMenu + " select").node().value;
+              var val2022 = d3.select(("g." + offender + "." + reduction + "." + amount + " .mouseoverText.Dec2021.val")).text();
+              var valBase = d3.select((".xLabel.Dec2021.val")).text();
+              valBase = parseFloat(valBase.replace(",",""));
+              val2022 = parseFloat(val2022.replace(",",""));
+              numDiff = val2022 - valBase
+              numDiff = Math.abs(numDiff)
+              var percentDiff = numDiff/valBase
+              var percent = d3.format("%")
+              return PRISONERS(numDiff) + " (" + percent(percentDiff) + ")"
+            } else{ return false;}
+          })
+
+
+          
       })
       d3.selectAll(".scenario")
         .on("click", function(){
