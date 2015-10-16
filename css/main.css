@@ -1,3 +1,30 @@
+.fed_state{
+    position: fixed;
+    top: 70px;
+    left: 636px;
+    height: 35px;
+    background-color: #efefef;
+}
+#fed_version{
+    background-color: #1696d2;
+    height: 15px;
+    float: left;
+    line-height: 15px;
+    padding: 10px;
+    padding-right: 24px;
+    font-size: 13px;
+    font-family: Georgia;
+    font-style: italic;
+    color: #fff;
+    cursor: pointer;
+}
+#fed_version span img{
+    position: absolute;
+    left: 286px;
+    top: 8px;
+    height: 19px;
+}
+
 @media (max-width: 1000px) and (min-width: 768px) {
   .styled-select:not(.state){
     width: 200px !important; 
@@ -11,6 +38,9 @@
   }
   div.amount-type{
     left: 480px !important;
+  }
+  .fed_state{
+    left: 375px !important;
   }
   .refresh{
     left: 690px !important;
