@@ -560,8 +560,11 @@ function drawGraphic(state){
             .classed("selected", false)
           .style("display", function(d){
             if(d.series != 0){ return "block" }
-            else{ return "none" }
-            
+            else{
+              d3.select(d3.select(this).node().parentNode)
+                .select(".trigger")
+                .style("pointer-events", "none")
+              return "none" }
           })
             // .attr("fill", BLUE)
 
