@@ -1013,7 +1013,9 @@ function drawGraphic(state){
         .on("change", function(){
           var activeState = d3.select(stateMenu + " select").node().value;
           changeState(activeState, "menu");
-
+          setTimeout(function(){
+            $("select").blur();
+          }, 200);
           d3.select(".summary #amount")
           .text(function(){
             var offender = d3.select(".offender-type select").node().value,
@@ -1113,6 +1115,9 @@ d3.selectAll(".styled-select.filter select")
   // })
   .on("change", function(){
     selectSeries(d3.select(".offender-type select").node().value, d3.select(".reduction-type select").node().value, d3.select(".amount-type select").node().value)
+    setTimeout(function(){
+      $("select").blur();
+    }, 200);
     var m = d3.select(this);
     if(m.node().value == ""){
       m.style("color", "#818385")
